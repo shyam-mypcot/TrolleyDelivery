@@ -3,8 +3,10 @@ import {
   View,
   Image,
   Text,
+  TextInput,
   SafeAreaView,
-  TouchableOpacity,TouchableWithoutFeedback,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
   FlatList,
 } from 'react-native';
@@ -15,9 +17,37 @@ import FilterInactive from '../svg/FilterInactive';
 import HorizontalLine from '../svg/HorizontalLine';
 import data from '../components/common';
 import Modal from 'react-native-modal';
-
+import CheckBox from '@react-native-community/checkbox';
+import RadioButton from '../components/RadioButton';
+import Calender from '../svg/Calender';
+import Clock from '../svg/Clock';
+import {DateTimePicker,DateTimePickerAndroid} from '@react-native-community/datetimepicker';
+import moment from 'moment';
 const Orders = ({navigation}) => {
   const [active, setActive] = useState(false);
+  const [date, setDate] = useState(new Date(1598051730000));
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+    console.log(moment(currentDate).format("YYYY-MM-DD"),'gjy');
+
+  };
+  const showMode = (currentMode) => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: currentMode,
+      is24Hour: true,
+    });
+  };
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
 
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
@@ -207,16 +237,65 @@ const Orders = ({navigation}) => {
           }}
         />
       </View>
-      <Modal isVisible={true} customBackdrop={
-    <TouchableWithoutFeedback onPress={dismissModalHandler}>
-      <View style={{ flex: 1 }} />
-    </TouchableWithoutFeedback>
-  } style={{margin: 0,}}>
+      <Modal isVisible={active} onBackdropPress={()=>{setActive(false)}} style={{margin: 0,flex:1,justifyContent:'flex-end'}}>
+          <View
+            style={{
+              backgroundColor: '#ffffff',
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+            }}>
+            <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+              Payment Status :
+            </Text>
+            <View style={{width: '80%', marginVertical: 10}}>
+              <RadioButton />
+            </View>
+            <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+              Customer Type :
+            </Text>
+            <View style={{width: '80%', marginVertical: 10}}>
+              <RadioButton />
+            </View>
+            <TouchableOpacity onPress={showDatepicker}>
+            <View style={{flexDirection: 'row'}}>
+              <View style={{width: '90%',borderBottomWidth:1,borderBottomColor:'#D8CFCF'}}>
+                <Text
+                  style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+                  Delivery Date
+                </Text>
+                <TextInput style={{paddingVertical:0}}/>
+              </View>
+              <Calender />
+            </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={showTimepicker}>
+            <View style={{flexDirection: 'row',marginTop:10}}>
 
-        <View style={{backgroundColor: '#ffffff',paddingVertical:10,paddingHorizontal:20}}>
-          <Text style={[CommonStyles.HelveticaNeue13,{color:'#6F776B'}]}>Payment Status :</Text>
-          <View></View>
-        </View>
+              <View style={{width: '90%',borderBottomWidth:1, borderBottomColor:'#D8CFCF'}}>
+                <Text
+                  style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+                  Select Time Slot
+                </Text>
+                <TextInput style={{paddingVertical:0}}/>
+              </View>
+              <Clock />
+            </View>
+            </TouchableOpacity>
+            <View style={{justifyContent:'center',alignItems:'center',marginVertical:25}}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#F2D847',
+                padding: 10,
+                paddingHorizontal: 35,
+                borderRadius: 10,
+              }}
+              onPress={()=>{setActive(false)}}>
+              <Text style={[CommonStyles.HelveticaNeue20, {color: '#ffffff'}]}>
+                Apply
+              </Text>
+            </TouchableOpacity>
+            </View>
+          </View>
       </Modal>
     </SafeAreaView>
   );
