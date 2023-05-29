@@ -21,21 +21,63 @@ import CheckBox from '@react-native-community/checkbox';
 import RadioButton from '../components/RadioButton';
 import Calender from '../svg/Calender';
 import Clock from '../svg/Clock';
-import {DateTimePicker,DateTimePickerAndroid} from '@react-native-community/datetimepicker';
+import {
+  DateTimePicker,
+  DateTimePickerAndroid,
+} from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import DropDownPicker from 'react-native-dropdown-picker';
 const Orders = ({navigation}) => {
   const [active, setActive] = useState(false);
-  const [date, setDate] = useState(new Date(1598051730000));
+  const currentDate = new Date();
+  const [date, setDate] = useState(moment(currentDate).format('YYYY-MM-DD'));
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: '11:00 AM  - 01:00 PM', value: '11:00 AM  - 01:00 PM'},
+    {label: '01:00 PM  - 03:00 PM', value: '01:00 PM  - 03:00 PM'},
+    {label: '03:00 PM  - 05:00 PM', value: '03:00 PM  - 05:00 PM'},
+    {label: '05:00 PM  - 07:00 PM', value: '05:00 PM  - 07:00 PM'},
+  ]);
+  const [PaymentStatusdata, setPaymentStatusData] = useState([
+    {
+      key: 'Pending ',
+      text: 'Pending ',
+    },
+    {
+      key: 'Paid',
+      text: 'Paid',
+    },
+    {
+      key: 'All',
+      text: 'All',
+    },
+  ]);
+  const [PaymentStatus, setPaymentStatus] = useState(null);
+  const [CustomerType, setCustomerType] = useState(null);
 
+  const [CustomerTypeData, setCustomerTypeData] = useState([
+    {
+      key: 'VIP   ',
+      text: 'VIP   ',
+    },
+    {
+      key: 'Normal',
+      text: 'Normal',
+    },
+    {
+      key: 'All',
+      text: 'All',
+    },
+  ]);
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    setDate(currentDate);
-    console.log(moment(currentDate).format("YYYY-MM-DD"),'gjy');
-
+    setDate(moment(currentDate).format('YYYY-MM-DD'));
+    console.log(moment(currentDate).format('YYYY-MM-DD'), 'gjy');
   };
-  const showMode = (currentMode) => {
+  const showMode = currentMode => {
     DateTimePickerAndroid.open({
-      value: date,
+      value: currentDate,
       onChange,
       mode: currentMode,
       is24Hour: true,
@@ -44,11 +86,13 @@ const Orders = ({navigation}) => {
   const showDatepicker = () => {
     showMode('date');
   };
-
-  const showTimepicker = () => {
-    showMode('time');
+  const SetCustomerType = statusValue => {
+    console.log('nbbl uug uguu g', statusValue);
+    setCustomerType(statusValue);
   };
-
+  const SetPaymentStatus = statusValue => {
+    setPaymentStatus(statusValue);
+  };
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
       <Header title="Assigned Orders" />
@@ -63,24 +107,25 @@ const Orders = ({navigation}) => {
           <Text style={CommonStyles.HelveticaNeue16Green}>
             Total Orders : {data.length}
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={CommonStyles.HelveticaNeue16Green}>Filter</Text>
+          <TouchableOpacity onPress={() => setActive(!active)}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <Text
+                style={[CommonStyles.HelveticaNeue16Green, {marginRight: 10}]}>
+                Filter
+              </Text>
 
-            <TouchableOpacity
-              style={{marginLeft: 10}}
-              onPress={() => setActive(!active)}>
               {active ? (
                 <Filter style={{marginRight: 12}} />
               ) : (
                 <FilterInactive style={{marginTop: -5}} />
               )}
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
         </View>
 
         <FlatList
@@ -112,12 +157,7 @@ const Orders = ({navigation}) => {
                   navigation.navigate('OrdersDetails', {item});
                 }}>
                 <View style={{}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
+                  <View style={[CommonStyles.rowstyle]}>
                     <Text style={CommonStyles.HelveticaNeue16Green}>
                       Order No.:
                     </Text>
@@ -129,12 +169,7 @@ const Orders = ({navigation}) => {
                       Total :
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
+                  <View style={[CommonStyles.rowstyle]}>
                     <Text
                       style={[
                         CommonStyles.HelveticaNeue16Green,
@@ -154,7 +189,7 @@ const Orders = ({navigation}) => {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      marginTop: 2,
+                      marginTop: 4,
                     }}>
                     <Text style={[CommonStyles.HelveticaNeue13]}>
                       Order Date & Time :
@@ -164,12 +199,7 @@ const Orders = ({navigation}) => {
                       {item.OrderDateTime}
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}>
+                  <View style={[CommonStyles.rowstyle, {marginBottom: 2}]}>
                     <HorizontalLine style={{marginTop: 5}} />
                     <Text
                       style={[
@@ -179,27 +209,19 @@ const Orders = ({navigation}) => {
                       Delivery :
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}>
+                  <View style={[CommonStyles.rowstyle]}>
                     <View style={{alignItems: 'center'}}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                        Payment Mode:
+                        Payment Mode :
                       </Text>
                       <Text
-                        style={[
-                          CommonStyles.HelveticaNeue16Green,
-                          {color: '#707070'},
-                        ]}>
+                        style={[CommonStyles.HelveticaNeue16, {marginTop: 2}]}>
                         {item.PaymentMode}
                       </Text>
                     </View>
                     <View style={{alignItems: 'center'}}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                        Payment Status:
+                        Payment Status :
                       </Text>
                       <Text
                         style={[
@@ -209,6 +231,7 @@ const Orders = ({navigation}) => {
                               item.PaymentStatus == 'Paid'
                                 ? '#2B7908'
                                 : '#FD5B1F',
+                            marginTop: 2,
                           },
                         ]}>
                         {item.PaymentStatus}
@@ -225,7 +248,7 @@ const Orders = ({navigation}) => {
                       <Text
                         style={[
                           CommonStyles.HelveticaNeue13,
-                          {color: '#723D16'},
+                          {color: '#723D16', marginTop: 2},
                         ]}>
                         {item.DeliveryTimeSlot}
                       </Text>
@@ -237,51 +260,118 @@ const Orders = ({navigation}) => {
           }}
         />
       </View>
-      <Modal isVisible={active} onBackdropPress={()=>{setActive(false)}} style={{margin: 0,flex:1,justifyContent:'flex-end'}}>
+      <Modal
+        isVisible={active}
+        onBackdropPress={() => {
+          setActive(false);
+        }}
+        style={{margin: 0, flex: 1, justifyContent: 'flex-end'}}>
+        <View
+          style={{
+            backgroundColor: '#ffffff',
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+          }}>
+          <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+            Payment Status :
+          </Text>
           <View
-            style={{
-              backgroundColor: '#ffffff',
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-            }}>
-            <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
-              Payment Status :
-            </Text>
-            <View style={{width: '80%', marginVertical: 10}}>
-              <RadioButton />
-            </View>
-            <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
-              Customer Type :
-            </Text>
-            <View style={{width: '80%', marginVertical: 10}}>
-              <RadioButton />
-            </View>
-            <TouchableOpacity onPress={showDatepicker}>
+            style={{width: '80%', marginVertical: 10, marginHorizontal: 15}}>
+            <RadioButton
+              RadioData={PaymentStatusdata}
+              onHandleClick={SetPaymentStatus}
+            />
+          </View>
+          <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+            Customer Type :
+          </Text>
+          <View
+            style={{width: '80%', marginVertical: 10, marginHorizontal: 15}}>
+            <RadioButton
+              RadioData={CustomerTypeData}
+              onHandleClick={SetCustomerType}
+            />
+          </View>
+          <TouchableOpacity onPress={showDatepicker}>
             <View style={{flexDirection: 'row'}}>
-              <View style={{width: '90%',borderBottomWidth:1,borderBottomColor:'#D8CFCF'}}>
+              <View
+                style={{
+                  width: '90%',
+                  paddingBottom: 5,
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#D8CFCF',
+                }}>
                 <Text
                   style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
                   Delivery Date
                 </Text>
-                <TextInput style={{paddingVertical:0}}/>
+                <Text
+                  style={[
+                    CommonStyles.HelveticaNeue13,
+                    {color: '#6F776B', marginTop: 5},
+                  ]}>
+                  {date}
+                </Text>
               </View>
               <Calender />
             </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={showTimepicker}>
-            <View style={{flexDirection: 'row',marginTop:10}}>
-
-              <View style={{width: '90%',borderBottomWidth:1, borderBottomColor:'#D8CFCF'}}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setOpen(!open);
+            }}>
+            <View style={{flexDirection: 'row', marginTop: 10}}>
+              <View
+                style={{
+                  width: '90%',
+                }}>
                 <Text
                   style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
                   Select Time Slot
                 </Text>
-                <TextInput style={{paddingVertical:0}}/>
+                <DropDownPicker
+                  open={open}
+                  value={value}
+                  items={items}
+                  setOpen={setOpen}
+                  setValue={setValue}
+                  setItems={setItems}
+                  listMode="FLATLIST"
+                  flatListProps={{
+                    initialNumToRender: 2,
+                  }}
+                  closeOnBackPressed={true}
+                  modalContentContainerStyle={{
+                    backgroundColor: '#fff',
+                    maxHeight: 100,
+                  }}
+                  style={{
+                    borderWidth: 0,
+                    borderBottomWidth: 1,
+                    borderRadius: 0,
+                    borderBottomColor: '#D8CFCF',
+                    padding: 0,
+                  }}
+                  // containerStyle={{padding:0,margin:0,maxHeight:40,}}
+                  textStyle={[CommonStyles.HelveticaNeue16Green]}
+                  dropDownDirection="BOTTOM"
+                  maxHeight={100}
+                  autoScroll={true}
+                  dropDownContainerStyle={{
+                    backgroundColor: '#ffffff',
+                  }}
+                />
               </View>
               <Clock />
             </View>
-            </TouchableOpacity>
-            <View style={{justifyContent:'center',alignItems:'center',marginVertical:25}}>
+          </TouchableOpacity>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginVertical: 25,
+              marginTop: open ? 110 : 25,
+            }}>
             <TouchableOpacity
               style={{
                 backgroundColor: '#F2D847',
@@ -289,13 +379,16 @@ const Orders = ({navigation}) => {
                 paddingHorizontal: 35,
                 borderRadius: 10,
               }}
-              onPress={()=>{setActive(false)}}>
+              onPress={() => {
+                setActive(false);
+                console.log(PaymentStatus, CustomerType);
+              }}>
               <Text style={[CommonStyles.HelveticaNeue20, {color: '#ffffff'}]}>
                 Apply
               </Text>
             </TouchableOpacity>
-            </View>
           </View>
+        </View>
       </Modal>
     </SafeAreaView>
   );

@@ -7,6 +7,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import typography from '../utils/typography';
 import Truck from '../svg/truck';
@@ -64,6 +65,7 @@ const Dashboard = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
+      <ScrollView style={{flex:1}}>
       <View
         style={{
           backgroundColor: '#fff',
@@ -92,7 +94,7 @@ const Dashboard = ({navigation}) => {
             <Text
               style={{
                 color: '#5E758D',
-                fontFamily: typography.Gibson,
+                fontFamily: typography.GibsonSemiBold,
                 fontSize: 25,
                 fontWeight: '600',
               }}>
@@ -105,14 +107,14 @@ const Dashboard = ({navigation}) => {
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: 8,
+              marginVertical: 18,
               transform: [{rotate: '-120deg'}],
             }}>
             <View
               style={[
                 {
-                  height: 170,
-                  width: 170,
+                  height: 180,
+                  width: 180,
                   borderRadius: 200,
                   backgroundColor: '#5E758D',
                   justifyContent: 'center',
@@ -122,8 +124,8 @@ const Dashboard = ({navigation}) => {
               ]}>
               <View
                 style={{
-                  height: 140,
-                  width: 140,
+                  height: 155,
+                  width: 155,
                   borderRadius: 200,
                   backgroundColor: '#fff',
                   justifyContent: 'center',
@@ -137,7 +139,7 @@ const Dashboard = ({navigation}) => {
                     color: '#454F63',
                     fontSize: 50,
                     fontWeight: '500',
-                    fontFamily: typography.GibsonRegular,
+                    fontFamily: typography.GibsonSemiBold,
                   }}>
                   {todaysOrders}
                 </Text>
@@ -147,8 +149,8 @@ const Dashboard = ({navigation}) => {
                 <View
                   style={{
                     overflow: 'hidden',
-                    width: 85,
-                    height: 170,
+                    width: 95,
+                    height: 180,
                     position: 'absolute',
                     right: 0,
                     borderTopRightRadius: 200,
@@ -161,8 +163,8 @@ const Dashboard = ({navigation}) => {
                   }}>
                   <View
                     style={{
-                      width: 170,
-                      height: 170,
+                      width: 180,
+                      height: 180,
                       backgroundColor: '#E3C133',
                     }}
                   />
@@ -171,8 +173,8 @@ const Dashboard = ({navigation}) => {
               {/** moving filled semi-circle */}
               <View
                 style={{
-                  height: 170,
-                  width: 170,
+                  height: 180,
+                  width: 180,
                   borderRadius: 200,
                   transform: [
                     {
@@ -193,8 +195,8 @@ const Dashboard = ({navigation}) => {
                 <View
                   style={{
                     overflow: 'hidden',
-                    width: 85,
-                    height: 170,
+                    width: 95,
+                    height: 180,
                     position: 'absolute',
                     right: 0,
                     borderTopRightRadius: 200,
@@ -203,8 +205,8 @@ const Dashboard = ({navigation}) => {
                   }}>
                   <View
                     style={{
-                      width: 170,
-                      height: 170,
+                      width: 180,
+                      height: 180,
                       backgroundColor: '#E3C133',
                     }}
                   />
@@ -213,9 +215,9 @@ const Dashboard = ({navigation}) => {
               {/** moving empty semi-circle */}
               <View
                 style={{
-                  height: 170,
+                  height: 180,
                   width:
-                    completedOrders == 0 || completedOrders == 100 ? 169 : 170,
+                    completedOrders == 0 || completedOrders == 100 ? 179 : 180,
                   borderRadius: 200,
                   transform: [
                     {
@@ -236,8 +238,8 @@ const Dashboard = ({navigation}) => {
                 <View
                   style={{
                     overflow: 'hidden',
-                    width: 85,
-                    height: 170,
+                    width: 95,
+                    height: 180,
                     position: 'absolute',
                     left: 0,
                     borderTopLeftRadius: 200,
@@ -246,8 +248,8 @@ const Dashboard = ({navigation}) => {
                   }}>
                   <View
                     style={{
-                      width: 170,
-                      height: 170,
+                      width: 180,
+                      height: 180,
                       backgroundColor: '#5E758D',
                     }}
                   />
@@ -275,18 +277,18 @@ const Dashboard = ({navigation}) => {
                 style={{
                   marginLeft: 20,
                   color: '#777777',
-                  fontFamily: typography.GibsonRegular,
-                  fontWeight: '600',
+                  fontFamily: typography.GibsonSemiBold,
+                  // fontWeight: '600',
                   fontSize: 15,
                 }}>
-                Today's Completed order
+                Today’s Completed Order
               </Text>
             </View>
             <Text
               style={{
                 marginRight: 10,
-                color: '#777777',
-                fontFamily: typography.GibsonRegular,
+                color: '#5E758D',
+                fontFamily: typography.GibsonSemiBold,
                 fontWeight: '600',
                 fontSize: 20,
               }}>
@@ -297,7 +299,7 @@ const Dashboard = ({navigation}) => {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              marginTop: 10,
+              marginTop: 12,
               width: '100%',
               justifyContent: 'space-between',
             }}>
@@ -312,18 +314,18 @@ const Dashboard = ({navigation}) => {
                 style={{
                   marginLeft: 20,
                   color: '#777777',
-                  fontFamily: typography.GibsonRegular,
-                  fontWeight: '600',
+                  fontFamily: typography.GibsonSemiBold,
+                  // fontWeight: '600',
                   fontSize: 15,
                 }}>
-                Today's Pending order
+                Today’s Pending Order
               </Text>
             </View>
             <Text
               style={{
                 marginRight: 10,
-                color: '#777777',
-                fontFamily: typography.GibsonRegular,
+                color: '#5E758D',
+                fontFamily: typography.GibsonSemiBold,
                 fontWeight: '600',
                 fontSize: 20,
               }}>
@@ -345,7 +347,7 @@ const Dashboard = ({navigation}) => {
             <Text
               style={{
                 color: '#fff',
-                fontFamily: typography.GibsonRegular,
+                fontFamily: typography.GibsonSemiBold,
                 fontSize: 55,
                 marginTop: 5,
                 marginLeft: 40,
@@ -371,7 +373,8 @@ const Dashboard = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: 10,
+            marginVertical: 10,
+            paddingBottom:20
           }}>
           <TouchableOpacity onPress={() => navigation.navigate('Orders')}>
             <ImageBackground
@@ -428,7 +431,8 @@ const Dashboard = ({navigation}) => {
             </ImageBackground>
           </TouchableOpacity>
         </View>
-      </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

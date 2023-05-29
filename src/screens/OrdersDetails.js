@@ -18,8 +18,7 @@ const OrdersDetails = ({navigation, route}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
       <Header title="Orders Details" />
-      <ScrollView style={{flex: 1}}
-      showsVerticalScrollIndicator={false}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <View style={{padding: 15, flex: 1}}>
           <View
             style={[
@@ -28,15 +27,15 @@ const OrdersDetails = ({navigation, route}) => {
                 padding: 10,
                 // paddingLeft: 20,
               },
-              styles.boxShadow,
+              CommonStyles.boxShadow,
             ]}>
-            <View style={[styles.rowstyle]}>
+            <View style={[CommonStyles.rowstyle]}>
               <Text style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                Order No.:
+                Order No.
               </Text>
               <Text style={[CommonStyles.HelveticaNeue16]}>Total :</Text>
             </View>
-            <View style={[styles.rowstyle]}>
+            <View style={[CommonStyles.rowstyle]}>
               <Text style={[CommonStyles.HelveticaNeue16]}>
                 {selectedData.Orderid}
               </Text>
@@ -44,26 +43,47 @@ const OrdersDetails = ({navigation, route}) => {
                 {selectedData.Total}
               </Text>
             </View>
-            <View style={[styles.rowstyle]}>
+            <View style={[CommonStyles.rowstyle]}>
+            <View style={{flexDirection:'row',width:'42%',justifyContent:'space-between'}}>
+
               <Text style={[CommonStyles.HelveticaNeue16]}>
-                Order Date & Time :
+                Order Date & Time 
               </Text>
+              <Text
+                    style={[CommonStyles.HelveticaNeue16]}>
+                    :
+                  </Text>
+                </View>
               <Text style={[CommonStyles.HelveticaNeue16]}>
                 {selectedData.OrderDateTime}
               </Text>
             </View>
-            <View style={[styles.rowstyle]}>
+            <View style={[CommonStyles.rowstyle]}>
+            <View style={{flexDirection:'row',width:'42%',justifyContent:'space-between'}}>
+
               <Text style={[CommonStyles.HelveticaNeue16]}>
-                Delivery Date :
+                Delivery Date 
               </Text>
+              <Text
+                    style={[CommonStyles.HelveticaNeue16]}>
+                    :
+                  </Text>
+                </View>
               <Text style={[CommonStyles.HelveticaNeue16]}>
                 {selectedData.DeliveryDate}
               </Text>
             </View>
-            <View style={[styles.rowstyle]}>
+            <View style={[CommonStyles.rowstyle]}>
+            <View style={{flexDirection:'row',width:'42%',justifyContent:'space-between'}}>
+
               <Text style={[CommonStyles.HelveticaNeue16]}>
-                Delivery TimeSlot :
+                Delivery TimeSlot 
               </Text>
+              <Text
+                    style={[CommonStyles.HelveticaNeue16]}>
+                    :
+                  </Text>
+                </View>
               <Text style={[CommonStyles.HelveticaNeue16]}>
                 {selectedData.DeliveryTimeSlot}
               </Text>
@@ -74,7 +94,7 @@ const OrdersDetails = ({navigation, route}) => {
               {
                 marginTop: 10,
               },
-              styles.boxShadow,
+              CommonStyles.boxShadow,
             ]}>
             <View
               style={{
@@ -98,45 +118,93 @@ const OrdersDetails = ({navigation, route}) => {
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2},
+                      {color: '#6F776B', marginTop: 4},
                     ]}>
-                    Customer Name :
+                    Customer Name
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2},
+                      {color: '#6F776B', marginTop: 4},
                     ]}>
-                    Mobile Number :
+                    Mobile Number
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {marginTop: 2, color: '#6F776B'},
+                      {marginTop: 4, color: '#6F776B'},
                     ]}>
-                    Address :{' '}
+                    Address
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {marginTop: 2, color: '#6F776B'},
+                      {marginTop: 4, color: '#6F776B'},
                     ]}>
-                    City{' '}
+                    City
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {marginTop: 2, color: '#6F776B'},
+                      {marginTop: 4, color: '#6F776B'},
                     ]}>
                     Area
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {marginTop: 2, color: '#6F776B'},
+                      {marginTop: 4, color: '#6F776B'},
                     ]}>
                     Location
                   </Text>
+                  <Text
+                    style={[
+                      CommonStyles.HelveticaNeue16,
+                      {marginTop: 4, color: '#6F776B'},
+                    ]}></Text>
+                </View>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginHorizontal: 5,
+                  }}>
+                  <Text
+                    style={[
+                      CommonStyles.HelveticaNeue16,
+                      {color: '#6F776B', marginTop: 2},
+                    ]}>
+                    :
+                  </Text>
+                  <Text
+                    style={[
+                      CommonStyles.HelveticaNeue16,
+                      {color: '#6F776B', marginTop: 2},
+                    ]}>
+                    :
+                  </Text>
+                  <Text
+                    style={[
+                      CommonStyles.HelveticaNeue16,
+                      {color: '#6F776B', marginTop: 2},
+                    ]}>
+                    :
+                  </Text>
+                  <Text
+                    style={[
+                      CommonStyles.HelveticaNeue16,
+                      {marginTop: 2, color: '#6F776B'},
+                    ]}></Text>
+                  <Text
+                    style={[
+                      CommonStyles.HelveticaNeue16,
+                      {marginTop: 2, color: '#6F776B'},
+                    ]}></Text>
+                  <Text
+                    style={[
+                      CommonStyles.HelveticaNeue16,
+                      {marginTop: 2, color: '#6F776B'},
+                    ]}></Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
@@ -147,14 +215,14 @@ const OrdersDetails = ({navigation, route}) => {
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2, marginLeft: 5},
+                      {color: '#6F776B', marginTop: 4, marginLeft: 5},
                     ]}>
                     {selectedData.Name}
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2, marginLeft: 5},
+                      {color: '#6F776B', marginTop: 4, marginLeft: 5},
                     ]}>
                     {selectedData.MobileNumber}
                   </Text>
@@ -162,28 +230,28 @@ const OrdersDetails = ({navigation, route}) => {
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2, marginLeft: 5},
+                      {color: '#6F776B', marginTop: 4, marginLeft: 5},
                     ]}>
                     {selectedData.City}
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2, marginLeft: 5},
+                      {color: '#6F776B', marginTop: 4, marginLeft: 5},
                     ]}>
                     {selectedData.Area}
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2, marginLeft: 5},
+                      {color: '#6F776B', marginTop: 4, marginLeft: 5},
                     ]}>
                     {selectedData.Lattitude}
                   </Text>
                   <Text
                     style={[
                       CommonStyles.HelveticaNeue16,
-                      {color: '#6F776B', marginTop: 2, marginLeft: 5},
+                      {color: '#6F776B', marginTop: 4, marginLeft: 5},
                     ]}>
                     {selectedData.Longitude}
                   </Text>
@@ -204,7 +272,7 @@ const OrdersDetails = ({navigation, route}) => {
               {
                 marginTop: 10,
               },
-              styles.boxShadow,
+              CommonStyles.boxShadow,
             ]}>
             <View
               style={{
@@ -218,21 +286,35 @@ const OrdersDetails = ({navigation, route}) => {
               </Text>
             </View>
             <View style={{padding: 10, paddingTop: 20}}>
-              <View style={[styles.rowstyle]}>
+              <View style={[CommonStyles.rowstyle]}>
+              <View style={{flexDirection:'row',width:'37%',justifyContent:'space-between'}}>
+
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Payment Mode :
+                  Payment Mode 
                 </Text>
+                <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
                   {selectedData.PaymentMode}
                 </Text>
               </View>
-              <View style={[styles.rowstyle]}>
+              <View style={[CommonStyles.rowstyle]}>
+              <View style={{flexDirection:'row',width:'37%',justifyContent:'space-between'}}>
+
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Payment Status :
+                  Payment Status 
                 </Text>
+                <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[
                     CommonStyles.HelveticaNeue16,
@@ -253,7 +335,7 @@ const OrdersDetails = ({navigation, route}) => {
               {
                 marginTop: 10,
               },
-              styles.boxShadow,
+              CommonStyles.boxShadow,
             ]}>
             <View
               style={{
@@ -273,31 +355,60 @@ const OrdersDetails = ({navigation, route}) => {
                 borderBottomColor: '#F4CB5E',
                 borderBottomWidth: 1,
               }}>
-              <View style={[styles.rowstyle]}>
-                <Text
-                  style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Store Name :
-                </Text>
+              <View style={[CommonStyles.rowstyle]}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '35%',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    Store Name
+                  </Text>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
                   {selectedData.StoreName}
                 </Text>
               </View>
-              <View style={[styles.rowstyle]}>
-                <Text
-                  style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Store Number :
-                </Text>
+              <View style={[CommonStyles.rowstyle]}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '35%',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    Store Number
+                  </Text>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
                   {selectedData.StoreNumber}
                 </Text>
               </View>
-              <View style={[styles.rowstyle]}>
+              <View style={[CommonStyles.rowstyle]}>
+              <View style={{flexDirection:'row',width:'35%',justifyContent:'space-between'}}>
+
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Address :
+                  Address 
                 </Text>
+                <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
                   {selectedData.StoreAddress}
@@ -305,43 +416,72 @@ const OrdersDetails = ({navigation, route}) => {
               </View>
             </View>
             <View style={{padding: 10}}>
-              <View style={[styles.rowstyle]}>
-                <Text
-                  style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Store Name :
-                </Text>
+            <View style={[CommonStyles.rowstyle]}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '35%',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    Store Name
+                  </Text>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
                   {selectedData.StoreName}
                 </Text>
               </View>
-              <View style={[styles.rowstyle]}>
-                <Text
-                  style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Store Number :
-                </Text>
+              <View style={[CommonStyles.rowstyle]}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '35%',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    Store Number
+                  </Text>
+                  <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
                   {selectedData.StoreNumber}
                 </Text>
               </View>
-              <View style={[styles.rowstyle]}>
+              <View style={[CommonStyles.rowstyle]}>
+              <View style={{flexDirection:'row',width:'35%',justifyContent:'space-between'}}>
+
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
-                  Address :
+                  Address 
                 </Text>
+                <Text
+                    style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
+                    :
+                  </Text>
+                </View>
                 <Text
                   style={[CommonStyles.HelveticaNeue16, {color: '#6F776B'}]}>
                   {selectedData.StoreAddress}
                 </Text>
-              </View>
+              </View> 
             </View>
           </View>
-          <View style={[styles.rowstyle, {margin: 40, marginTop: 40}]}>
+          <View style={[CommonStyles.rowstyle, {margin: 40, marginTop: 40}]}>
             <TouchableOpacity
               style={{
                 backgroundColor: '#F2D847',
-                padding: 5,
+                padding: 10,
                 paddingHorizontal: 35,
                 borderRadius: 10,
               }}>
@@ -352,7 +492,7 @@ const OrdersDetails = ({navigation, route}) => {
             <TouchableOpacity
               style={{
                 backgroundColor: '#F2D847',
-                padding: 5,
+                padding: 10,
                 paddingHorizontal: 40,
                 borderRadius: 10,
               }}>
@@ -367,24 +507,6 @@ const OrdersDetails = ({navigation, route}) => {
   );
 };
 const styles = StyleSheet.create({
-  boxShadow: {
-    borderRadius: 10,
-    backgroundColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-
-    elevation: 7,
-  },
-  rowstyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 2,
-  },
+  
 });
 export default OrdersDetails;

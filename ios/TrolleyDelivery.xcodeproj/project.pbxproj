@@ -26,7 +26,9 @@
 		2921967F78C94264B51CE23C /* gibson-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFAA904522146FB86A325A8 /* gibson-bold.ttf */; };
 		46C8F8BBF14444898752E59B /* Gibson-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 890A1DE80FA146809EC7C9BF /* Gibson-Regular.ttf */; };
 		89486F5A0E964FEAA175CE0B /* Helvetica-Neue.otf in Resources */ = {isa = PBXBuildFile; fileRef = 540EB5DB75334F88BEDF5225 /* Helvetica-Neue.otf */; };
-		44FA5FCCB27A491CA32C7CCC /* HelveticaNeue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE9375CB68BE4D07A8BF3864 /* HelveticaNeue.ttf */; };
+		F6C50297B8D04E86B2CA8DD3 /* Gibson-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B2E94831D4064F36995B8B28 /* Gibson-SemiBold.otf */; };
+		6F955749546B400E927056AE /* HelveticaNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D40A00220F47D8A1D89F13 /* HelveticaNeue-Regular.ttf */; };
+		45B342282DC1413FA0BCF1D6 /* HelveticaNeue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49BCCE9AF82648B6A707B0BA /* HelveticaNeue.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +71,9 @@
 		9CFAA904522146FB86A325A8 /* gibson-bold.ttf */ = {isa = PBXFileReference; name = "gibson-bold.ttf"; path = "../src/assets/fonts/gibson-bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		890A1DE80FA146809EC7C9BF /* Gibson-Regular.ttf */ = {isa = PBXFileReference; name = "Gibson-Regular.ttf"; path = "../src/assets/fonts/Gibson-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		540EB5DB75334F88BEDF5225 /* Helvetica-Neue.otf */ = {isa = PBXFileReference; name = "Helvetica-Neue.otf"; path = "../src/assets/fonts/Helvetica-Neue.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FE9375CB68BE4D07A8BF3864 /* HelveticaNeue.ttf */ = {isa = PBXFileReference; name = "HelveticaNeue.ttf"; path = "../src/assets/fonts/HelveticaNeue.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B2E94831D4064F36995B8B28 /* Gibson-SemiBold.otf */ = {isa = PBXFileReference; name = "Gibson-SemiBold.otf"; path = "../src/assets/fonts/Gibson-SemiBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		09D40A00220F47D8A1D89F13 /* HelveticaNeue-Regular.ttf */ = {isa = PBXFileReference; name = "HelveticaNeue-Regular.ttf"; path = "../src/assets/fonts/HelveticaNeue-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		49BCCE9AF82648B6A707B0BA /* HelveticaNeue.ttf */ = {isa = PBXFileReference; name = "HelveticaNeue.ttf"; path = "../src/assets/fonts/HelveticaNeue.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +194,9 @@
 				9CFAA904522146FB86A325A8 /* gibson-bold.ttf */,
 				890A1DE80FA146809EC7C9BF /* Gibson-Regular.ttf */,
 				540EB5DB75334F88BEDF5225 /* Helvetica-Neue.otf */,
-				FE9375CB68BE4D07A8BF3864 /* HelveticaNeue.ttf */,
+				B2E94831D4064F36995B8B28 /* Gibson-SemiBold.otf */,
+				09D40A00220F47D8A1D89F13 /* HelveticaNeue-Regular.ttf */,
+				49BCCE9AF82648B6A707B0BA /* HelveticaNeue.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -304,7 +310,9 @@
 				2921967F78C94264B51CE23C /* gibson-bold.ttf in Resources */,
 				46C8F8BBF14444898752E59B /* Gibson-Regular.ttf in Resources */,
 				89486F5A0E964FEAA175CE0B /* Helvetica-Neue.otf in Resources */,
-				44FA5FCCB27A491CA32C7CCC /* HelveticaNeue.ttf in Resources */,
+				F6C50297B8D04E86B2CA8DD3 /* Gibson-SemiBold.otf in Resources */,
+				6F955749546B400E927056AE /* HelveticaNeue-Regular.ttf in Resources */,
+				45B342282DC1413FA0BCF1D6 /* HelveticaNeue.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,4 +21,23 @@ export default StyleSheet.create({
         color: '#707070',
         fontFamily: typography.HelveticaNeue,
       },
+      rowstyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 4,
+      },
+      boxShadow: {
+        borderRadius: 10,
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+    
+        elevation: 7,
+      },
 });

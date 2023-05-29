@@ -31,7 +31,7 @@ const Revenue = () => {
           <TouchableOpacity
             onPress={() => setToday(!today)}
             style={[
-              styles.boxShadow,
+              CommonStyles.boxShadow,
               {
                 backgroundColor: today ? '#E3C133' : '#ffffff',
                 padding: 10,
@@ -61,11 +61,11 @@ const Revenue = () => {
           <TouchableOpacity
             onPress={() => setToday(!today)}
             style={[
-              styles.boxShadow,
+              CommonStyles.boxShadow,
               {
                 backgroundColor: !today ? '#E3C133' : '#ffffff',
                 padding: 10,
-                paddingHorizontal:20,
+                paddingHorizontal: 20,
                 alignItems: 'center',
               },
             ]}>
@@ -77,7 +77,6 @@ const Revenue = () => {
                   fontSize: 28,
                   fontWeight: '700',
                   color: !today ? '#ffffff' : '#6F776B',
-                  
                 },
               ]}>
               80000
@@ -146,8 +145,7 @@ const Revenue = () => {
 
                   elevation: 7,
                 }}
-                onPress={() => {
-                }}>
+                onPress={() => {}}>
                 <View style={{}}>
                   <View
                     style={{
@@ -170,12 +168,7 @@ const Revenue = () => {
                       Delivery Charge :
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
+                  <View style={CommonStyles.rowstyle}>
                     <Text
                       style={[
                         CommonStyles.HelveticaNeue16,
@@ -195,10 +188,19 @@ const Revenue = () => {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
+                      marginTop: 4,
                     }}>
-                    <Text style={[CommonStyles.HelveticaNeue13]}>
-                      Order Date & Time :
-                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        width: '35%',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={[CommonStyles.HelveticaNeue13]}>
+                        Order Date & Time
+                      </Text>
+                      <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
+                    </View>
                     <Text
                       style={[CommonStyles.HelveticaNeue13, {marginLeft: 10}]}>
                       {item.OrderDateTime}
@@ -208,10 +210,19 @@ const Revenue = () => {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
+                      marginTop: 4,
                     }}>
-                    <Text style={[CommonStyles.HelveticaNeue13]}>
-                      Delivery :
-                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        width: '35%',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={[CommonStyles.HelveticaNeue13]}>
+                        Delivery
+                      </Text>
+                      <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
+                    </View>
                     <Text
                       style={[
                         CommonStyles.HelveticaNeue13,
@@ -230,20 +241,6 @@ const Revenue = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  boxShadow: {
-    borderRadius: 10,
-    backgroundColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-
-    elevation: 7,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default Revenue;

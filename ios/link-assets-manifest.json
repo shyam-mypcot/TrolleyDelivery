@@ -10,6 +10,10 @@
       "sha1": "2e34dad51e3c33c252cc5b40c33c8b6bc064e02a"
     },
     {
+      "path": "src/assets/fonts/Gibson-SemiBold.otf",
+      "sha1": "e2e2bd11b1ea296c8e8ac454fd0774e907d467c7"
+    },
+    {
       "path": "src/assets/fonts/Helvetica-Bold.ttf",
       "sha1": "d064906892c6baf2916d5102910026ba0a4f2664"
     },
@@ -42,8 +46,12 @@
       "sha1": "53cb59bdb997dd39dc70b95d50133583e66ebdcb"
     },
     {
+      "path": "src/assets/fonts/HelveticaNeue-Regular.ttf",
+      "sha1": "d82ba04b7438da9836d701bbf704600d77b466c0"
+    },
+    {
       "path": "src/assets/fonts/HelveticaNeue.ttf",
-      "sha1": "5b235bd8ab01aa99e3a2a66daea10350a9d254ed"
+      "sha1": "e446dca98359e538b46266d4b1c49dcf0bca849b"
     },
     {
       "path": "src/assets/fonts/NeusaNextStdTrial-Medium.otf",

@@ -69,8 +69,8 @@ const Profile = ({navigation}) => {
             ]}>
             <View
               style={{
-                height: 160,
-                width: 160,
+                height: 170,
+                width: 170,
                 borderRadius: 200,
                 backgroundColor: '#fff',
                 justifyContent: 'center',
@@ -83,7 +83,7 @@ const Profile = ({navigation}) => {
                   color: '#717C8E',
                   fontSize: 50,
                   fontWeight: '500',
-                  fontFamily: typography.GibsonRegular,
+                  fontFamily: typography.GibsonSemiBold,
                 }}>
                 150
               </Text>
@@ -94,22 +94,24 @@ const Profile = ({navigation}) => {
               flexDirection: 'row',
               alignItems: 'center',
               marginTop: 15,
-              justifyContent: 'space-between',
+              // justifyContent: 'space-evenly',
               alignItems: 'center',
-              paddingLeft: 50,
+              paddingLeft: 30,
             }}>
             <View
               style={{
                 width: 20,
                 height: 20,
                 backgroundColor: '#E3C133',
-              }}></View>
+              }}>
+
+              </View>
             <View style={{width: '80%'}}>
               <Text
                 style={{
                   marginLeft: 10,
                   color: '#777777',
-                  fontFamily: typography.GibsonRegular,
+                  fontFamily: typography.GibsonSemiBold,
                   fontWeight: '600',
                   fontSize: 15,
                 }}>
@@ -121,18 +123,18 @@ const Profile = ({navigation}) => {
         <View
           style={{
             paddingHorizontal: 20,
-            paddingVertical: 15,
+            paddingVertical: 10,
             backgroundColor: '#fff',
             borderRadius: 10,
             width: '100%',
             shadowColor: '#000',
             shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.23,
+shadowRadius: 2.62,
+            elevation: 4,
             marginTop: 20,
           }}>
           <FlatList
@@ -147,8 +149,8 @@ const Profile = ({navigation}) => {
                   }}>
                   <Image
                     style={{
-                      width: 20,
-                      height: 20,
+                      width: item.id ==4?25:20,
+                      height: item.id ==4?25:20,
                     }}
                     source={item.imgURL}
                     resizeMode="contain"
@@ -160,7 +162,7 @@ const Profile = ({navigation}) => {
                       allowFontScaling
                       style={{
                         color: '#A8ADB7',
-                        fontFamily: typography.NeusaNextStdTrialRegular,
+                        fontFamily: typography.Helvetica,
                         fontSize: 13,
                         // includeFontPadding: false
                       }}>
@@ -169,9 +171,9 @@ const Profile = ({navigation}) => {
                     <Text
                       style={{
                         color: '#515C6F',
-                        fontFamily: typography.NeusaNextStdTrialRegular,
+                        fontFamily: typography.HelveticaNeue,
                         fontSize: 15,
-                        marginTop: 2,
+                        marginTop: 1,
                       }}>
                       {item.value}
                     </Text>
