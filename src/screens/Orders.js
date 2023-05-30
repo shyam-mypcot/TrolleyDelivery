@@ -26,12 +26,11 @@ import {
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {Dropdown} from 'react-native-element-dropdown';
 const Orders = ({navigation}) => {
   const [active, setActive] = useState(false);
   const currentDate = new Date();
   const [date, setDate] = useState(moment(currentDate).format('YYYY-MM-DD'));
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     {label: '11:00 AM  - 01:00 PM', value: '11:00 AM  - 01:00 PM'},
@@ -292,7 +291,7 @@ const Orders = ({navigation}) => {
               onHandleClick={SetCustomerType}
             />
           </View>
-          <TouchableOpacity onPress={showDatepicker}>
+          <TouchableOpacity onPress={showDatepicker} style={{marginVertical: 10,}}>
             <View style={{flexDirection: 'row'}}>
               <View
                 style={{
@@ -308,69 +307,52 @@ const Orders = ({navigation}) => {
                 <Text
                   style={[
                     CommonStyles.HelveticaNeue13,
-                    {color: '#6F776B', marginTop: 5},
+                    {color: '#6F776B', marginTop: 10},
                   ]}>
                   {date}
                 </Text>
               </View>
+              <View style={{justifyContent:'center'}}>
               <Calender />
+              </View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              setOpen(!open);
-            }}>
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <View
-                style={{
-                  width: '90%',
-                }}>
-                <Text
-                  style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
-                  Select Time Slot
-                </Text>
-                <DropDownPicker
-                  open={open}
-                  value={value}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
-                  listMode="FLATLIST"
-                  flatListProps={{
-                    initialNumToRender: 2,
-                  }}
-                  closeOnBackPressed={true}
-                  modalContentContainerStyle={{
-                    backgroundColor: '#fff',
-                    maxHeight: 100,
-                  }}
-                  style={{
-                    borderWidth: 0,
-                    borderBottomWidth: 1,
-                    borderRadius: 0,
-                    borderBottomColor: '#D8CFCF',
-                    padding: 0,
-                  }}
-                  // containerStyle={{padding:0,margin:0,maxHeight:40,}}
-                  textStyle={[CommonStyles.HelveticaNeue16Green]}
-                  dropDownDirection="BOTTOM"
-                  maxHeight={100}
-                  autoScroll={true}
-                  dropDownContainerStyle={{
-                    backgroundColor: '#ffffff',
-                  }}
-                />
-              </View>
+
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+            <View
+              style={{
+                width: '90%',
+              }}>
+              <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+                Select Time Slot
+              </Text>
+
+              <Dropdown
+                style={[styles.dropdown]}
+                placeholderStyle={[CommonStyles.HelveticaNeue16Green]}
+                selectedTextStyle={[CommonStyles.HelveticaNeue16Green]}
+                itemTextStyle={[CommonStyles.HelveticaNeue16Green,{margin:0,}]}
+                itemContainerStyle={{paddingVertical:0, }}
+                data={items}
+                maxHeight={90}
+                labelField="label"
+                valueField="value"
+                placeholder={'Select item'}
+                value={value}
+                onChange={item => {
+                  setValue(item.value);
+                }}
+              />
+            </View>
+            <View style={{justifyContent: 'flex-end', marginBottom: 10}}>
               <Clock />
             </View>
-          </TouchableOpacity>
+          </View>
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginVertical: 25,
-              marginTop: open ? 110 : 25,
+              marginVertical: 35,
             }}>
             <TouchableOpacity
               style={{
@@ -393,6 +375,13 @@ const Orders = ({navigation}) => {
     </SafeAreaView>
   );
 };
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  dropdown: {
+    height: 40,
+    borderColor: '#D8CFCF',
+    borderBottomWidth: 1,
+    paddingHorizontal: 8,
+  },
+});
 
 export default Orders;

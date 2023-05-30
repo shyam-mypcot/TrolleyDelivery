@@ -18,7 +18,7 @@ const OrdersDetails = ({navigation, route}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
       <Header title="Orders Details" />
-      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}} showsVerticalScrollIndicator={false}>
         <View style={{padding: 15, flex: 1}}>
           <View
             style={[

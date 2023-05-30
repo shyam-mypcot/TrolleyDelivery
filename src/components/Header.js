@@ -14,7 +14,8 @@ const Header = ({title}) => {
         flexDirection: 'row',
         alignItems: 'center',
       }}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={5} style={{width:'10%', justifyContent:'center'}}>
+     
         <Image
           style={{
             width: 10,
@@ -22,8 +23,9 @@ const Header = ({title}) => {
           }}
           source={require('../assets/images/back.png')}
         />
+        
       </TouchableOpacity>
-      <View style={{width: '88%',alignItems:'center', justifyContent:'center'}}>
+      <View style={{width: '90%', alignItems:'center', justifyContent:'center'}}>
         <Text
           style={{
             color: '#fff',
