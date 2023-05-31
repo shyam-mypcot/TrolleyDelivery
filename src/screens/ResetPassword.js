@@ -14,18 +14,17 @@ import typography from '../utils/typography';
 import Header from '../components/Header';
 const ResetPassword = ({navigation}) => {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+
   const signIn = () => {
     // <= Added this function
     const strongRegex = new RegExp(
       '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     );
-    if (email == '') {
-        Alert.alert('Error','Please Provide Username/Email');
+   
+     if (!strongRegex.test(email)) {
+        setEmailError(true);
         return false;
-      }
-    else if (!strongRegex.test(email)) {
-      Alert.alert('Error','Username/Email is invalid');
-      return false;
     } else {
       navigation.navigate('Login');
     }
@@ -57,6 +56,18 @@ const ResetPassword = ({navigation}) => {
             onChangeText={email => setEmail(email)}
           />
         </View>
+        {emailError && (
+        <Text
+          style={[
+            {
+              fontFamily: typography.Helvetica,
+              fontSize: 14,
+              color: 'red',
+            },
+          ]}>
+          Please Provide valid Username/Email
+        </Text>
+      )}
         <View
         style={{
           justifyContent: 'center',
@@ -91,7 +102,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     // width: '70%',
     height: 45,
-    marginBottom: 20,
+    marginTop: 20,
     // alignItems: 'center',
   },
   TextInput: {

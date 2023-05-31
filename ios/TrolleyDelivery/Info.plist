@@ -53,12 +53,8 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>helvetica-compressed-5871d14b6903a.otf</string>
-		<string>helvetica-rounded-bold-5871d05ead8de.otf</string>
 		<string>Helvetica-Bold.ttf</string>
-		<string>Helvetica-BoldOblique.ttf</string>
 		<string>Helvetica-Light.ttf</string>
-		<string>Helvetica-Oblique.ttf</string>
 		<string>Helvetica.ttf</string>
 		<string>NeusaNextStdTrial-Medium.otf</string>
 		<string>NeusaNextStdTrial-Regular.otf</string>

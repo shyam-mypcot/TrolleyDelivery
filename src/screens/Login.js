@@ -14,22 +14,30 @@ import typography from '../utils/typography';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
   const signIn = () => {
     // <= Added this function
     const strongRegex = new RegExp(
       '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     );
-    if (email == '') {
-        Alert.alert('Error','Please Provide Username/Email');
-        return false;
-      }
-    else if (!strongRegex.test(email)) {
-      Alert.alert('Error','Username/Email is invalid');
+
+    if (!strongRegex.test(email)) {
+      console.log('Please Provide valid Username/Email');
+      setEmailError(true);
+      setPasswordError(false);
+
       return false;
     } else if (password.length < 8) {
-      Alert.alert('Error','Password must contain atleast 8 character');
+      console.log('Password must contain atleast 8 character');
+      setPasswordError(true);
+      setEmailError(false);
+
       return false;
     } else {
+      setEmailError(false);
+      setPasswordError(false);
       navigation.navigate('Drawer', {screen: 'Dashboard'});
     }
   };
@@ -60,6 +68,19 @@ const Login = ({navigation}) => {
           onChangeText={email => setEmail(email)}
         />
       </View>
+
+      {emailError && (
+        <Text
+          style={[
+            {
+              fontFamily: typography.Helvetica,
+              fontSize: 14,
+              color: 'red',
+            },
+          ]}>
+          Please Provide valid Username/Email
+        </Text>
+      )}
       <View style={styles.inputView}>
         <TextInput
           style={[styles.TextInput, CommonStyles.HelveticaNeue16]}
@@ -69,7 +90,21 @@ const Login = ({navigation}) => {
           onChangeText={password => setPassword(password)}
         />
       </View>
-      <TouchableOpacity style={{width: '100%', alignItems: 'flex-end'}} onPress={()=>navigation.navigate('ResetPassword')}>
+      {passwordError && (
+        <Text
+          style={[
+            {
+              fontFamily: typography.Helvetica,
+              fontSize: 14,
+              color: 'red',
+            },
+          ]}>
+          Password must contain atleast 8 character
+        </Text>
+      )}
+      <TouchableOpacity
+        style={{width: '100%', alignItems: 'flex-end'}}
+        onPress={() => navigation.navigate('ResetPassword')}>
         <Text style={[CommonStyles.HelveticaNeue16, styles.forgot_button]}>
           Forgot Password ?
         </Text>
@@ -121,7 +156,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     // width: '70%',
     height: 45,
-    marginBottom: 20,
+    marginTop: 20,
     // alignItems: 'center',
   },
   TextInput: {
@@ -133,6 +168,8 @@ const styles = StyleSheet.create({
   forgot_button: {
     height: 30,
     color: '#000',
+    marginTop: 20,
+
     // marginBottom: 30,
   },
   loginBtn: {

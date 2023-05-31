@@ -27,7 +27,7 @@ import {
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import {Dropdown} from 'react-native-element-dropdown';
-const Orders = ({navigation}) => {
+const Orders = ({navigation, route}) => {
   const [active, setActive] = useState(false);
   const currentDate = new Date();
   const [date, setDate] = useState(moment(currentDate).format('YYYY-MM-DD'));
@@ -94,7 +94,9 @@ const Orders = ({navigation}) => {
   };
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
-      <Header title="Assigned Orders" />
+      <Header
+        title={route.params.title ? route.params.title : 'Assigned Orders'}
+      />
       <View style={{padding: 10, flex: 1}}>
         <View
           style={{
@@ -291,7 +293,9 @@ const Orders = ({navigation}) => {
               onHandleClick={SetCustomerType}
             />
           </View>
-          <TouchableOpacity onPress={showDatepicker} style={{marginVertical: 10,}}>
+          <TouchableOpacity
+            onPress={showDatepicker}
+            style={{marginVertical: 10}}>
             <View style={{flexDirection: 'row'}}>
               <View
                 style={{
@@ -312,8 +316,8 @@ const Orders = ({navigation}) => {
                   {date}
                 </Text>
               </View>
-              <View style={{justifyContent:'center'}}>
-              <Calender />
+              <View style={{justifyContent: 'center'}}>
+                <Calender style={{height:2,width:2}}/>
               </View>
             </View>
           </TouchableOpacity>
@@ -331,8 +335,8 @@ const Orders = ({navigation}) => {
                 style={[styles.dropdown]}
                 placeholderStyle={[CommonStyles.HelveticaNeue16Green]}
                 selectedTextStyle={[CommonStyles.HelveticaNeue16Green]}
-                itemTextStyle={[CommonStyles.HelveticaNeue16Green,{margin:0,}]}
-                itemContainerStyle={{paddingVertical:0, }}
+                itemTextStyle={[CommonStyles.HelveticaNeue16Green, {margin: 0}]}
+                itemContainerStyle={{paddingVertical: 0}}
                 data={items}
                 maxHeight={90}
                 labelField="label"

@@ -9,13 +9,15 @@ import {
   Alert,
 } from 'react-native';
 import CommonStyles from '../utils/CommonStyles';
+import ForwardArrow from '../svg/ForwardArrow';
 
 const DrawerComp = ({navigation}) => {
   const DrawerItem = ({children, onPress, style}) => {
     return (
       <TouchableWithoutFeedback onPress={onPress}>
-        <View style={[styles.drawerItem, style]}>
+        <View style={[styles.drawerItem, ]}>
           <Text style={[CommonStyles.HelveticaNeue16Green]}>{children}</Text>
+          <ForwardArrow />
         </View>
       </TouchableWithoutFeedback>
     );
@@ -33,7 +35,7 @@ const DrawerComp = ({navigation}) => {
       />
       <View style={{flex:1}}>
       <DrawerItem onPress={() => navigateTo('Dashboard')}>Dashboard</DrawerItem>
-      <DrawerItem onPress={() => navigateTo('Orders')}>
+      <DrawerItem onPress={() => navigateTo('Orders',{title: 'Assigned Orders'})}>
         Assigned Orders
       </DrawerItem>
       
@@ -73,7 +75,9 @@ const DrawerComp = ({navigation}) => {
 const styles = StyleSheet.create({
   drawerItem: {
     padding: 15,
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent:'space-between',
+    flexDirection:'row',
     borderBottomWidth:1,
     borderBottomColor:'#707070'
   },

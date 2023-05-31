@@ -36,7 +36,7 @@ const Dashboard = ({navigation}) => {
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <TouchableOpacity onPress={() => openDrawer()}>
+        <TouchableOpacity onPress={() => openDrawer()} hitSlop={10} style={{width:'5%', justifyContent:'center'}}>
           <Image
             style={{
               width: 20,
@@ -339,42 +339,47 @@ const Dashboard = ({navigation}) => {
               </Text>
             </View>
           </View>
-          <ImageBackground
-            style={{marginTop: 10, padding: 10}}
-            imageStyle={{borderRadius: 15}}
-            resizeMode="cover"
-            source={require('../assets/images/yellowCard.png')}>
-            <View
-              style={{
-                width: '100%',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Orders', {title: 'Pending Orders'})
+            }>
+            <ImageBackground
+              style={{marginTop: 10, padding: 10}}
+              imageStyle={{borderRadius: 15}}
+              resizeMode="cover"
+              source={require('../assets/images/yellowCard.png')}>
+              <View
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontFamily: typography.GibsonSemiBold,
+                    fontSize: 55,
+                    marginTop: 5,
+                    marginLeft: 40,
+                    marginBottom: 20,
+                  }}>
+                  32
+                </Text>
+                <Truck style={{height: 30, width: 40}} />
+              </View>
               <Text
                 style={{
                   color: '#fff',
-                  fontFamily: typography.GibsonSemiBold,
-                  fontSize: 55,
-                  marginTop: 5,
-                  marginLeft: 40,
-                  marginBottom: 20,
+                  fontFamily: typography.GibsonRegular,
+                  fontSize: 25,
+                  marginTop: 25,
+                  marginLeft: 15,
+                  // marginBottom: 30,
                 }}>
-                32
+                Total Pending Orders
               </Text>
-              <Truck style={{height: 30, width: 40}} />
-            </View>
-            <Text
-              style={{
-                color: '#fff',
-                fontFamily: typography.GibsonRegular,
-                fontSize: 25,
-                marginTop: 25,
-                marginLeft: 15,
-                // marginBottom: 30,
-              }}>
-              Total Pending Orders
-            </Text>
-          </ImageBackground>
+            </ImageBackground>
+          </TouchableOpacity>
           <View
             style={{
               flexDirection: 'row',
@@ -382,10 +387,9 @@ const Dashboard = ({navigation}) => {
               alignItems: 'center',
               marginVertical: 10,
               width: '100%',
-                
             }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Orders')}
+              onPress={() => navigation.navigate('Orders',{title: 'Assigned Orders'})}
               style={{width: '49%'}}>
               <ImageBackground
                 style={{padding: 15}}
@@ -414,7 +418,7 @@ const Dashboard = ({navigation}) => {
               </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => console.log('Completed orders clcked......')}
+              onPress={() => navigation.navigate('Orders', {title: ' Completed orders'})}
               style={{width: '49%'}}>
               <ImageBackground
                 style={{padding: 15}}
