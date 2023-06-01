@@ -12,7 +12,11 @@ import {
 import CommonStyles from '../utils/CommonStyles';
 import typography from '../utils/typography';
 import Header from '../components/Header';
+import {useTranslation} from '../hooks/useTranslation';
+
 const ResetPassword = ({navigation}) => {
+  const {T} = useTranslation('ResetPassword');
+
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
 
@@ -21,17 +25,17 @@ const ResetPassword = ({navigation}) => {
     const strongRegex = new RegExp(
       '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     );
-   
-     if (!strongRegex.test(email)) {
-        setEmailError(true);
-        return false;
+
+    if (!strongRegex.test(email)) {
+      setEmailError(true);
+      return false;
     } else {
       navigation.navigate('Login');
     }
   };
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
-      <Header title="Reset Password" />
+      <Header title={T('resetPassword')} />
       <View
         style={{
           flex: 1,
@@ -46,49 +50,49 @@ const ResetPassword = ({navigation}) => {
             fontSize: 16,
             color: '#707070',
           }}>
-          Enter your email address and we'll help reset your password
+          {T('message')}
         </Text>
         <View style={[styles.inputView]}>
           <TextInput
             style={[styles.TextInput, CommonStyles.HelveticaNeue16]}
-            placeholder="Email Address"
+            placeholder={T('emailAdress')}
             placeholderTextColor="#707070"
             onChangeText={email => setEmail(email)}
           />
         </View>
         {emailError && (
-        <Text
-          style={[
-            {
-              fontFamily: typography.Helvetica,
-              fontSize: 14,
-              color: 'red',
-            },
-          ]}>
-          Please Provide valid Username/Email
-        </Text>
-      )}
-        <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginVertical: 35,
-        }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#F2D847',
-            padding: 10,
-            paddingHorizontal: 35,
-            borderRadius: 10,
-          }}
-          onPress={() => {
-            signIn();
-          }}>
-          <Text style={[CommonStyles.HelveticaNeue16, {color: '#ffffff'}]}>
-            CONTINUE
+          <Text
+            style={[
+              {
+                fontFamily: typography.Helvetica,
+                fontSize: 14,
+                color: 'red',
+              },
+            ]}>
+            {T('error')}
           </Text>
-        </TouchableOpacity>
-      </View>
+        )}
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: 35,
+          }}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#F2D847',
+              padding: 10,
+              paddingHorizontal: 35,
+              borderRadius: 10,
+            }}
+            onPress={() => {
+              signIn();
+            }}>
+            <Text style={[CommonStyles.HelveticaNeue16, {color: '#ffffff'}]}>
+              {T('continue')}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

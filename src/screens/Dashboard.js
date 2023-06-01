@@ -11,8 +11,11 @@ import {
 } from 'react-native';
 import typography from '../utils/typography';
 import Truck from '../svg/truck';
+import {useTranslation} from '../hooks/useTranslation';
 
 const Dashboard = ({navigation}) => {
+  const {T} = useTranslation('Dashboard');
+
   const [completedOrders, setCompletedOrders] = useState(10);
   const [pendingOrders, setPendingOrders] = useState(12);
   const [todaysOrders, setTodaysOrders] = useState(0);
@@ -53,7 +56,7 @@ const Dashboard = ({navigation}) => {
               fontSize: 20,
               marginLeft: 20,
             }}>
-            Dashboard
+            {T('dashboard')}
           </Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
@@ -102,7 +105,7 @@ const Dashboard = ({navigation}) => {
                   fontSize: 25,
                   fontWeight: '600',
                 }}>
-                Today's Orders
+                {T('todaysOrder')}
               </Text>
             </View>
 
@@ -287,7 +290,7 @@ const Dashboard = ({navigation}) => {
                     // fontWeight: '600',
                     fontSize: 15,
                   }}>
-                  Today’s Completed Order
+                  {T('todaysCompleteOrder')}
                 </Text>
               </View>
               <Text
@@ -324,7 +327,7 @@ const Dashboard = ({navigation}) => {
                     // fontWeight: '600',
                     fontSize: 15,
                   }}>
-                  Today’s Pending Order
+                  {T('todaysPendingOrder')}
                 </Text>
               </View>
               <Text
@@ -376,7 +379,7 @@ const Dashboard = ({navigation}) => {
                   marginLeft: 15,
                   // marginBottom: 30,
                 }}>
-                Total Pending Orders
+                {T('totalPendingOrder')}
               </Text>
             </ImageBackground>
           </TouchableOpacity>
@@ -413,7 +416,7 @@ const Dashboard = ({navigation}) => {
                     fontSize: 20,
                     paddingTop: 5,
                   }}>
-                  Assigned Orders
+                  {T('assignedOrder')}
                 </Text>
               </ImageBackground>
             </TouchableOpacity>
@@ -442,7 +445,7 @@ const Dashboard = ({navigation}) => {
                     paddingTop: 5,
                     fontSize: 18,
                   }}>
-                  Completed orders
+                  {T('completedOrder')}
                 </Text>
               </ImageBackground>
             </TouchableOpacity>

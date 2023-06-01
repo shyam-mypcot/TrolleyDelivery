@@ -1,0 +1,30 @@
+{
+    "en":{
+        "Login":{
+            "login":"Login",
+            "username":"Username",
+            "password":"Password",
+            "forgotPassword":"Forgot Password ?",
+            "usernameError":"Please Provide valid Username/Email",
+            "passwordError":"Password must contain at least 8 character"
+
+        },
+        "ResetPassword":{
+            "resetPassword":"Reset Password",
+            "message":"Enter your email address and we'll help reset your password",
+            "emailAdress":"Email Address",
+            "error":"Please Provide valid Username/Email",
+            "continue":"CONTINUE"
+        },
+        "Dashboard":{
+            "dashboard":"Dashboard",
+            "todaysOrder":"Today's Order",
+            "todaysCompleteOrder":"Today's Completed Order",
+            "todaysPendingOrder":"Today's Pending Order",
+            "totalPendingOrder":"Total Pending Orders",
+            "completedOrder":"Completed Orders",
+            "assignedOrder":"Assigned Orders"
+            
+        }
+    }
+}

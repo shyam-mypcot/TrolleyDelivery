@@ -1,21 +1,51 @@
-import React, {useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
+  I18nManager,
+  Image,
   StyleSheet,
   Text,
-  View,
-  Image,
   TextInput,
-  Button,
-  Alert,
   TouchableOpacity,
+  View,
 } from 'react-native';
+import RNRestart from 'react-native-restart';
+import {useTranslation} from '../hooks/useTranslation';
+import {i18Storage} from '../local-data/i18nStorage';
 import CommonStyles from '../utils/CommonStyles';
+import {LocalizationContext} from '../utils/Localization';
 import typography from '../utils/typography';
+import LanguageIcon from '../svg/LanguageIcon';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [language, setLanguage] = useState('');
+
+  const {setLocale, locale} = useContext(LocalizationContext);
+  const {T} = useTranslation('Login');
+
+  const selectLanguage = async () => {
+    let currentLanguage = await i18Storage.retreiveAppLanguage();
+    console.log(language, 'before change', currentLanguage);
+    if (currentLanguage === 'en') {
+      console.log('is this working');
+      // setLanguage('AR')
+
+      setLocale('ar');
+      await i18Storage.storeAppLanguage('ar');
+      await I18nManager.forceRTL(true);
+      RNRestart.restart();
+    }
+    if (currentLanguage === 'ar') {
+      // setLanguage('EN')
+      setLocale('en');
+      await i18Storage.storeAppLanguage('en');
+      await I18nManager.forceRTL(false);
+      RNRestart.restart();
+    }
+    console.log(language, 'after change');
+  };
 
   const signIn = () => {
     // <= Added this function
@@ -41,95 +71,118 @@ const Login = ({navigation}) => {
       navigation.navigate('Drawer', {screen: 'Dashboard'});
     }
   };
+  useEffect(() => {
+    setLanguage(locale.toUpperCase());
+  }, [locale]);
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../assets/images/Logo.png')}
-        resizeMode="contain"
-      />
-      <View style={{alignItems: 'center', marginBottom: 20}}>
-        <Text
-          style={[
-            {
-              fontFamily: typography.HelveticaBold,
-              fontSize: 22,
-              color: 'orange',
-            },
-          ]}>
-          Login
-        </Text>
-      </View>
-      <View style={[styles.inputView]}>
-        <TextInput
-          style={[styles.TextInput, CommonStyles.HelveticaNeue16]}
-          placeholder="Username"
-          placeholderTextColor="#707070"
-          onChangeText={email => setEmail(email)}
-        />
-      </View>
-
-      {emailError && (
-        <Text
-          style={[
-            {
-              fontFamily: typography.Helvetica,
-              fontSize: 14,
-              color: 'red',
-            },
-          ]}>
-          Please Provide valid Username/Email
-        </Text>
-      )}
-      <View style={styles.inputView}>
-        <TextInput
-          style={[styles.TextInput, CommonStyles.HelveticaNeue16]}
-          placeholder="Password"
-          placeholderTextColor="#707070"
-          secureTextEntry={true}
-          onChangeText={password => setPassword(password)}
-        />
-      </View>
-      {passwordError && (
-        <Text
-          style={[
-            {
-              fontFamily: typography.Helvetica,
-              fontSize: 14,
-              color: 'red',
-            },
-          ]}>
-          Password must contain atleast 8 character
-        </Text>
-      )}
+    <View style={{flex: 1, backgroundColor: '#fff'}}>
       <TouchableOpacity
-        style={{width: '100%', alignItems: 'flex-end'}}
-        onPress={() => navigation.navigate('ResetPassword')}>
-        <Text style={[CommonStyles.HelveticaNeue16, styles.forgot_button]}>
-          Forgot Password ?
-        </Text>
-      </TouchableOpacity>
-
-      <View
         style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginVertical: 35,
-        }}>
+          margin: 15,
+          alignSelf: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+          flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+          alignItems:'center'
+        }}
+        onPress={() => selectLanguage()}>
+        <View style={{paddingBottom:2,borderBottomWidth:0.5}}>
+
+        <Text style={[{marginHorizontal:5,},CommonStyles.HelveticaNeue16]}>{language}</Text>
+        </View>
+        <LanguageIcon />
+      </TouchableOpacity>
+      <View style={styles.container}>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/Logo.png')}
+          resizeMode="contain"
+        />
+        <View style={{alignItems: 'center', marginBottom: 20}}>
+          <Text
+            style={[
+              {
+                fontFamily: typography.HelveticaBold,
+                fontSize: 22,
+                color: 'orange',
+              },
+            ]}>
+            {T('login')}
+          </Text>
+        </View>
+        <View style={[styles.inputView]}>
+          <TextInput
+            style={[styles.TextInput, CommonStyles.HelveticaNeue16]}
+            placeholder={T('username')}
+            placeholderTextColor="#707070"
+            onChangeText={email => setEmail(email)}
+          />
+        </View>
+
+        {emailError && (
+          <Text
+            style={[
+              {
+                fontFamily: typography.Helvetica,
+                fontSize: 14,
+                color: 'red',
+              },
+            ]}>
+            {T('usernameError')}
+          </Text>
+        )}
+        <View style={styles.inputView}>
+          <TextInput
+            style={[
+              styles.TextInput,
+              CommonStyles.HelveticaNeue16,
+              {alignSelf: 'flex-start'},
+            ]}
+            placeholder={T('password')}
+            placeholderTextColor="#707070"
+            secureTextEntry={true}
+            onChangeText={password => setPassword(password)}
+          />
+        </View>
+        {passwordError && (
+          <Text
+            style={[
+              {
+                fontFamily: typography.Helvetica,
+                fontSize: 14,
+                color: 'red',
+              },
+            ]}>
+            {T('passwordError')}
+          </Text>
+        )}
         <TouchableOpacity
-          style={{
-            backgroundColor: '#F2D847',
-            padding: 10,
-            paddingHorizontal: 35,
-            borderRadius: 10,
-          }}
-          onPress={() => {
-            signIn();
-          }}>
-          <Text style={[CommonStyles.HelveticaNeue16, {color: '#ffffff'}]}>
-            LOGIN
+          style={{width: '100%', alignItems: 'flex-end'}}
+          onPress={() => navigation.navigate('ResetPassword')}>
+          <Text style={[CommonStyles.HelveticaNeue16, styles.forgot_button]}>
+            {T('forgotPassword')}
           </Text>
         </TouchableOpacity>
+
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: 35,
+          }}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#F2D847',
+              padding: 10,
+              paddingHorizontal: 35,
+              borderRadius: 10,
+            }}
+            onPress={() => {
+              signIn();
+            }}>
+            <Text style={[CommonStyles.HelveticaNeue16, {color: '#ffffff'}]}>
+              {T('login')}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

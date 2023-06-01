@@ -1,0 +1,29 @@
+{
+    "ar":{
+        "Login":{
+            "login":"تسجيل الدخول",
+            "username":"اسم المستخدم",
+            "password":"كلمة المرور",
+            "forgotPassword":"هل نسيت كلمة السر ؟",
+            "usernameError":"الرجاء إدخال اسم مستخدم / بريد إلكتروني صالح",
+            "passwordError":"يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"
+        },
+        "ResetPassword":{
+            "resetPassword":"إعادة تعيين كلمة المرور",
+            "message":"أدخل عنوان بريدك الإلكتروني وسنساعدك في إعادة تعيين كلمة المرور الخاصة بك",
+            "emailAdress":"عنوان البريد الإلكتروني",
+            "error":"الرجاء إدخال اسم مستخدم / بريد إلكتروني صالح",
+            "continue":"يكمل"
+        },
+        "Dashboard":{
+            "dashboard":"لوحة القيادة",
+            "todaysOrder":"طلب اليوم",
+            "todaysCompleteOrder":"طلب مكتمل اليوم",
+            "todaysPendingOrder":"أمر معلق اليوم",
+            "totalPendingOrder":"إجمالي الطلبات المعلقة",
+            "completedOrder":"الطلبات المكتملة",
+            "assignedOrder":"الأوامر المعينة"
+            
+        }
+    }
+}
