@@ -27,7 +27,12 @@ import {
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import {Dropdown} from 'react-native-element-dropdown';
+import {useTranslation} from '../hooks/useTranslation';
+
 const Orders = ({navigation, route}) => {
+  const {T} = useTranslation('FilterModal');
+  const {T: DD} = useTranslation('DummyData');
+
   const [active, setActive] = useState(false);
   const currentDate = new Date();
   const [date, setDate] = useState(moment(currentDate).format('YYYY-MM-DD'));
@@ -41,15 +46,15 @@ const Orders = ({navigation, route}) => {
   const [PaymentStatusdata, setPaymentStatusData] = useState([
     {
       key: 'Pending ',
-      text: 'Pending ',
+      text: T('pending'),
     },
     {
       key: 'Paid',
-      text: 'Paid',
+      text: T('paid'),
     },
     {
       key: 'All',
-      text: 'All',
+      text: T('all'),
     },
   ]);
   const [PaymentStatus, setPaymentStatus] = useState(null);
@@ -58,15 +63,15 @@ const Orders = ({navigation, route}) => {
   const [CustomerTypeData, setCustomerTypeData] = useState([
     {
       key: 'VIP   ',
-      text: 'VIP   ',
+      text: T('vip'),
     },
     {
       key: 'Normal',
-      text: 'Normal',
+      text: T('normal'),
     },
     {
       key: 'All',
-      text: 'All',
+      text: T('all'),
     },
   ]);
   const onChange = (event, selectedDate) => {
@@ -86,7 +91,6 @@ const Orders = ({navigation, route}) => {
     showMode('date');
   };
   const SetCustomerType = statusValue => {
-    console.log('nbbl uug uguu g', statusValue);
     setCustomerType(statusValue);
   };
   const SetPaymentStatus = statusValue => {
@@ -95,7 +99,7 @@ const Orders = ({navigation, route}) => {
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
       <Header
-        title={route.params.title ? route.params.title : 'Assigned Orders'}
+        title={route.params.title}
       />
       <View style={{padding: 10, flex: 1}}>
         <View
@@ -106,7 +110,7 @@ const Orders = ({navigation, route}) => {
             alignItems: 'center',
           }}>
           <Text style={CommonStyles.HelveticaNeue16Green}>
-            Total Orders : {data.length}
+            {T('totalOrder')} : {data.length}
           </Text>
           <TouchableOpacity onPress={() => setActive(!active)}>
             <View
@@ -117,7 +121,7 @@ const Orders = ({navigation, route}) => {
               }}>
               <Text
                 style={[CommonStyles.HelveticaNeue16Green, {marginRight: 10}]}>
-                Filter
+                {T('filter')}
               </Text>
 
               {active ? (
@@ -134,6 +138,7 @@ const Orders = ({navigation, route}) => {
           contentContainerStyle={{flexGrow: 1, paddingBottom: 10}}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => {
+           
             return (
               <TouchableOpacity
                 style={{
@@ -160,14 +165,14 @@ const Orders = ({navigation, route}) => {
                 <View style={{}}>
                   <View style={[CommonStyles.rowstyle]}>
                     <Text style={CommonStyles.HelveticaNeue16Green}>
-                      Order No.:
+                      {DD('orderNo')} .:
                     </Text>
                     <Text
                       style={[
                         CommonStyles.HelveticaNeue16Green,
                         {color: '#707070'},
                       ]}>
-                      Total :
+                      {DD('total')} :
                     </Text>
                   </View>
                   <View style={[CommonStyles.rowstyle]}>
@@ -183,7 +188,7 @@ const Orders = ({navigation, route}) => {
                         CommonStyles.HelveticaNeue16Green,
                         {color: '#F2C506'},
                       ]}>
-                      {item.Total}
+                     { `${DD(item.Total)}`}
                     </Text>
                   </View>
                   <View
@@ -193,7 +198,7 @@ const Orders = ({navigation, route}) => {
                       marginTop: 4,
                     }}>
                     <Text style={[CommonStyles.HelveticaNeue13]}>
-                      Order Date & Time :
+                      {DD('orderDate&Time')} :
                     </Text>
                     <Text
                       style={[CommonStyles.HelveticaNeue13, {marginLeft: 10}]}>
@@ -207,22 +212,22 @@ const Orders = ({navigation, route}) => {
                         CommonStyles.HelveticaNeue16Green,
                         {color: '#707070'},
                       ]}>
-                      Delivery :
+                      {DD('delivery')} :
                     </Text>
                   </View>
                   <View style={[CommonStyles.rowstyle]}>
                     <View style={{alignItems: 'center'}}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                        Payment Mode :
+                        {DD('paymentMode')} :
                       </Text>
                       <Text
                         style={[CommonStyles.HelveticaNeue16, {marginTop: 2}]}>
-                        {item.PaymentMode}
+                        { `${DD(item.PaymentMode)}`}
                       </Text>
                     </View>
                     <View style={{alignItems: 'center'}}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                        Payment Status :
+                       {DD('paymentStatus')} :
                       </Text>
                       <Text
                         style={[
@@ -235,7 +240,7 @@ const Orders = ({navigation, route}) => {
                             marginTop: 2,
                           },
                         ]}>
-                        {item.PaymentStatus}
+                        { `${DD(item.PaymentStatus)}`}
                       </Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
@@ -251,7 +256,7 @@ const Orders = ({navigation, route}) => {
                           CommonStyles.HelveticaNeue13,
                           {color: '#723D16', marginTop: 2},
                         ]}>
-                        {item.DeliveryTimeSlot}
+                        { `${DD(item.DeliveryTimeSlot)}`}
                       </Text>
                     </View>
                   </View>
@@ -274,7 +279,7 @@ const Orders = ({navigation, route}) => {
             paddingVertical: 10,
           }}>
           <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
-            Payment Status :
+            {T('paymentStatus')}
           </Text>
           <View
             style={{width: '80%', marginVertical: 10, marginHorizontal: 15}}>
@@ -284,7 +289,7 @@ const Orders = ({navigation, route}) => {
             />
           </View>
           <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
-            Customer Type :
+            {T('cutomerType')}
           </Text>
           <View
             style={{width: '80%', marginVertical: 10, marginHorizontal: 15}}>
@@ -306,18 +311,18 @@ const Orders = ({navigation, route}) => {
                 }}>
                 <Text
                   style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
-                  Delivery Date
+                  {T('deliveryDate')}
                 </Text>
                 <Text
                   style={[
                     CommonStyles.HelveticaNeue13,
-                    {color: '#6F776B', marginTop: 10},
+                    {color: '#6F776B', marginTop: 10, textAlign: 'left'},
                   ]}>
                   {date}
                 </Text>
               </View>
               <View style={{justifyContent: 'center'}}>
-                <Calender style={{height:2,width:2}}/>
+                <Calender style={{height: 2, width: 2}} />
               </View>
             </View>
           </TouchableOpacity>
@@ -328,7 +333,7 @@ const Orders = ({navigation, route}) => {
                 width: '90%',
               }}>
               <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
-                Select Time Slot
+                {T('selectTimeSlot')}
               </Text>
 
               <Dropdown
@@ -341,7 +346,7 @@ const Orders = ({navigation, route}) => {
                 maxHeight={90}
                 labelField="label"
                 valueField="value"
-                placeholder={'Select item'}
+                placeholder={T('selectItem')}
                 value={value}
                 onChange={item => {
                   setValue(item.value);
@@ -370,7 +375,7 @@ const Orders = ({navigation, route}) => {
                 console.log(PaymentStatus, CustomerType);
               }}>
               <Text style={[CommonStyles.HelveticaNeue20, {color: '#ffffff'}]}>
-                Apply
+                {T('apply')}
               </Text>
             </TouchableOpacity>
           </View>

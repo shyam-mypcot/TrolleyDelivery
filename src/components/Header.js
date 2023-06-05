@@ -4,13 +4,13 @@ import typography from '../utils/typography';
 import {useNavigation} from '@react-navigation/native';
 import LanguageIcon from '../svg/LanguageIcon';
 import CommonStyles from '../utils/CommonStyles';
-import global from './global';
 import RNRestart from 'react-native-restart';
 import {i18Storage} from '../local-data/i18nStorage';
 import {LocalizationContext} from '../utils/Localization';
 
 const Header = ({title}) => {
   const {setLocale, locale} = useContext(LocalizationContext);
+  const [language, setLanguage] = useState('');
 
   const navigation = useNavigation();
   const selectLanguage = async () => {
@@ -32,6 +32,9 @@ const Header = ({title}) => {
       RNRestart.restart();
     }
   };
+  useEffect(() => {
+    setLanguage(locale.toUpperCase());
+  }, [locale]);
   return (
     <View
       style={{
@@ -64,7 +67,9 @@ const Header = ({title}) => {
           }}>
           {title}
         </Text>
-        {/* <TouchableOpacity
+        </View>
+{/*           
+        <TouchableOpacity
           style={{
             margin: 15,
             flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
@@ -73,12 +78,11 @@ const Header = ({title}) => {
           onPress={() => selectLanguage()}>
           <View style={{paddingBottom: 2, borderBottomWidth: 0.5}}>
             <Text style={[{marginHorizontal: 5}, CommonStyles.HelveticaNeue16]}>
-              {global.language}
+              {language}
             </Text>
           </View>
           <LanguageIcon />
         </TouchableOpacity> */}
-      </View>
     </View>
   );
 };

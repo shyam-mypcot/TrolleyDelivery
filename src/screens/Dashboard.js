@@ -344,7 +344,7 @@ const Dashboard = ({navigation}) => {
           </View>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('Orders', {title: 'Pending Orders'})
+              navigation.navigate('Orders', {title: T('pendingOrder')})
             }>
             <ImageBackground
               style={{marginTop: 10, padding: 10}}
@@ -392,7 +392,7 @@ const Dashboard = ({navigation}) => {
               width: '100%',
             }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Orders',{title: 'Assigned Orders'})}
+              onPress={() => navigation.navigate('Orders',{title: T('assignedOrder')})}
               style={{width: '49%'}}>
               <ImageBackground
                 style={{padding: 15}}
@@ -421,7 +421,7 @@ const Dashboard = ({navigation}) => {
               </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Orders', {title: ' Completed orders'})}
+              onPress={() => navigation.navigate('Orders', {title: T('completedOrder')})}
               style={{width: '49%'}}>
               <ImageBackground
                 style={{padding: 15}}

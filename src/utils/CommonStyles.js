@@ -10,13 +10,14 @@ export default StyleSheet.create({
     fontSize: 13,
     color: '#707070',
     fontFamily: typography.HelveticaNeue,
+
   },
   HelveticaNeue16: {
     fontSize: 16,
     color: '#707070',
     fontFamily: typography.HelveticaNeue,
     // alignSelf:'flex-start',
-    textAlign:I18nManager.isRTL?"right":'left'
+    // textAlign:I18nManager.isRTL?"right":'left'
   },
   HelveticaNeue20: {
     fontSize: 20,

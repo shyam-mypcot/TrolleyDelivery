@@ -15,12 +15,17 @@ import FilterInactive from '../svg/FilterInactive';
 import data from '../components/common';
 import SDGWhite from '../svg/SDGWhite';
 import SDGOrange from '../svg/SDGOrange';
+import {useTranslation} from '../hooks/useTranslation';
+
 const Revenue = () => {
+  const {T} = useTranslation('MyRevenue');
+  const {T: DD} = useTranslation('DummyData');
+
   const [active, setActive] = useState(false);
   const [today, setToday] = useState(false);
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
-      <Header title="My Revenue" />
+      <Header title={T('myRevenue')} />
       <View style={{padding: 10, flex: 1}}>
         <View
           style={{
@@ -34,7 +39,7 @@ const Revenue = () => {
               CommonStyles.boxShadow,
               {
                 backgroundColor: today ? '#E3C133' : '#ffffff',
-                padding: 10,
+                padding: 10,width:'40%',
                 alignItems: 'center',
               },
             ]}>
@@ -55,7 +60,7 @@ const Revenue = () => {
                 CommonStyles.HelveticaNeue16Green,
                 {color: today ? '#ffffff' : '#6F776B'},
               ]}>
-              Today's Revenue
+               {T('todaysRevenue')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -64,7 +69,7 @@ const Revenue = () => {
               CommonStyles.boxShadow,
               {
                 backgroundColor: !today ? '#E3C133' : '#ffffff',
-                padding: 10,
+                padding: 10,width:'40%',
                 paddingHorizontal: 20,
                 alignItems: 'center',
               },
@@ -86,7 +91,7 @@ const Revenue = () => {
                 CommonStyles.HelveticaNeue16Green,
                 {color: !today ? '#ffffff' : '#6F776B'},
               ]}>
-              Total Revenue
+              {T('totalRevenue')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -98,7 +103,7 @@ const Revenue = () => {
             alignItems: 'center',
           }}>
           <Text style={CommonStyles.HelveticaNeue16Green}>
-            Revenue : {today ? 1400 : 80000} SDG
+            {T('revenue')} : {today ? 1400 : 80000} {T('sdg')}
           </Text>
           <View
             style={{
@@ -106,7 +111,7 @@ const Revenue = () => {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text style={CommonStyles.HelveticaNeue16Green}>Filter</Text>
+            <Text style={CommonStyles.HelveticaNeue16Green}>{T('filter')}</Text>
 
             <TouchableOpacity
               style={{marginLeft: 10}}
@@ -158,14 +163,14 @@ const Revenue = () => {
                         CommonStyles.HelveticaNeue16,
                         {color: '#6F776B'},
                       ]}>
-                      Order No.:
+                      {DD('orderNo')}.:
                     </Text>
                     <Text
                       style={[
                         CommonStyles.HelveticaNeue16,
                         {color: '#707070'},
                       ]}>
-                      Delivery Charge :
+                      {DD('orderNo')} :
                     </Text>
                   </View>
                   <View style={CommonStyles.rowstyle}>
@@ -181,7 +186,8 @@ const Revenue = () => {
                         CommonStyles.HelveticaNeue16,
                         {color: '#F2C506'},
                       ]}>
-                      {item.DeliveryCharge}
+                                     { `${DD(item.DeliveryCharge)}`}
+
                     </Text>
                   </View>
                   <View
@@ -197,7 +203,7 @@ const Revenue = () => {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                        Order Date & Time
+                      {DD('orderDate&Time')} 
                       </Text>
                       <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
                     </View>
@@ -219,7 +225,7 @@ const Revenue = () => {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                        Delivery
+                      {DD('delivery')} 
                       </Text>
                       <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
                     </View>
@@ -228,7 +234,8 @@ const Revenue = () => {
                         CommonStyles.HelveticaNeue13,
                         {marginLeft: 10, color: '#723D16'},
                       ]}>
-                      {item.DeliveryDate} {item.DeliveryTimeSlot}
+                      {item.DeliveryDate} { `${DD(item.DeliveryTimeSlot)}`}
+
                     </Text>
                   </View>
                 </View>

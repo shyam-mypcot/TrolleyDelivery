@@ -81,12 +81,13 @@ const Login = ({navigation}) => {
           margin: 15,
           alignSelf: I18nManager.isRTL ? 'flex-start' : 'flex-end',
           flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
-          alignItems:'center'
+          alignItems: 'center',
         }}
         onPress={() => selectLanguage()}>
-        <View style={{paddingBottom:2,borderBottomWidth:0.5}}>
-
-        <Text style={[{marginHorizontal:5,},CommonStyles.HelveticaNeue16]}>{language}</Text>
+        <View style={{paddingBottom: 2, borderBottomWidth: 0.5}}>
+          <Text style={[{marginHorizontal: 5}, CommonStyles.HelveticaNeue16]}>
+            {language}
+          </Text>
         </View>
         <LanguageIcon />
       </TouchableOpacity>
@@ -217,6 +218,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // padding: 10,
     // marginLeft: 20,
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
   forgot_button: {
     height: 30,

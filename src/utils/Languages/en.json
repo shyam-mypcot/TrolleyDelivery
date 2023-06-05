@@ -1,5 +1,6 @@
 {
     "en":{
+        
         "Login":{
             "login":"Login",
             "username":"Username",
@@ -23,8 +24,89 @@
             "todaysPendingOrder":"Today's Pending Order",
             "totalPendingOrder":"Total Pending Orders",
             "completedOrder":"Completed Orders",
-            "assignedOrder":"Assigned Orders"
-            
+            "assignedOrder":"Assigned Orders",
+            "pendingOrder":"Pending Orders",
+            "myRevenue":"My Revenue",
+            "logout":"Logout",
+            "version":"Version",
+            "logoutMessage":"Are you sure you want to logout",
+            "yes":"YES",
+            "no":"NO"
+        },
+        "Profile":{
+            "myProfile":"My Profile",
+            "message":"Total Completed Orders till date",
+            "name":"NAME",
+            "email":"EMAIL",
+            "phoneNumber":"PHONE NUMBER",
+            "address":"ADDRESS",
+            "city":"CITY",
+            "area":"AREA",
+            "shihab":"Shihab 5",
+            "trolleyMail":"s6@trolley-sd.com",
+            "omdurman":"Omdurman",
+            "aldohaAlArda":"Aldoha, Al Arda"
+        },
+        "FilterModal":{
+            "filter":"Filter",
+            "paid":"Paid",
+            "pending":"Pending",
+            "all":"All",
+            "normal":"Normal",
+            "vip":"VIP",
+            "deliveryDate":"Delivery Date",
+            "selectTimeSlot":"Select Time Slot",
+            "selectItem":"Select Item",
+            "apply":"Apply",
+            "paymentStatus":"Payment Status :",
+            "cutomerType":"Customer Type :",
+            "totalOrder":"Total Orders"
+        },
+        "DummyData":{
+            "TES0019052020548":"TES0019052020548",
+            "SDG 2330":"SDG 2330.12",
+            "SDG 149":"SDG 149",
+            "01:00 PM - 03:00 PM":"01:00 PM - 03:00 PM",
+            "Raheeg":"Raheeg",
+            "Bhari":"Bhari",
+            "Kafouri":"Kafouri",
+            "PayInCard":"PayInCard",
+            "Paid":"Paid",
+            "Store A":"Store A",
+            "Sudan, Khartoum":"Sudan, Khartoum",
+            "Pending":"Pending",
+            "orderNo":"Order No",
+            "total":"Total",
+            "orderDate&Time":"Order Date & Time",
+            "delivery":"Delivery",
+            "paymentMode":"Payment Mode",
+            "paymentStatus":"Payment Status",
+            "deliveryDate":"Delivery Date",
+            "deliveryTimeSlot":"Delivery TimeSlot",
+            "customerInformation":"Customer Information",
+            "customerName":"Customer Name",
+            "mobileNumber":"Mobile Number",
+            "address":"Address",
+            "city":"City",
+            "area":"Area",
+            "location":"Location",
+            "payment":"Payment",
+            "storeInformation":"Store Information",
+            "storeName":"Store Name",
+            "storeNumber":"Store Number",
+            "orderDetails":"Orders Details",
+            "invoice":"Invoice",
+            "verify":"Verify",
+            "deliveryCharge":"Delivery Charge"
+           
+        },
+        "MyRevenue":{
+            "myRevenue":"My Revenue",
+           "revenue" :"Revenue",
+           "todaysRevenue":"Today's Revenue",
+           "totalRevenue":"Total Revenue",
+           "sdg":"SDG",
+           "filter":"Filter"
         }
     }
 }
