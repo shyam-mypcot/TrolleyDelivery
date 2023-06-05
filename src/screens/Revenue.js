@@ -32,6 +32,7 @@ const Revenue = () => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-evenly',
+            paddingVertical:10
           }}>
           <TouchableOpacity
             onPress={() => setToday(!today)}

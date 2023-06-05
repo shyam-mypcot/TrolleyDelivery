@@ -119,6 +119,8 @@ const Profile = ({navigation}) => {
                   width: 20,
                   height: 20,
                   backgroundColor: '#E3C133',
+                  borderRadius:5
+
                 }}></View>
               <View style={{width: '80%'}}>
                 <Text

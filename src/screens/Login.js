@@ -15,6 +15,7 @@ import CommonStyles from '../utils/CommonStyles';
 import {LocalizationContext} from '../utils/Localization';
 import typography from '../utils/typography';
 import LanguageIcon from '../svg/LanguageIcon';
+import { UserData } from '../local-data/user-data/UserData';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,20 +35,20 @@ const Login = ({navigation}) => {
 
       setLocale('ar');
       await i18Storage.storeAppLanguage('ar');
-      await I18nManager.forceRTL(true);
+      I18nManager.forceRTL(true);
       RNRestart.restart();
     }
     if (currentLanguage === 'ar') {
       // setLanguage('EN')
       setLocale('en');
       await i18Storage.storeAppLanguage('en');
-      await I18nManager.forceRTL(false);
+      I18nManager.forceRTL(false);
       RNRestart.restart();
     }
     console.log(language, 'after change');
   };
 
-  const signIn = () => {
+  const signIn = async() => {
     // <= Added this function
     const strongRegex = new RegExp(
       '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
@@ -68,6 +69,7 @@ const Login = ({navigation}) => {
     } else {
       setEmailError(false);
       setPasswordError(false);
+      // await UserData.storeUserData('login',true)
       navigation.navigate('Drawer', {screen: 'Dashboard'});
     }
   };
@@ -216,6 +218,8 @@ const styles = StyleSheet.create({
   TextInput: {
     height: 50,
     flex: 1,
+    // writingDirection:'rtl',
+
     // padding: 10,
     // marginLeft: 20,
     textAlign: I18nManager.isRTL ? 'right' : 'left',

@@ -11,6 +11,7 @@ import {
 import CommonStyles from '../utils/CommonStyles';
 import ForwardArrow from '../svg/ForwardArrow';
 import {useTranslation} from '../hooks/useTranslation';
+import { UserData } from '../local-data/user-data/UserData';
 
 const DrawerComp = ({navigation}) => {
   const {T} = useTranslation('Dashboard');
@@ -58,7 +59,9 @@ const DrawerComp = ({navigation}) => {
         {text: T('no'), onPress: () => {}},
         {
           text: T('yes'),
-          onPress: () => navigation.replace('Login'),
+          onPress: () =>{ 
+            UserData.clearAsyncUserData('login')
+            navigation.replace('Login')}
         },
       ],
     );

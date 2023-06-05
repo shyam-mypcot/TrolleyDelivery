@@ -2,39 +2,47 @@ import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, Image, I18nManager, TouchableOpacity} from 'react-native';
 import typography from '../utils/typography';
 import {useNavigation} from '@react-navigation/native';
-import LanguageIcon from '../svg/LanguageIcon';
+import LangIcon from '../svg/LangIcon';
 import CommonStyles from '../utils/CommonStyles';
 import RNRestart from 'react-native-restart';
 import {i18Storage} from '../local-data/i18nStorage';
 import {LocalizationContext} from '../utils/Localization';
+import {useTranslation} from '../hooks/useTranslation';
 
 const Header = ({title}) => {
+  const {T} = useTranslation('Dashboard');
   const {setLocale, locale} = useContext(LocalizationContext);
   const [language, setLanguage] = useState('');
 
   const navigation = useNavigation();
+  console.log(
+    'navigation.getState().........',
+    navigation.getState().routes.at(-1).name,
+  );
   const selectLanguage = async () => {
     let currentLanguage = await i18Storage.retreiveAppLanguage();
+    await i18Storage.storeRoutes(navigation.getState().routes.at(-1).name);
     if (currentLanguage === 'en') {
       console.log('is this working');
       // setLanguage('AR')
-
       setLocale('ar');
       await i18Storage.storeAppLanguage('ar');
-      await I18nManager.forceRTL(true);
+      I18nManager.forceRTL(true);
       RNRestart.restart();
     }
     if (currentLanguage === 'ar') {
       // setLanguage('EN')
       setLocale('en');
       await i18Storage.storeAppLanguage('en');
-      await I18nManager.forceRTL(false);
+      I18nManager.forceRTL(false);
       RNRestart.restart();
     }
   };
   useEffect(() => {
     setLanguage(locale.toUpperCase());
   }, [locale]);
+  const openDrawer = () => navigation.openDrawer();
+
   return (
     <View
       style={{
@@ -44,20 +52,32 @@ const Header = ({title}) => {
         alignItems: 'center',
       }}>
       <TouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={() =>
+          title == T('dashboard') ? openDrawer() : navigation.goBack()
+        }
         hitSlop={5}
         style={{width: '10%', justifyContent: 'center'}}>
         <Image
           style={{
-            width: 10,
+            width: title == T('dashboard') ? 20 : 10,
             height: 20,
             transform: [{scaleX: I18nManager.isRTL ? -1 : 1}],
           }}
-          source={require('../assets/images/back.png')}
+          source={
+            title == T('dashboard')
+              ? require('../assets/images/hamburger.png')
+              : require('../assets/images/back.png')
+          }
         />
       </TouchableOpacity>
+
       <View
-        style={{width: '90%', alignItems: 'center', justifyContent: 'center',flexDirection:'row'}}>
+        style={{
+          width: title == T('dashboard') ? '60%' : '90%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'row',
+        }}>
         <Text
           style={{
             color: '#fff',
@@ -67,22 +87,40 @@ const Header = ({title}) => {
           }}>
           {title}
         </Text>
-        </View>
-{/*           
-        <TouchableOpacity
-          style={{
-            margin: 15,
-            flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
-            alignItems: 'center',
-          }}
-          onPress={() => selectLanguage()}>
-          <View style={{paddingBottom: 2, borderBottomWidth: 0.5}}>
-            <Text style={[{marginHorizontal: 5}, CommonStyles.HelveticaNeue16]}>
-              {language}
-            </Text>
-          </View>
-          <LanguageIcon />
-        </TouchableOpacity> */}
+      </View>
+      {title == T('dashboard') && (
+        <>
+          <TouchableOpacity
+            style={{
+              marginHorizontal: 15,
+              flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+              alignItems: 'center',
+            }}
+            onPress={() => selectLanguage()}>
+            <Image />
+            <View style={{paddingBottom: 2, borderBottomWidth: 0.5}}>
+              <Text
+                style={[
+                  CommonStyles.HelveticaNeue16,
+                  {marginHorizontal: 5, color: '#fff'},
+                ]}>
+                {language}
+              </Text>
+            </View>
+            <LangIcon />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image
+              style={{
+                width: 25,
+                height: 25,
+              }}
+              source={require('../assets/images/Profile_white.png')}
+            />
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };

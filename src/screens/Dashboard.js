@@ -12,6 +12,7 @@ import {
 import typography from '../utils/typography';
 import Truck from '../svg/truck';
 import {useTranslation} from '../hooks/useTranslation';
+import Header from '../components/Header';
 
 const Dashboard = ({navigation}) => {
   const {T} = useTranslation('Dashboard');
@@ -19,7 +20,9 @@ const Dashboard = ({navigation}) => {
   const [completedOrders, setCompletedOrders] = useState(10);
   const [pendingOrders, setPendingOrders] = useState(12);
   const [todaysOrders, setTodaysOrders] = useState(0);
-
+  function eArabic(x) {
+    return x.toLocaleString('ar-EG');
+  }
   useEffect(() => {
     let TotalOrders = completedOrders + pendingOrders;
     setTodaysOrders(completedOrders + pendingOrders);
@@ -28,11 +31,10 @@ const Dashboard = ({navigation}) => {
       (completedOrders / TotalOrders) * 100,
     );
   }, []);
-  const openDrawer = () => navigation.openDrawer();
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View
+      {/* <View
         style={{
           backgroundColor: '#E3C133',
           padding: 20,
@@ -68,7 +70,8 @@ const Dashboard = ({navigation}) => {
             source={require('../assets/images/Profile_white.png')}
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
+      <Header title={T('dashboard')} />
       <ScrollView
         style={{flex: 1}}
         contentContainerStyle={{flexGrow: 1}}
@@ -280,6 +283,7 @@ const Dashboard = ({navigation}) => {
                   width: 20,
                   height: 20,
                   backgroundColor: '#E3C133',
+                  borderRadius:5
                 }}></View>
               <View style={{width: '80%'}}>
                 <Text
@@ -317,6 +321,8 @@ const Dashboard = ({navigation}) => {
                   width: 20,
                   height: 20,
                   backgroundColor: '#5E758D',
+                  borderRadius:5
+
                 }}></View>
               <View style={{width: '80%'}}>
                 <Text
@@ -347,7 +353,7 @@ const Dashboard = ({navigation}) => {
               navigation.navigate('Orders', {title: T('pendingOrder')})
             }>
             <ImageBackground
-              style={{marginTop: 10, padding: 10}}
+              style={{marginTop: 10, padding: 10,marginTop:15}}
               imageStyle={{borderRadius: 15}}
               resizeMode="cover"
               source={require('../assets/images/yellowCard.png')}>
@@ -388,11 +394,13 @@ const Dashboard = ({navigation}) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginVertical: 10,
+              marginVertical: 15,
               width: '100%',
             }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Orders',{title: T('assignedOrder')})}
+              onPress={() =>
+                navigation.navigate('Orders', {title: T('assignedOrder')})
+              }
               style={{width: '49%'}}>
               <ImageBackground
                 style={{padding: 15}}
@@ -421,7 +429,9 @@ const Dashboard = ({navigation}) => {
               </ImageBackground>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Orders', {title: T('completedOrder')})}
+              onPress={() =>
+                navigation.navigate('Orders', {title: T('completedOrder')})
+              }
               style={{width: '49%'}}>
               <ImageBackground
                 style={{padding: 15}}
