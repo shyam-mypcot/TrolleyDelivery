@@ -7,6 +7,8 @@ import {
   StyleSheet,
   ScrollView,
   I18nManager,
+  Platform,
+  Linking,
 } from 'react-native';
 import Header from '../components/Header';
 import CommonStyles from '../utils/CommonStyles';
@@ -16,7 +18,20 @@ import {useTranslation} from '../hooks/useTranslation';
 
 const OrdersDetails = ({navigation, route}) => {
   const {T} = useTranslation('DummyData');
+  const openMap = () => {
+    const scheme = Platform.select({
+      ios: 'maps://0,0?q=',
+      android: 'geo:0,0?q=',
+    });
+    const latLng = `${selectedData.Lattitude},${selectedData.Longitude}`;
+    const label = 'Custom Label';
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLng}`,
+      android: `${scheme}${latLng}(${label})`,
+    });
 
+    Linking.openURL(url);
+  };
   const [selectedData, setSelectedData] = useState(route.params.item);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
@@ -272,11 +287,15 @@ const OrdersDetails = ({navigation, route}) => {
                 </View>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Text></Text>
+                  <TouchableOpacity onPress={()=>{Linking.openURL(`tel:${selectedData.MobileNumber}`)}}>
                   <CallOrangebg style={{height: 60, marginTop: 2, width: 60}} />
+                  </TouchableOpacity>
                   <Text></Text>
                   <Text></Text>
                   <Text></Text>
+                  <TouchableOpacity onPress={()=>openMap()}>
                   <MapsWhitebg style={{height: 60, width: 60}} />
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -442,7 +461,7 @@ const OrdersDetails = ({navigation, route}) => {
               </View>
             </View>
             <View style={{padding: 10}}>
-            <View style={[CommonStyles.rowstyle]}>
+              <View style={[CommonStyles.rowstyle]}>
                 <View
                   style={{
                     flexDirection: 'row',

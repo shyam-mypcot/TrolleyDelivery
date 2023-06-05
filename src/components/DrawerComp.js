@@ -43,6 +43,10 @@ const DrawerComp = ({navigation}) => {
       </DrawerItem>
       
       <DrawerItem onPress={() => navigateTo('Revenue')}>{T('myRevenue')}</DrawerItem>
+      <DrawerItem onPress={() => navigateTo('Profile')}>{T('myProfile')}</DrawerItem>
+      <DrawerItem onPress={() => navigateTo('Orders',{title: T('completedOrder')})}>
+      {T('completedOrder')}
+      </DrawerItem>
       <DrawerItem
         onPress={() => {
           navigation.closeDrawer();

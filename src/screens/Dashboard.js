@@ -85,7 +85,7 @@ const Dashboard = ({navigation}) => {
               paddingHorizontal: 20,
               paddingVertical: 15,
               backgroundColor: '#fff',
-              borderRadius: 10,
+              borderRadius: 20,
               width: '100%',
               shadowColor: '#000',
               shadowOffset: {

@@ -6,7 +6,7 @@
             "username":"Username",
             "password":"Password",
             "forgotPassword":"Forgot Password ?",
-            "usernameError":"Please Provide valid Username/Email",
+            "usernameError":"Please Provide valid Email",
             "passwordError":"Password must contain at least 8 character"
 
         },
@@ -14,7 +14,7 @@
             "resetPassword":"Reset Password",
             "message":"Enter your email address and we'll help reset your password",
             "emailAdress":"Email Address",
-            "error":"Please Provide valid Username/Email",
+            "error":"Please Provide valid Email",
             "continue":"CONTINUE"
         },
         "Dashboard":{
@@ -31,7 +31,9 @@
             "version":"Version",
             "logoutMessage":"Are you sure you want to logout",
             "yes":"YES",
-            "no":"NO"
+            "no":"NO",
+            "myProfile":"My Profile"
+
         },
         "Profile":{
             "myProfile":"My Profile",

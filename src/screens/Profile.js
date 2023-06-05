@@ -134,9 +134,11 @@ const Profile = ({navigation}) => {
               </View>
             </View>
           </View>
+          </View>
+
           <ScrollView
             horizontal
-            contentContainerStyle={{width: '100%', padding: 10}}>
+            contentContainerStyle={{width: '100%', paddingHorizontal: 20,paddingBottom:15}}>
             <View
               style={{
                 paddingHorizontal: 20,
@@ -203,7 +205,6 @@ const Profile = ({navigation}) => {
               />
             </View>
           </ScrollView>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
