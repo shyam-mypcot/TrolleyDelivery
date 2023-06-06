@@ -140,7 +140,7 @@ const Profile = ({navigation}) => {
 
           <ScrollView
             horizontal
-            contentContainerStyle={{width: '100%', paddingHorizontal: 20,paddingBottom:15}}>
+            contentContainerStyle={{width: '100%', paddingHorizontal: 20,paddingBottom:45}}>
             <View
               style={{
                 paddingHorizontal: 20,
@@ -156,7 +156,7 @@ const Profile = ({navigation}) => {
                 shadowOpacity: 0.23,
                 shadowRadius: 2.62,
                 elevation: 4,
-                marginTop: 20,
+                marginTop: 20
               }}>
               <FlatList
                 data={data}

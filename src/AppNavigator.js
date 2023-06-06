@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect,useContext, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -14,23 +14,38 @@ import ResetPassword from './screens/ResetPassword';
 import {i18Storage} from './local-data/i18nStorage';
 import {navigationRef} from './ref/navigationRef';
 import {UserData} from './local-data/user-data/UserData';
+import AppLoader from './components/AppLoader';
+import {LocalizationContext} from './utils/Localization';
 
 // import NewMessage from './screens/NewMessage'
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const DrawerStack = () => {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerComp {...props} />}>
+    <Drawer.Navigator screenOptions={{unmountOnBlur:true}} drawerContent={props => <DrawerComp {...props} />}>
       <Drawer.Screen name="Dashboard" options={{headerShown: false}}>
         {props => <Dashboard {...props} />}
+      </Drawer.Screen>
+      <Drawer.Screen name="Profile" options={{headerShown: false}}>
+        {props => <Profile {...props} />}
+      </Drawer.Screen>
+      <Drawer.Screen name="Orders" options={{headerShown: false}}>
+        {props => <Orders {...props} />}
+      </Drawer.Screen>
+      <Drawer.Screen name="OrdersDetails" options={{headerShown: false}}>
+        {props => <OrdersDetails {...props} />}
+      </Drawer.Screen>
+      <Drawer.Screen name="Revenue" options={{headerShown: false}}>
+        {props => <Revenue {...props} />}
       </Drawer.Screen>
     </Drawer.Navigator>
   );
 };
 
 const AppNavigator1 = () => {
-  const [istoken, setIstoken] = useState(false);
+  const {token, setToken} = useContext(LocalizationContext);
 
+  const [isLoading, setIsLoading] = useState(true);
   const gotoRoutes = async () => {
     const awaitedResult = await i18Storage.retreiveRoutes();
     if (!awaitedResult) {
@@ -43,20 +58,27 @@ const AppNavigator1 = () => {
     gotoRoutes();
   }, []);
   const gettingToken = async () => {
-    const awaitedResult = await UserData.retreiveUserData('login');
+    const awaitedResult = await UserData.retreiveUserData('token');
     if (!awaitedResult) {
-      setIstoken(false);
+      setToken(false);
+      setIsLoading(false);
     } else {
-      setIstoken(true);
+      setToken(true);
+      setIsLoading(false);
     }
   };
   useEffect(() => {
     gettingToken();
   }, []);
+
+  if (isLoading) {
+    return <AppLoader />;
+  }
+
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        {!istoken ? (
+        {!token ? (
           <Stack.Group>
             <Stack.Screen name="Login" options={{headerShown: false}}>
               {props => <Login {...props} />}
@@ -64,19 +86,16 @@ const AppNavigator1 = () => {
             <Stack.Screen name="ResetPassword" options={{headerShown: false}}>
               {props => <ResetPassword {...props} />}
             </Stack.Screen>
-            <Stack.Screen name="Drawer" options={{headerShown: false}}>
-              {props => <DrawerStack {...props} />}
-            </Stack.Screen>
           </Stack.Group>
         ) : (
           <Stack.Group>
             <Stack.Screen name="Drawer" options={{headerShown: false}}>
               {props => <DrawerStack {...props} />}
             </Stack.Screen>
-            <Stack.Screen name="Dashboard" options={{headerShown: false}}>
-              {props => <Dashboard {...props} />}
+            <Stack.Screen name="Login" options={{headerShown: false}}>
+              {props => <Login {...props} />}
             </Stack.Screen>
-            <Stack.Screen name="Profile" options={{headerShown: false}}>
+            {/* <Stack.Screen name="Profile" options={{headerShown: false}}>
               {props => <Profile {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Orders" options={{headerShown: false}}>
@@ -87,7 +106,7 @@ const AppNavigator1 = () => {
             </Stack.Screen>
             <Stack.Screen name="Revenue" options={{headerShown: false}}>
               {props => <Revenue {...props} />}
-            </Stack.Screen>
+            </Stack.Screen> */}
           </Stack.Group>
         )}
       </Stack.Navigator>
@@ -103,9 +122,8 @@ const AppNavigator = () => {
     if (!awaitedResult) {
       return;
     }
-      await i18Storage.clearAsyncItem('routes');
-    navigationRef.current.navigate("Drawer", {screen: awaitedResult});
-
+    await i18Storage.clearAsyncItem('routes');
+    navigationRef.current.navigate('Drawer', {screen: awaitedResult});
   };
   useEffect(() => {
     gotoRoutes();
@@ -144,4 +162,4 @@ const AppNavigator = () => {
   );
 };
 
-export default AppNavigator;
+export default AppNavigator1;

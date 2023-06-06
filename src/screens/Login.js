@@ -15,7 +15,8 @@ import CommonStyles from '../utils/CommonStyles';
 import {LocalizationContext} from '../utils/Localization';
 import typography from '../utils/typography';
 import LanguageIcon from '../svg/LanguageIcon';
-import { UserData } from '../local-data/user-data/UserData';
+import {UserData} from '../local-data/user-data/UserData';
+import AppLoader from '../components/AppLoader';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +24,7 @@ const Login = ({navigation}) => {
   const [passwordError, setPasswordError] = useState(false);
   const [language, setLanguage] = useState('');
 
-  const {setLocale, locale} = useContext(LocalizationContext);
+  const {setLocale, locale,setToken} = useContext(LocalizationContext);
   const {T} = useTranslation('Login');
 
   const selectLanguage = async () => {
@@ -48,7 +49,7 @@ const Login = ({navigation}) => {
     console.log(language, 'after change');
   };
 
-  const signIn = async() => {
+  const signIn = async () => {
     // <= Added this function
     const strongRegex = new RegExp(
       '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
@@ -69,13 +70,15 @@ const Login = ({navigation}) => {
     } else {
       setEmailError(false);
       setPasswordError(false);
-      // await UserData.storeUserData('login',true)
+      await UserData.storeUserData('token', true);
+      setToken(true)
       navigation.navigate('Drawer', {screen: 'Dashboard'});
     }
   };
   useEffect(() => {
     setLanguage(locale.toUpperCase());
   }, [locale]);
+
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <TouchableOpacity
@@ -211,9 +214,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#707070',
     borderBottomWidth: 1,
     // width: '70%',
+
     height: 45,
     marginTop: 20,
-    // alignItems: 'center',
+    
   },
   TextInput: {
     height: 50,

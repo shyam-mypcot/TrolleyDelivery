@@ -98,9 +98,7 @@ const Orders = ({navigation, route}) => {
   };
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
-      <Header
-        title={route.params.title}
-      />
+      <Header title={route.params.title} />
       <View style={{padding: 10, flex: 1}}>
         <View
           style={{
@@ -109,9 +107,14 @@ const Orders = ({navigation, route}) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={CommonStyles.HelveticaNeue16Green}>
-            {T('totalOrder')} : {data.length}
+          <View style={{flexDirection:'row',alignItems:'center'}}>
+          <Text style={[CommonStyles.HelveticaNeue16Green]}>
+            {T('totalOrder')} : 
           </Text>
+          <Text style={[CommonStyles.HelveticaNeue16Green,{color:'#000000BF',marginHorizontal:5}]}>
+            {data.length}
+          </Text>
+          </View>
           <TouchableOpacity onPress={() => setActive(!active)}>
             <View
               style={{
@@ -138,13 +141,11 @@ const Orders = ({navigation, route}) => {
           contentContainerStyle={{flexGrow: 1, paddingBottom: 10}}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => {
-           
             return (
               <TouchableOpacity
                 style={{
                   marginTop: 10,
-                  padding: 10,
-                  paddingLeft: 20,
+                  padding: 15,
                   borderRadius: 10,
                   borderColor: '#F4E1B8',
                   borderWidth: 1,
@@ -162,7 +163,7 @@ const Orders = ({navigation, route}) => {
                 onPress={() => {
                   navigation.navigate('OrdersDetails', {item});
                 }}>
-                <View style={{}}>
+                {/* <View style={{}}>
                   <View style={[CommonStyles.rowstyle]}>
                     <Text style={CommonStyles.HelveticaNeue16Green}>
                       {DD('orderNo')} .:
@@ -257,6 +258,131 @@ const Orders = ({navigation, route}) => {
                           {color: '#723D16', marginTop: 2},
                         ]}>
                         { `${DD(item.DeliveryTimeSlot)}`}
+                      </Text>
+                    </View>
+                  </View>
+                </View> */}
+
+                <View style={{}}>
+                  <View style={[CommonStyles.rowstyle]}>
+                    <Text
+                      style={[
+                        CommonStyles.HelveticaNeue16Green,
+                        {
+                          color: '#707070',
+                          backgroundColor: '#F6F6F6',
+                          padding: 5,
+                          borderRadius: 10,
+                        },
+                      ]}>
+                      {item.Orderid}
+                    </Text>
+                    <Text
+                      style={[
+                        CommonStyles.HelveticaNeue16Green,
+                        {
+                          color:
+                            item.PaymentStatus == 'Paid'
+                              ? '#2B7908'
+                              : '#FD5B1F',
+                          marginHorizontal: 5,
+                          backgroundColor:
+                            item.PaymentStatus == 'Paid'
+                              ? '#F4F8F3'
+                              : '#FFF7F4',
+                          padding: 5,
+                          paddingHorizontal: 10,
+                          borderRadius: 10,
+                        },
+                      ]}>
+                      {`${DD(item.PaymentStatus)}`}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 10,
+                    }}>
+                    <Text style={[CommonStyles.HelveticaNeue13]}>
+                      {DD('orderDate&Time')} :
+                    </Text>
+                    <Text
+                      style={[CommonStyles.HelveticaNeue13, {marginLeft: 10}]}>
+                      {item.OrderDateTime}
+                    </Text>
+                  </View>
+                  <View
+                    style={[
+                      {
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginVertical: 5,
+                      },
+                    ]}>
+                    <Text style={[CommonStyles.HelveticaNeue13]}>
+                      {DD('deliveryDate&Time')} :
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginHorizontal: 5,
+                      }}>
+                      <Text style={[CommonStyles.HelveticaNeue13]}>
+                        {item.DeliveryDate}
+                      </Text>
+                      <Text
+                        style={[
+                          CommonStyles.HelveticaNeue13,
+                          {marginHorizontal: 5},
+                        ]}>
+                        {`${DD(item.DeliveryTimeSlot)}`}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={[CommonStyles.rowstyle, {gap: 10}]}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginVertical: 5,
+                      }}>
+                      <Text
+                        style={[
+                          CommonStyles.HelveticaNeue13,
+                          {color: '#000000BF'},
+                        ]}>
+                        {DD('paymentMode')} :
+                      </Text>
+                      <Text
+                        style={[
+                          CommonStyles.HelveticaNeue16,
+                          {color: '#000', marginHorizontal: 2},
+                        ]}>
+                        {`${DD(item.PaymentMode)}`}
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginVertical: 5,
+                      }}>
+                      <Text
+                        style={[
+                          CommonStyles.HelveticaNeue16Green,
+                          {color: '#000000BF'},
+                        ]}>
+                        {DD('total')} :
+                      </Text>
+                      <Text
+                        style={[
+                          CommonStyles.HelveticaNeue16Green,
+                          {color: '#ECBE10', marginHorizontal: 2},
+                        ]}>
+                        {`${DD(item.Total)}`}
                       </Text>
                     </View>
                   </View>

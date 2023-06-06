@@ -21,7 +21,7 @@ const Header = ({title}) => {
   );
   const selectLanguage = async () => {
     let currentLanguage = await i18Storage.retreiveAppLanguage();
-    await i18Storage.storeRoutes(navigation.getState().routes.at(-1).name);
+    await i18Storage.storeRoutes('Drawer');
     if (currentLanguage === 'en') {
       console.log('is this working');
       // setLanguage('AR')

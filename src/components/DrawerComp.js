@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import {
   View,
   Text,
@@ -12,9 +12,11 @@ import CommonStyles from '../utils/CommonStyles';
 import ForwardArrow from '../svg/ForwardArrow';
 import {useTranslation} from '../hooks/useTranslation';
 import { UserData } from '../local-data/user-data/UserData';
+import {LocalizationContext} from '../utils/Localization';
 
 const DrawerComp = ({navigation}) => {
   const {T} = useTranslation('Dashboard');
+  const {setToken} = useContext(LocalizationContext);
 
   const DrawerItem = ({children, onPress, style}) => {
     return (
@@ -60,8 +62,10 @@ const DrawerComp = ({navigation}) => {
         {
           text: T('yes'),
           onPress: () =>{ 
-            UserData.clearAsyncUserData('login')
-            navigation.replace('Login')}
+            UserData.clearAsyncUserData('token')
+            setToken(false)
+            navigation.replace('Login')
+            }
         },
       ],
     );

@@ -81,6 +81,7 @@
             "total":"Total",
             "orderDate&Time":"Order Date & Time",
             "delivery":"Delivery",
+            "deliveryDate&Time":"Delivery Date & Time",
             "paymentMode":"Payment Mode",
             "paymentStatus":"Payment Status",
             "deliveryDate":"Delivery Date",

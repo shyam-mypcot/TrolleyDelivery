@@ -78,6 +78,7 @@
             "total":"المجموع",
             "orderDate&Time":"تاريخ الطلب والوقت",
             "delivery":"توصيل",
+            "deliveryDate&Time":"تاريخ ووقت التسليم",
             "paymentMode":"طريقة الدفع",
             "paymentStatus":"حالة السداد",
             "deliveryDate":"تاريخ التسليم او الوصول",

@@ -13,8 +13,10 @@ import typography from '../utils/typography';
 import Truck from '../svg/truck';
 import {useTranslation} from '../hooks/useTranslation';
 import Header from '../components/Header';
+import AppLoader from '../components/AppLoader';
 
 const Dashboard = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const {T} = useTranslation('Dashboard');
 
   const [completedOrders, setCompletedOrders] = useState(10);
@@ -32,6 +34,9 @@ const Dashboard = ({navigation}) => {
     );
   }, []);
 
+  if (isLoading) {
+    return <AppLoader />;
+  }
   return (
     <SafeAreaView style={{flex: 1}}>
       {/* <View
@@ -283,7 +288,7 @@ const Dashboard = ({navigation}) => {
                   width: 20,
                   height: 20,
                   backgroundColor: '#E3C133',
-                  borderRadius:5
+                  borderRadius: 5,
                 }}></View>
               <View style={{width: '80%'}}>
                 <Text
@@ -321,8 +326,7 @@ const Dashboard = ({navigation}) => {
                   width: 20,
                   height: 20,
                   backgroundColor: '#5E758D',
-                  borderRadius:5
-
+                  borderRadius: 5,
                 }}></View>
               <View style={{width: '80%'}}>
                 <Text
@@ -353,7 +357,7 @@ const Dashboard = ({navigation}) => {
               navigation.navigate('Orders', {title: T('pendingOrder')})
             }>
             <ImageBackground
-              style={{marginTop: 10, padding: 10,marginTop:15}}
+              style={{marginTop: 10, padding: 10, marginTop: 15}}
               imageStyle={{borderRadius: 15}}
               resizeMode="cover"
               source={require('../assets/images/yellowCard.png')}>
