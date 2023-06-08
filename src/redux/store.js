@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
-import LoginState from './reducers/LoginState';
+import ProfileState from './reducers/ProfileState';
 export default configureStore({
   reducer: {
-    loginState:LoginState
+    profileState:ProfileState
   },
 });

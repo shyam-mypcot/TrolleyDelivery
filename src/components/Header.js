@@ -6,7 +6,7 @@ import LangIcon from '../svg/LangIcon';
 import CommonStyles from '../utils/CommonStyles';
 import RNRestart from 'react-native-restart';
 import {i18Storage} from '../local-data/i18nStorage';
-import {LocalizationContext} from '../utils/Localization';
+import {LocalizationContext} from '../utils/Localization.tsx';
 import {useTranslation} from '../hooks/useTranslation';
 
 const Header = ({title}) => {

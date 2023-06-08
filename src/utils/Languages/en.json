@@ -4,8 +4,8 @@
         "Login":{
             "login":"Login",
             "username":"Username",
-            "MobileNumber":"Mobile Number",
-            "password":"Password",
+            "MobileNumber":"Enter your Mobile number",
+            "password":"Enter Password",
             "forgotPassword":"Forgot Password ?",
             "usernameError":"Please Provide valid Mobile Number",
             "passwordError":"Password must contain at least 8 character"
@@ -17,6 +17,11 @@
             "emailAdress":"Email Address",
             "error":"Please Provide valid Email",
             "continue":"CONTINUE"
+        },
+        "ForgotPassword":{
+            "forgotPassword":"Forgot Password",
+            "message":"Enter your mobile number to receive OTP",
+            "send":"Send"
         },
         "Dashboard":{
             "dashboard":"Dashboard",

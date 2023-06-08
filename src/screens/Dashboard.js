@@ -357,7 +357,7 @@ const Dashboard = ({navigation}) => {
               navigation.navigate('Orders', {title: T('pendingOrder')})
             }>
             <ImageBackground
-              style={{marginTop: 10, padding: 10, marginTop: 15}}
+              style={{padding: 10, marginTop: 15}}
               imageStyle={{borderRadius: 15}}
               resizeMode="cover"
               source={require('../assets/images/yellowCard.png')}>

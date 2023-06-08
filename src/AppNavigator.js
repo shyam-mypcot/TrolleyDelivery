@@ -1,4 +1,4 @@
-import React, {useEffect,useContext, useState} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -10,19 +10,21 @@ import OrdersDetails from './screens/OrdersDetails';
 import Revenue from './screens/Revenue';
 import Login from './screens/Login';
 import DrawerComp from './components/DrawerComp';
-import ResetPassword from './screens/ResetPassword';
+import ForgotPassword from './screens/ForgotPassword';
 import {i18Storage} from './local-data/i18nStorage';
 import {navigationRef} from './ref/navigationRef';
 import {UserData} from './local-data/user-data/UserData';
 import AppLoader from './components/AppLoader';
-import {LocalizationContext} from './utils/Localization';
+import {LocalizationContext} from './utils/Localization.tsx';
 
 // import NewMessage from './screens/NewMessage'
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const DrawerStack = () => {
   return (
-    <Drawer.Navigator screenOptions={{unmountOnBlur:true}} drawerContent={props => <DrawerComp {...props} />}>
+    <Drawer.Navigator
+      screenOptions={{unmountOnBlur: true}}
+      drawerContent={props => <DrawerComp {...props} />}>
       <Drawer.Screen name="Dashboard" options={{headerShown: false}}>
         {props => <Dashboard {...props} />}
       </Drawer.Screen>
@@ -83,8 +85,8 @@ const AppNavigator1 = () => {
             <Stack.Screen name="Login" options={{headerShown: false}}>
               {props => <Login {...props} />}
             </Stack.Screen>
-            <Stack.Screen name="ResetPassword" options={{headerShown: false}}>
-              {props => <ResetPassword {...props} />}
+            <Stack.Screen name="ForgotPassword" options={{headerShown: false}}>
+              {props => <ForgotPassword {...props} />}
             </Stack.Screen>
           </Stack.Group>
         ) : (
@@ -138,8 +140,8 @@ const AppNavigator = () => {
         <Stack.Screen name="Login" options={{headerShown: false}}>
           {props => <Login {...props} />}
         </Stack.Screen>
-        <Stack.Screen name="ResetPassword" options={{headerShown: false}}>
-          {props => <ResetPassword {...props} />}
+        <Stack.Screen name="ForgotPassword" options={{headerShown: false}}>
+          {props => <ForgotPassword {...props} />}
         </Stack.Screen>
 
         <Stack.Screen name="Dashboard" options={{headerShown: false}}>
