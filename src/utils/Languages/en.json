@@ -4,9 +4,10 @@
         "Login":{
             "login":"Login",
             "username":"Username",
+            "MobileNumber":"Mobile Number",
             "password":"Password",
             "forgotPassword":"Forgot Password ?",
-            "usernameError":"Please Provide valid Email",
+            "usernameError":"Please Provide valid Mobile Number",
             "passwordError":"Password must contain at least 8 character"
 
         },

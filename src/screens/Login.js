@@ -17,14 +17,26 @@ import typography from '../utils/typography';
 import LanguageIcon from '../svg/LanguageIcon';
 import {UserData} from '../local-data/user-data/UserData';
 import AppLoader from '../components/AppLoader';
+import ApiServices from '../services/ApiServices';
+import {err} from 'react-native-svg/lib/typescript/xml';
+import axios from 'axios';
+import {EndPoints} from '../services/EndPoints';
+import data from '../components/common';
+import LoginState, {getLoginData} from '../redux/reducers/LoginState';
+import {useDispatch, useSelector} from 'react-redux';
+
 const Login = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
+
+  const [email, setEmail] = useState(__DEV__ ? '0999360003' : '');
+  const [password, setPassword] = useState(__DEV__ ? '12345678' : '');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [language, setLanguage] = useState('');
+  const [loader, setLoader] = useState(false);
 
-  const {setLocale, locale,setToken} = useContext(LocalizationContext);
+  const {setLocale, locale, setToken} = useContext(LocalizationContext);
   const {T} = useTranslation('Login');
 
   const selectLanguage = async () => {
@@ -51,11 +63,12 @@ const Login = ({navigation}) => {
 
   const signIn = async () => {
     // <= Added this function
-    const strongRegex = new RegExp(
-      '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
-    );
+    // const strongRegex = new RegExp(
+    //   '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
+    // );
+    const strongRegex = new RegExp('');
 
-    if (!strongRegex.test(email)) {
+    if (email.length < 10) {
       console.log('Please Provide valid Username/Email');
       setEmailError(true);
       setPasswordError(false);
@@ -70,15 +83,49 @@ const Login = ({navigation}) => {
     } else {
       setEmailError(false);
       setPasswordError(false);
-      await UserData.storeUserData('token', true);
-      setToken(true)
-      navigation.navigate('Drawer', {screen: 'Dashboard'});
+
+      const formData = {
+        username: email,
+        password: password,
+      };
+      setLoader(true);
+      try {
+        // const response = await ApiServices({
+        //   data: formData,
+        //   url: EndPoints.Login,
+        // });
+        const response = await dispatch(
+          getLoginData({
+            data: formData,
+            url: EndPoints.Login,
+          }),
+        );
+
+        console.log('90909090990 response data', response.payload);
+
+        if (response.payload.success === '1') {
+          await UserData.storeUserData('token', response.payload.data[0].token);
+          setToken(response.payload.data[0].token);
+          navigation.navigate('Drawer', {screen: 'Dashboard'});
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoader(false);
+      }
+      // await UserData.storeUserData('token', true);
+      // setToken(true);
+      // navigation.navigate('Drawer', {screen: 'Dashboard'});
     }
   };
+
   useEffect(() => {
     setLanguage(locale.toUpperCase());
   }, [locale]);
 
+  if (loader) {
+    return <AppLoader />;
+  }
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <TouchableOpacity
@@ -114,15 +161,36 @@ const Login = ({navigation}) => {
             {T('login')}
           </Text>
         </View>
-        <View style={[styles.inputView]}>
+        {/* <View style={[styles.inputView]}>
           <TextInput
             style={[styles.TextInput, CommonStyles.HelveticaNeue16]}
             placeholder={T('username')}
             placeholderTextColor="#707070"
             onChangeText={email => setEmail(email)}
           />
+        </View> 
+         {emailError && (
+          <Text
+            style={[
+              {
+                fontFamily: typography.Helvetica,
+                fontSize: 14,
+                color: 'red',
+              },
+            ]}>
+            {T('usernameError')}
+          </Text>
+        )} */}
+        <View style={[styles.inputView]}>
+          <TextInput
+            style={[styles.TextInput, CommonStyles.HelveticaNeue16]}
+            placeholder={T('MobileNumber')}
+            placeholderTextColor="#707070"
+            keyboardType="numeric"
+            maxLength={10}
+            onChangeText={email => setEmail(email)}
+          />
         </View>
-
         {emailError && (
           <Text
             style={[
@@ -217,7 +285,6 @@ const styles = StyleSheet.create({
 
     height: 45,
     marginTop: 20,
-    
   },
   TextInput: {
     height: 50,

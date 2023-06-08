@@ -11,46 +11,50 @@ import {
 import Header from '../components/Header';
 import typography from '../utils/typography';
 import {useTranslation} from '../hooks/useTranslation';
+import { useSelector } from 'react-redux';
+
 
 const Profile = ({navigation}) => {
+  const state = useSelector(state => state.loginState);
+  
   const {T} = useTranslation('Profile');
-
+console.log(state,'state.........');
   const [data, setData] = useState([
     {
       id: 1,
       imgURL: require('../assets/images/Profile.png'),
       title: T('name'),
-      value: T('shihab'),
+      value: state.name,
     },
     {
       id: 2,
       imgURL: require('../assets/images/email.png'),
       title: T('email'),
-      value: 's6@trolley-sd.com',
+      value: state.email,
     },
     {
       id: 3,
       imgURL: require('../assets/images/phone.png'),
       title: T('phoneNumber'),
-      value: '0117138796',
+      value: state.phone,
     },
     {
       id: 4,
       imgURL: require('../assets/images/person_pin_circle.png'),
       title: T('address'),
-      value: T('omdurman'),
+      value: state.address,
     },
     {
       id: 5,
       imgURL: require('../assets/images/city.png'),
       title: T('city'),
-      value: T('omdurman'),
+      value: state.city,
     },
     {
       id: 6,
       imgURL: require('../assets/images/area.png'),
       title: T('area'),
-      value: T('aldohaAlArda'),
+      value: state.area,
     },
   ]);
 

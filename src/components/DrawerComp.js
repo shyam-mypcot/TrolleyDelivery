@@ -63,7 +63,7 @@ const DrawerComp = ({navigation}) => {
           text: T('yes'),
           onPress: () =>{ 
             UserData.clearAsyncUserData('token')
-            setToken(false)
+            setToken('')
             navigation.replace('Login')
             }
         },

@@ -3,9 +3,10 @@
         "Login":{
             "login":"تسجيل الدخول",
             "username":"اسم المستخدم",
+            "MobileNumber":"رقم الهاتف المحمول",
             "password":"كلمة المرور",
             "forgotPassword":"هل نسيت كلمة السر ؟",
-            "usernameError":"الرجاء إدخال اسم مستخدم / بريد إلكتروني صالح",
+            "usernameError":"الرجاء إدخال رقم هاتف صالح",
             "passwordError":"يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"
         },
         "ResetPassword":{
