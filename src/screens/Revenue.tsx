@@ -31,8 +31,9 @@ const Revenue = () => {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
+            gap:10,
             justifyContent: 'space-evenly',
-            paddingVertical:10
+            // paddingVertical: 10
           }}>
           <TouchableOpacity
             onPress={() => setToday(!today)}
@@ -40,7 +41,10 @@ const Revenue = () => {
               CommonStyles.boxShadow,
               {
                 backgroundColor: today ? '#E3C133' : '#ffffff',
-                padding: 10,width:'40%',
+                borderColor:'#EBA500',
+                borderWidth:today ?0:1.5,
+                paddingVertical: 15,
+                width: '45%',
                 alignItems: 'center',
               },
             ]}>
@@ -51,7 +55,7 @@ const Revenue = () => {
                 {
                   fontSize: 28,
                   fontWeight: '700',
-                  color: today ? '#ffffff' : '#6F776B',
+                  color: today ? '#ffffff' : '#272727',
                 },
               ]}>
               1400
@@ -59,9 +63,9 @@ const Revenue = () => {
             <Text
               style={[
                 CommonStyles.HelveticaNeue16Green,
-                {color: today ? '#ffffff' : '#6F776B'},
+                {color: today ? '#ffffff' : '#272727'},
               ]}>
-               {T('todaysRevenue')}
+              {T('todaysRevenue')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -70,7 +74,10 @@ const Revenue = () => {
               CommonStyles.boxShadow,
               {
                 backgroundColor: !today ? '#E3C133' : '#ffffff',
-                padding: 10,width:'40%',
+                paddingVertical: 15,
+                borderColor:'#EBA500',
+                borderWidth:!today ?0:1.5,
+                width: '45%',
                 paddingHorizontal: 20,
                 alignItems: 'center',
               },
@@ -82,7 +89,7 @@ const Revenue = () => {
                 {
                   fontSize: 28,
                   fontWeight: '700',
-                  color: !today ? '#ffffff' : '#6F776B',
+                  color: !today ? '#ffffff' : '#272727',
                 },
               ]}>
               80000
@@ -90,7 +97,7 @@ const Revenue = () => {
             <Text
               style={[
                 CommonStyles.HelveticaNeue16Green,
-                {color: !today ? '#ffffff' : '#6F776B'},
+                {color: !today ? '#ffffff' : '#272727'},
               ]}>
               {T('totalRevenue')}
             </Text>
@@ -99,13 +106,20 @@ const Revenue = () => {
         <View
           style={{
             padding: 10,
+            marginTop:15,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
+            <View style={{flexDirection:'row'}}>
+
           <Text style={CommonStyles.HelveticaNeue16Green}>
-            {T('revenue')} : {today ? 1400 : 80000} {T('sdg')}
+            {T('revenue')} : 
           </Text>
+          <Text style={[CommonStyles.HelveticaNeue16Green,{marginLeft:5,color:'#000000BF'}]}>
+            {today ? 1400 : 80000} {T('egp')}
+          </Text>
+          </View>
           <View
             style={{
               flexDirection: 'row',
@@ -135,8 +149,7 @@ const Revenue = () => {
               <TouchableOpacity
                 style={{
                   marginTop: 10,
-                  padding: 10,
-                  paddingLeft: 20,
+                  padding: 15,
                   borderRadius: 10,
                   borderColor: '#F4E1B8',
                   borderWidth: 1,
@@ -153,42 +166,32 @@ const Revenue = () => {
                 }}
                 onPress={() => {}}>
                 <View style={{}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
+                  <View style={[CommonStyles.rowstyle, {marginBottom: 20}]}>
                     <Text
                       style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#6F776B'},
-                      ]}>
-                      {DD('orderNo')}.:
-                    </Text>
-                    <Text
-                      style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#707070'},
-                      ]}>
-                      {DD('orderNo')} :
-                    </Text>
-                  </View>
-                  <View style={CommonStyles.rowstyle}>
-                    <Text
-                      style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#707070'},
+                        CommonStyles.HelveticaNeue13,
+                        {
+                          color: '#707070',
+                          backgroundColor: '#F6F6F6',
+                          padding: 5,
+                          paddingHorizontal: 10,
+                          borderRadius: 10,
+                        },
                       ]}>
                       {item.Orderid}
                     </Text>
                     <Text
                       style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#F2C506'},
+                        CommonStyles.HelveticaNeue13,
+                        {
+                          color: '#ECBE10',
+                          backgroundColor: '#E4C03426',
+                          padding: 5,
+                          paddingHorizontal: 10,
+                          borderRadius: 10,
+                        },
                       ]}>
-                                     { `${DD(item.DeliveryCharge)}`}
-
+                      {`${DD(item.DeliveryCharge)}`}
                     </Text>
                   </View>
                   <View
@@ -200,16 +203,16 @@ const Revenue = () => {
                     <View
                       style={{
                         flexDirection: 'row',
-                        width: '35%',
+                        width: '38%',
                         justifyContent: 'space-between',
                       }}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                      {DD('orderDate&Time')} 
+                        {DD('orderDate&Time')}
                       </Text>
                       <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
                     </View>
                     <Text
-                      style={[CommonStyles.HelveticaNeue13, {marginLeft: 10}]}>
+                      style={[CommonStyles.HelveticaNeue13, {marginLeft: 5}]}>
                       {item.OrderDateTime}
                     </Text>
                   </View>
@@ -222,21 +225,20 @@ const Revenue = () => {
                     <View
                       style={{
                         flexDirection: 'row',
-                        width: '35%',
+                        width: '38%',
                         justifyContent: 'space-between',
                       }}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                      {DD('delivery')} 
+                        {DD('deliveryDate&Time')}
                       </Text>
                       <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
                     </View>
                     <Text
                       style={[
                         CommonStyles.HelveticaNeue13,
-                        {marginLeft: 10, color: '#723D16'},
+                        {marginLeft: 5, color: '#CB8F00'},
                       ]}>
-                      {item.DeliveryDate} { `${DD(item.DeliveryTimeSlot)}`}
-
+                      {item.DeliveryDate} {`${DD(item.DeliveryTimeSlot)}`}
                     </Text>
                   </View>
                 </View>

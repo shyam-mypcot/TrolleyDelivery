@@ -1,67 +1,70 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   I18nManager,
   Image,
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity, Platform,
-  View, ImageBackground, KeyboardAvoidingView, ScrollView
+  TouchableOpacity,
+  Platform,
+  View,
+  ImageBackground,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
-import { useTranslation } from '../hooks/useTranslation.js';
+import {useTranslation} from '../hooks/useTranslation.js';
 import CommonStyles from '../utils/CommonStyles.js';
 import typography from '../utils/typography.js';
 import AppLoader from '../components/AppLoader.tsx';
 import ApiServices from '../services/ApiServices.tsx';
 import Toast from 'react-native-simple-toast';
 
-import { EndPoints } from '../services/EndPoints.js';
+import {EndPoints} from '../services/EndPoints.js';
 import Call from '../svg/call.js';
 import BackArrow from '../svg/BackArrow.js';
 import LockPassword from '../svg/LockPassword.js';
 type Props = {
   navigation: any;
 };
-const ResetPassword: React.FC<Props> = ({ navigation }) => {
-
-
+const ResetPassword: React.FC<Props> = ({navigation, route}) => {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
 
   const [passwordError, setPasswordError] = useState(false);
   const [loader, setLoader] = useState(false);
 
-  const { T } = useTranslation('ForgotPassword');
-  const { T: LD } = useTranslation('Login');
+  const {T} = useTranslation('ResetPassword');
 
-
-
-  const sendOtp = async () => {
+  const resetPassword = async () => {
     // <= Added this function
     // const strongRegex = new RegExp(
     //   '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     // );
 
-    if (password.length < 6) {
-      console.log('Please Provide valid Username/Email');
+    if (password.length < 6 || confirmpassword.length < 6) {
       setPasswordError(true);
 
       return false;
+    } else if (password != confirmpassword) {
+      setPasswordError(true);
     } else {
       setPasswordError(false);
       const formData = {
-        phone_number: password,
+        phone_number: route.params.number,
+        password:password,
+        confirm_password:confirmpassword,
+        otp_code: route.params.Otp
       };
       setLoader(true);
       try {
         const response = await ApiServices({
           data: formData,
-          url: EndPoints.RequestOtp,
+          url: EndPoints.ForgetPassword,
           restHeader: {}
         });
 
-
         console.log('90909090990 response data', response.data);
+        if (response.status===200) {
 
         if (response.data.success === '1') {
           // navigation.navigate('ResetPassword',);
@@ -70,16 +73,17 @@ const ResetPassword: React.FC<Props> = ({ navigation }) => {
         else if (response.data.success === '0') {
           Toast.show(response.data.message, Toast.LONG);
         }
+      }
+      else {
+        Toast.show('Please try again after some time',Toast.LONG)
+      }
       } catch (error) {
         console.log(error);
       } finally {
         setLoader(false);
       }
-
     }
   };
-
-
 
   if (loader) {
     return <AppLoader />;
@@ -87,17 +91,18 @@ const ResetPassword: React.FC<Props> = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1, backgroundColor: '#fff' }}>
+      style={{flex: 1, backgroundColor: '#fff'}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           // imageStyle={{ borderRadius: 15 }}
           resizeMode="cover"
           source={require('../assets/images/logo-background.png')}>
-
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: 30, marginLeft: 30, alignItems: 'flex-start' }} hitSlop={5}>
-            <View style={{ transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }] }}>
-
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{marginTop: 30, marginLeft: 30, alignItems: 'flex-start'}}
+            hitSlop={5}>
+            <View style={{transform: [{scaleX: I18nManager.isRTL ? -1 : 1}]}}>
               <BackArrow />
             </View>
           </TouchableOpacity>
@@ -107,7 +112,7 @@ const ResetPassword: React.FC<Props> = ({ navigation }) => {
             resizeMode="contain"
           />
           <View style={[CommonStyles.boxShadow, CommonStyles.loginContainer]}>
-            <View style={{ alignItems: 'center', marginVertical: 20 }}>
+            <View style={{alignItems: 'center', marginVertical: 20}}>
               <Text
                 style={[
                   {
@@ -116,16 +121,14 @@ const ResetPassword: React.FC<Props> = ({ navigation }) => {
                     color: '#000000',
                   },
                 ]}>
-                {T('forgotPassword')}
+                {T('resetPassword')}
               </Text>
               <Text
-                style={[
-                  CommonStyles.HelveticaNeue16
-                ]}>
+                style={[CommonStyles.HelveticaNeue16, {textAlign: 'center'}]}>
                 {T('message')}
               </Text>
             </View>
-            
+
             <View style={[CommonStyles.inputContainer]}>
               <LockPassword />
               <View style={CommonStyles.inputView}>
@@ -133,9 +136,9 @@ const ResetPassword: React.FC<Props> = ({ navigation }) => {
                   style={[
                     CommonStyles.TextInput,
                     CommonStyles.HelveticaNeue16,
-                    { alignSelf: 'flex-start' },
+                    {alignSelf: 'flex-start'},
                   ]}
-                  placeholder={LD('password')}
+                  placeholder={T('enterNewPassword')}
                   placeholderTextColor="#707070"
                   value={password}
                   secureTextEntry={true}
@@ -150,30 +153,29 @@ const ResetPassword: React.FC<Props> = ({ navigation }) => {
                   style={[
                     CommonStyles.TextInput,
                     CommonStyles.HelveticaNeue16,
-                    { alignSelf: 'flex-start' },
+                    {alignSelf: 'flex-start'},
                   ]}
-                  placeholder={LD('password')}
+                  placeholder={T('confirmPassword')}
                   placeholderTextColor="#707070"
                   value={confirmpassword}
                   secureTextEntry={true}
-                  onChangeText={confirmpassword => setConfirmPassword(confirmpassword)}
+                  onChangeText={confirmpassword =>
+                    setConfirmPassword(confirmpassword)
+                  }
                 />
               </View>
             </View>
             {passwordError && (
-              <Text
-                style={[CommonStyles.Error]}>
-                {LD('usernameError')}
-              </Text>
+              <Text style={[CommonStyles.Error]}>{T('error')}</Text>
             )}
 
             <TouchableOpacity
-              style={[CommonStyles.loginBtn, { marginTop: 60 }]}
+              style={[CommonStyles.loginBtn, {marginTop: 60}]}
               onPress={() => {
-                sendOtp();
+                resetPassword();
               }}>
-              <Text style={[CommonStyles.HelveticaNeue16, { color: '#ffffff' }]}>
-                {T('send')}
+              <Text style={[CommonStyles.HelveticaNeue16, {color: '#ffffff'}]}>
+                {T('reset')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -188,9 +190,8 @@ const styles = StyleSheet.create({
     height: 30,
     color: '#E3C133',
     marginTop: 20,
-    marginBottom: 40
+    marginBottom: 40,
   },
-
 });
 
 export default ResetPassword;

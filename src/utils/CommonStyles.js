@@ -18,6 +18,13 @@ export default StyleSheet.create({
     // alignSelf:'flex-start',
     // textAlign:I18nManager.isRTL?"right":'left'
   },
+  HelveticaBold16: {
+    fontSize: 20,
+    color: '#707070',
+    fontFamily: typography.HelveticaBold,
+    // alignSelf:'flex-start',
+    // textAlign:I18nManager.isRTL?"right":'left'
+  },
   HelveticaNeue20: {
     fontSize: 20,
     color: '#707070',

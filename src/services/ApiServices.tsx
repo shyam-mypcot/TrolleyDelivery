@@ -5,7 +5,7 @@ import { i18Storage } from '../local-data/i18nStorage';
 import { LocalizationContext } from '../utils/Localization';
 
 // const LOCALURL = 'https://2cad-110-227-197-199.ngrok-free.app/trolley';
-const LOCALURL = 'http://192.168.1.37/trolley';
+const LOCALURL = 'http://192.168.1.29/trolley';
 
 // const { locale } = useContext(LocalizationContext)!;
 
@@ -32,9 +32,7 @@ const ApiServices = async ({
     baseURL: LOCALURL,
     headers,
   });
-  console.log('++++++++++++++++++++++++++++++++++++++++++');
-
-  console.log('++++++++++++++++++++++++++++++++++++++++++');
+  
 
   instance.interceptors.request.use(response => {
     console.log('++++++++++++++++++++++++++++++++++++');

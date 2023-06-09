@@ -34,9 +34,9 @@ const Login: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
   const state = useSelector(state => state);
 
-  const [MobileNumber, setMobileNumber] = useState('');
+  const [MobileNumber, setMobileNumber] = useState(__DEV__?'0999360003' :'');
   const [mobileError, setMobileError] = useState(false);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(__DEV__?'12345678':'');
   const [passwordError, setPasswordError] = useState(false);
   const [language, setLanguage] = useState('');
   const [loader, setLoader] = useState(false);
@@ -108,6 +108,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         // );
 
         console.log('90909090990 response data', response.data);
+        if (response.status===200) {
 
         if (response.data.success === '1') {
           await UserData.storeUserData('token', response.data.data[0].token);
@@ -118,6 +119,10 @@ const Login: React.FC<Props> = ({ navigation }) => {
           setPassword('')
           Toast.show(response.data.message, Toast.LONG);
         }
+      }
+      else {
+        Toast.show('Please try again after some time',Toast.LONG)
+      }
       } catch (error) {
         console.log(error);
       } finally {
@@ -185,8 +190,8 @@ const Login: React.FC<Props> = ({ navigation }) => {
               <Call />
               <View style={CommonStyles.inputView}>
                 <View>
-                  <Text style={[CommonStyles.HelveticaNeue16]}>
-                    +249 |
+                  <Text style={[CommonStyles.HelveticaNeue16,{textAlign: I18nManager.isRTL ? "right" : "left",borderRightWidth: I18nManager.isRTL?0:1,borderLeftWidth:I18nManager.isRTL?1:0 ,paddingHorizontal:5}]}>
+                    +249 
                   </Text>
                 </View>
                 <TextInput

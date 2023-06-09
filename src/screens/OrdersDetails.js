@@ -539,6 +539,7 @@ const OrdersDetails = ({navigation, route}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={()=>{navigation.navigate('OtpCode')}}
               style={{
                 backgroundColor: '#F2D847',
                 padding: 10,

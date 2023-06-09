@@ -13,10 +13,24 @@
         },
         "ResetPassword":{
             "resetPassword":"Reset Password",
-            "message":"Enter your email address and we'll help reset your password",
-            "emailAdress":"Email Address",
-            "error":"Please Provide valid Email",
-            "continue":"CONTINUE"
+            "message":"Enter at least 6 characters with uppercase, lowercase letter",
+            "enterNewPassword":"Enter a New Password",
+            "confirmPassword":"Confirm Password",
+            "error":"Please Provide valid Password",
+            "reset":"Reset"
+        },
+        "OTPScreen":{
+            "otpVerification":"OTP Verification",
+            "didntreceivethecode":"Didn’t receive the code?",
+            "resend":"Resend",
+            "verify":"Verify",
+            "error": "OTP must be of atleast 4 digit",
+            "orderCodeVerification":"Order Code Verification",
+            "alert":"Alert ! ",
+            "alertMessage":"After 3 wrong attempts, your account will be banned.",
+            "after":"After",
+            "wrongAttempts":"3 wrong attempts",
+            "banned":"your account will be banned."
         },
         "ForgotPassword":{
             "forgotPassword":"Forgot Password",
@@ -72,8 +86,8 @@
         },
         "DummyData":{
             "TES0019052020548":"TES0019052020548",
-            "SDG 2330":"SDG 2330.12",
-            "SDG 149":"SDG 149",
+            "EGP 2330":"EGP 2330.12",
+            "EGP 149":"EGP 149",
             "01:00 PM - 03:00 PM":"01:00 PM - 03:00 PM",
             "Raheeg":"Raheeg",
             "Bhari":"Bhari",
@@ -114,7 +128,7 @@
            "revenue" :"Revenue",
            "todaysRevenue":"Today's Revenue",
            "totalRevenue":"Total Revenue",
-           "sdg":"SDG",
+           "egp":"EGP",
            "filter":"Filter"
         }
     }

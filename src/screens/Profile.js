@@ -24,37 +24,49 @@ console.log(state,'state.........');
       id: 1,
       imgURL: require('../assets/images/Profile.png'),
       title: T('name'),
-      value: state.name,
+      // value: state.name,
+      value: T('shihab'),
+
     },
     {
       id: 2,
       imgURL: require('../assets/images/email.png'),
       title: T('email'),
-      value: state.email,
+      // value: state.email,
+      value: T('trolleyMail'),
+
     },
     {
       id: 3,
       imgURL: require('../assets/images/phone.png'),
       title: T('phoneNumber'),
-      value: state.phone,
+      // value: state.phone,
+      value: '0117138796',
+
     },
     {
       id: 4,
       imgURL: require('../assets/images/person_pin_circle.png'),
       title: T('address'),
-      value: state.address,
+      // value: state.address,
+      value: T('omdurman'),
+
     },
     {
       id: 5,
       imgURL: require('../assets/images/city.png'),
       title: T('city'),
-      value: state.city,
+      // value: state.city,
+      value: T('omdurman'),
+
     },
     {
       id: 6,
       imgURL: require('../assets/images/area.png'),
       title: T('area'),
-      value: state.area,
+      // value: state.area,
+      value: T('aldohaAlArda'),
+
     },
   ]);
 
