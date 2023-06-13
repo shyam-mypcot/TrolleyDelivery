@@ -1,6 +1,7 @@
 import { View, Text, FlatList, TextInput, StyleSheet, TouchableWithoutFeedback, I18nManager } from 'react-native';
 import React, { useEffect } from 'react';
 import CommonStyles from '../utils/CommonStyles';
+import { moderateScale } from 'react-native-size-matters';
 
 const Otpbox = (props) => {
   const [otp, setOtp] = React.useState([
@@ -25,19 +26,20 @@ const Otpbox = (props) => {
       <TouchableWithoutFeedback onPress={() => textInputRef.current?.focus()}>
         <View
           style={{
-            borderWidth: index === otp[0].OTPValue!.length ? 1 : 0,
-            borderBottomWidth:index === otp[0].OTPValue!.length ? 2 : 0,
+            borderWidth: index === otp[0].OTPValue!.length ?  moderateScale(1) : 0,
+            borderBottomWidth:index === otp[0].OTPValue!.length ?  moderateScale(2) : 0,
             backgroundColor:index === otp[0].OTPValue!.length ? '#ffffff' : '#F3F3F3',
-            borderRadius: 6,
-            height: 60,
-            width: 60,
+            borderRadius:  moderateScale(6),
+            height:  moderateScale(60),
+            width:  moderateScale(60),
+            // marginHorizontal: moderateScale(10),
             justifyContent: 'center',
             borderColor: '#E3C133',
             alignItems: 'center',
             //   backgroundColor: index === otp[0].value.length ? 'red' : 'yellow',
           }}>
           <Text
-            style={[CommonStyles.HelveticaBold16,{color:'#272727',}]}
+            style={[CommonStyles.HelveticaBold20,{color:'#272727',}]}
             children={otp[0].OTPValue![index]}
           />
           {index === otp[0].OTPValue!.length ? (
@@ -45,11 +47,11 @@ const Otpbox = (props) => {
               style={[
                 StyleSheet.absoluteFillObject,
                 {
-                  borderWidth: 1,
+                  borderWidth:  1,
                   height: '70%',
-                  width: 0.1,
-                  top: 8,
-                  left: 7,
+                  width:  0.1,
+                  top:  8,
+                  left:  7,
                 },
               ]}
             />
@@ -60,7 +62,7 @@ const Otpbox = (props) => {
   };
 
   return (
-    <View style={{ height: 70 }}>
+    <View style={{ height:  moderateScale(70) }}>
       <FlatList
         keyboardShouldPersistTaps="handled"
         showsHorizontalScrollIndicator={false}
@@ -69,7 +71,7 @@ const Otpbox = (props) => {
         style={{ flex: 1 }}
         contentContainerStyle={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent:'space-between',
           width: '100%',
         }}
         renderItem={renderItem}

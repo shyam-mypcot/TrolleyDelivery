@@ -1,10 +1,12 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const BackArrow = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={18}
-    height={14}
+    width={ moderateScale(18)}
+    height={ moderateScale(14)}
     fill="none"
     viewBox="0 0 18 14"
     {...props}

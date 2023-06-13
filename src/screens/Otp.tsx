@@ -23,6 +23,8 @@ import OtpInputs from 'react-native-otp-inputs';
 import {EndPoints} from '../services/EndPoints.js';
 import BackArrow from '../svg/BackArrow.js';
 import Otpbox from '../components/Otpbox.tsx';
+import { moderateScale } from 'react-native-size-matters';
+
 type Props = {
   navigation: any;
 };
@@ -138,7 +140,7 @@ const Otp: React.FC<Props> = ({navigation, route}) => {
           source={require('../assets/images/logo-background.png')}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={{marginTop: 30, marginLeft: 30, alignItems: 'flex-start'}}
+            style={CommonStyles.backArrow}
             hitSlop={5}>
             <View style={{transform: [{scaleX: I18nManager.isRTL ? -1 : 1}]}}>
               <BackArrow />
@@ -150,21 +152,17 @@ const Otp: React.FC<Props> = ({navigation, route}) => {
             resizeMode="contain"
           />
           <View style={[CommonStyles.boxShadow, CommonStyles.loginContainer]}>
-            <View style={{alignItems: 'center', marginVertical: 20}}>
+            <View style={{alignItems: 'center', marginVertical: moderateScale(20)}}>
               <Text
                 style={[
-                  {
-                    fontFamily: typography.HelveticaBold,
-                    fontSize: 22,
-                    color: '#000000',
-                  },
+                  CommonStyles.LoginTitle
                 ]}>
                 {T('otpVerification')}
               </Text>
             </View>
             <ScrollView horizontal contentContainerStyle={{width:'100%',}}>
 
-            <View style={{marginHorizontal: 20}}>
+            <View style={{marginHorizontal: moderateScale(20)}}>
               <Otpbox setOtp={setOtp} keyboardType="number-pad" />
               {/* <OtpInputs
               autofillFromClipboard={false}
@@ -174,16 +172,16 @@ const Otp: React.FC<Props> = ({navigation, route}) => {
               style={{flexDirection:'row'}}
               inputContainerStyles={{backgroundColor:'#F3F3F3',marginHorizontal:10,width:60,height:60,alignItems:'center',justifyContent:'center'}}
               focusStyles={{backgroundColor:'#FFFFFF',borderColor:'#E3C133',borderWidth:1, borderBottomWidth:2}}
-              inputStyles={[CommonStyles.HelveticaBold16,{color:'#272727',marginLeft:7}]}
+              inputStyles={[CommonStyles.HelveticaBold20,{color:'#272727',marginLeft:7}]}
               /> */}
             </View>
             </ScrollView>
-            <View style={{alignItems: 'flex-end', marginVertical: 10}}>
+            <View style={{alignItems: 'flex-end', marginVertical: moderateScale(10)}}>
               <Text>00 : {timer} sec </Text>
             </View>
             {Error && <Text style={[CommonStyles.Error]}>{T('error')}</Text>}
             <TouchableOpacity
-              style={[CommonStyles.loginBtn, {marginTop: 60}]}
+              style={[CommonStyles.loginBtn, {marginTop: moderateScale(60)}]}
               onPress={() => {
                 verifyOtp();
               }}>
@@ -208,7 +206,7 @@ const Otp: React.FC<Props> = ({navigation, route}) => {
                       color: '#E3C133',
                       textDecorationLine: 'underline',
                       textDecorationColor: '#E3C133',
-                      marginLeft: 5,
+                      marginLeft: moderateScale(5),
                     },
                   ]}>
                   {T('resend')}

@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Call from '../svg/call.js';
 import LockPassword from '../svg/LockPassword.js';
 import Toast from 'react-native-simple-toast';
-
+import { moderateScale } from 'react-native-size-matters';
 type Props = {
   navigation: any;
 };
@@ -34,9 +34,9 @@ const Login: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
   const state = useSelector(state => state);
 
-  const [MobileNumber, setMobileNumber] = useState(__DEV__?'0999360003' :'');
+  const [MobileNumber, setMobileNumber] = useState(__DEV__ ? '0999360003' : '');
   const [mobileError, setMobileError] = useState(false);
-  const [password, setPassword] = useState(__DEV__?'12345678':'');
+  const [password, setPassword] = useState(__DEV__ ? '12345678' : '');
   const [passwordError, setPasswordError] = useState(false);
   const [language, setLanguage] = useState('');
   const [loader, setLoader] = useState(false);
@@ -108,21 +108,21 @@ const Login: React.FC<Props> = ({ navigation }) => {
         // );
 
         console.log('90909090990 response data', response.data);
-        if (response.status===200) {
+        if (response.status === 200) {
 
-        if (response.data.success === '1') {
-          await UserData.storeUserData('token', response.data.data[0].token);
-          setToken(response.data.data[0].token);
-          navigation.navigate('Drawer', { screen: 'Dashboard' });
+          if (response.data.success === '1') {
+            await UserData.storeUserData('token', response.data.data[0].token);
+            setToken(response.data.data[0].token);
+            navigation.navigate('Drawer', { screen: 'Dashboard' });
+          }
+          else if (response.data.success === '0') {
+            setPassword('')
+            Toast.show(response.data.message, Toast.LONG);
+          }
         }
-        else if (response.data.success === '0') {
-          setPassword('')
-          Toast.show(response.data.message, Toast.LONG);
+        else {
+          Toast.show('Please try again after some time', Toast.LONG)
         }
-      }
-      else {
-        Toast.show('Please try again after some time',Toast.LONG)
-      }
       } catch (error) {
         console.log(error);
       } finally {
@@ -142,7 +142,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
     return <AppLoader />;
   }
   return (
-    
+
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -174,14 +174,10 @@ const Login: React.FC<Props> = ({ navigation }) => {
             resizeMode="contain"
           />
           <View style={[CommonStyles.boxShadow, CommonStyles.loginContainer]}>
-            <View style={{ alignItems: 'center', marginVertical: 20 }}>
+            <View style={{ alignItems: 'center', marginVertical: moderateScale(20) }}>
               <Text
                 style={[
-                  {
-                    fontFamily: typography.HelveticaBold,
-                    fontSize: 22,
-                    color: '#000000',
-                  },
+                  CommonStyles.LoginTitle
                 ]}>
                 {T('login')}
               </Text>
@@ -190,8 +186,8 @@ const Login: React.FC<Props> = ({ navigation }) => {
               <Call />
               <View style={CommonStyles.inputView}>
                 <View>
-                  <Text style={[CommonStyles.HelveticaNeue16,{textAlign: I18nManager.isRTL ? "right" : "left",borderRightWidth: I18nManager.isRTL?0:1,borderLeftWidth:I18nManager.isRTL?1:0 ,paddingHorizontal:5}]}>
-                    +249 
+                  <Text style={[CommonStyles.HelveticaNeue16, { textAlign: I18nManager.isRTL ? "right" : "left", borderRightWidth: I18nManager.isRTL ? 0 : 1, borderLeftWidth: I18nManager.isRTL ? 1 : 0, paddingHorizontal: moderateScale(5) }]}>
+                    +249
                   </Text>
                 </View>
                 <TextInput
@@ -208,7 +204,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
             </View>
             {mobileError && (
               <Text
-              style={[CommonStyles.Error]}>
+                style={[CommonStyles.Error]}>
 
                 {T('usernameError')}
               </Text>
@@ -232,7 +228,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
             </View>
             {passwordError && (
               <Text
-              style={[CommonStyles.Error]}>
+                style={[CommonStyles.Error]}>
 
                 {T('passwordError')}
               </Text>
@@ -264,10 +260,10 @@ const Login: React.FC<Props> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   forgot_button: {
-    height: 30,
+    height: moderateScale(30),
     color: '#E3C133',
-    marginTop: 20,
-    marginBottom: 40
+    marginTop: moderateScale(20),
+    marginBottom: moderateScale(40)
   },
 
 });

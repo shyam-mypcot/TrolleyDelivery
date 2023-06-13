@@ -1,10 +1,12 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const Clock = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={30}
-    height={30}
+    width={moderateScale(30)}
+    height={moderateScale(30)}
     {...props}
     viewBox="0 0 32.486 30.945"
   >

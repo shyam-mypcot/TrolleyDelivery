@@ -1,11 +1,13 @@
 import * as React from "react"
 import Svg, { SvgProps, Circle, Path } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const UserBlock = (props: SvgProps) => (
   <Svg
   // @ts-ignore
     xmlns="http://www.w3.org/2000/svg"
-    width={58}
-    height={58}
+    width={moderateScale(58)}
+    height={moderateScale(58)}
     viewBox="0 0 58 58"
     fill="none"
     {...props}

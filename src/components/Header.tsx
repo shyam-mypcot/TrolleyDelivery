@@ -1,24 +1,24 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, Image, I18nManager, TouchableOpacity} from 'react-native';
-import typography from '../utils/typography';
+import typography from '../utils/typography.js';
 import {useNavigation} from '@react-navigation/native';
-import LangIcon from '../svg/LangIcon';
-import CommonStyles from '../utils/CommonStyles';
+import LangIcon from '../svg/LangIcon.js';
+import CommonStyles from '../utils/CommonStyles.js';
 import RNRestart from 'react-native-restart';
-import {i18Storage} from '../local-data/i18nStorage';
+import {i18Storage} from '../local-data/i18nStorage.js';
 import {LocalizationContext} from '../utils/Localization.tsx';
-import {useTranslation} from '../hooks/useTranslation';
+import {useTranslation} from '../hooks/useTranslation.js';
+import { moderateScale } from 'react-native-size-matters';
 
+
+// @ts-ignore
 const Header = ({title}) => {
   const {T} = useTranslation('Dashboard');
-  const {setLocale, locale} = useContext(LocalizationContext);
+  const {setLocale, locale} = useContext(LocalizationContext)!;
   const [language, setLanguage] = useState('');
 
-  const navigation = useNavigation();
-  console.log(
-    'navigation.getState().........',
-    navigation.getState().routes.at(-1).name,
-  );
+  const navigation = useNavigation<any>();
+  
   const selectLanguage = async () => {
     let currentLanguage = await i18Storage.retreiveAppLanguage();
     await i18Storage.storeRoutes('Drawer');
@@ -47,7 +47,7 @@ const Header = ({title}) => {
     <View
       style={{
         backgroundColor: '#E3C133',
-        padding: 20,
+        padding: moderateScale(20),
         flexDirection: 'row',
         alignItems: 'center',
       }}>
@@ -59,8 +59,8 @@ const Header = ({title}) => {
         style={{width: '10%', justifyContent: 'center'}}>
         <Image
           style={{
-            width: title == T('dashboard') ? 20 : 10,
-            height: 20,
+            width: title == T('dashboard') ? moderateScale(20) : moderateScale(10),
+            height: moderateScale(20),
             transform: [{scaleX: I18nManager.isRTL ? -1 : 1}],
           }}
           source={
@@ -82,8 +82,8 @@ const Header = ({title}) => {
           style={{
             color: '#fff',
             fontFamily: typography.HelveticaBold,
-            fontSize: 20,
-            marginRight: 20,
+            fontSize: moderateScale(20),
+            marginRight: moderateScale(20),
           }}>
           {title}
         </Text>
@@ -92,17 +92,16 @@ const Header = ({title}) => {
         <>
           <TouchableOpacity
             style={{
-              marginHorizontal: 15,
+              marginHorizontal: moderateScale(15),
               flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
               alignItems: 'center',
             }}
             onPress={() => selectLanguage()}>
-            <Image />
-            <View style={{paddingBottom: 2, borderBottomWidth: 0.5}}>
+            <View style={{paddingBottom: moderateScale(2), borderBottomWidth: moderateScale(0.5)}}>
               <Text
                 style={[
                   CommonStyles.HelveticaNeue16,
-                  {marginHorizontal: 5, color: '#fff'},
+                  {marginHorizontal: moderateScale(5), color: '#fff'},
                 ]}>
                 {language}
               </Text>
@@ -113,8 +112,8 @@ const Header = ({title}) => {
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Image
               style={{
-                width: 25,
-                height: 25,
+                width: moderateScale(25),
+                height: moderateScale(25),
               }}
               source={require('../assets/images/Profile_white.png')}
             />

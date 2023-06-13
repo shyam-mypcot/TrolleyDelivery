@@ -1,11 +1,13 @@
 import * as React from "react"
 import Svg, { SvgProps, Circle, Path } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const CloseCircle = (props: SvgProps) => (
   <Svg
   // @ts-ignore
     xmlns="http://www.w3.org/2000/svg"
-    width={44}
-    height={44}
+    width={moderateScale(44)}
+    height={moderateScale(44)}
     fill="none"
     {...props}
   >

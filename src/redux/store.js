@@ -1,7 +1,11 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import ProfileState from './reducers/ProfileState';
+import DashboardState from './reducers/DashboardState';
+
 export default configureStore({
   reducer: {
-    profileState:ProfileState
+    profileState: ProfileState,
+    dashboardState: DashboardState,
+
   },
 });

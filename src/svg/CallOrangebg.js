@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Svg, {G, Rect, Path} from 'react-native-svg';
+import { moderateScale } from 'react-native-size-matters';
+
 const CallOrangebg = props => (
   <Svg
     viewBox="0 0 33 31"
     xmlns="http://www.w3.org/2000/svg"
-    width={33}
-    height={31}
+    width={ moderateScale(33,0.3)}
+    height={ moderateScale(31,0.3)}
     {...props}
 >
     <G data-name="Group 118" transform="translate(-310 -352)">

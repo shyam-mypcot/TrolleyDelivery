@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
+import { moderateScale } from 'react-native-size-matters';
+
 
 const ForwardArrow = props => (
     <Svg
         xmlns="http://www.w3.org/2000/svg"
-        width={5.479}
-        height={11.914}
+        width={moderateScale(5.479)}
+        height={moderateScale(11.914)}
         viewBox="0 0 5.479 11.914"
         {...props}>
         <Path

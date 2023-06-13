@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Dimensions } from 'react-native';
 
 import Dashboard from './screens/Dashboard';
 import Profile from './screens/Profile';
@@ -27,12 +28,14 @@ const Drawer = createDrawerNavigator();
 const DrawerStack = () => {
   return (
     <Drawer.Navigator
-      screenOptions={{ unmountOnBlur: true }}
+      screenOptions={{ unmountOnBlur: true  ,drawerStyle: {
+        width: Dimensions.get('window').width / 1.25,
+      },}}
       drawerContent={props => <DrawerComp {...props} />}>
       <Drawer.Screen name="Dashboard" options={{ headerShown: false }}>
         {props => <Dashboard {...props} />}
       </Drawer.Screen>
-      <Drawer.Screen name="Profile" options={{ headerShown: false }}>
+      {/* <Drawer.Screen name="Profile" options={{ headerShown: false }}>
         {props => <Profile {...props} />}
       </Drawer.Screen>
       <Drawer.Screen name="Orders" options={{ headerShown: false }}>
@@ -46,7 +49,7 @@ const DrawerStack = () => {
       </Drawer.Screen>
       <Drawer.Screen name="OtpCode" options={{ headerShown: false }}>
         {props => <OtpCode {...props} />}
-      </Drawer.Screen>
+      </Drawer.Screen> */}
     </Drawer.Navigator>
   );
 };
@@ -86,7 +89,7 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{animationTypeForReplace: 'push',animation:'slide_from_right'}}>
         {!token ? (
           <Stack.Group>
 
@@ -111,7 +114,7 @@ const AppNavigator = () => {
             <Stack.Screen name="Login" options={{ headerShown: false }}>
               {props => <Login {...props} />}
             </Stack.Screen>
-            {/* <Stack.Screen name="Profile" options={{headerShown: false}}>
+            <Stack.Screen name="Profile" options={{headerShown: false}}>
               {props => <Profile {...props} />}
             </Stack.Screen>
             <Stack.Screen name="Orders" options={{headerShown: false}}>
@@ -122,7 +125,10 @@ const AppNavigator = () => {
             </Stack.Screen>
             <Stack.Screen name="Revenue" options={{headerShown: false}}>
               {props => <Revenue {...props} />}
-            </Stack.Screen> */}
+            </Stack.Screen>
+            <Stack.Screen name="OtpCode" options={{headerShown: false}}>
+              {props => <OtpCode {...props} />}
+            </Stack.Screen>
           </Stack.Group>
         )}
       </Stack.Navigator>

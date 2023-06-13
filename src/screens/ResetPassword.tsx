@@ -23,6 +23,8 @@ import {EndPoints} from '../services/EndPoints.js';
 import Call from '../svg/call.js';
 import BackArrow from '../svg/BackArrow.js';
 import LockPassword from '../svg/LockPassword.js';
+import { moderateScale } from 'react-native-size-matters';
+
 type Props = {
   navigation: any;
 };
@@ -67,7 +69,7 @@ const ResetPassword: React.FC<Props> = ({navigation, route}) => {
         if (response.status===200) {
 
         if (response.data.success === '1') {
-          // navigation.navigate('ResetPassword',);
+          navigation.navigate('Login');
           Toast.show(response.data.message, Toast.LONG);
         }
         else if (response.data.success === '0') {
@@ -100,7 +102,7 @@ const ResetPassword: React.FC<Props> = ({navigation, route}) => {
           source={require('../assets/images/logo-background.png')}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={{marginTop: 30, marginLeft: 30, alignItems: 'flex-start'}}
+            style={CommonStyles.backArrow}
             hitSlop={5}>
             <View style={{transform: [{scaleX: I18nManager.isRTL ? -1 : 1}]}}>
               <BackArrow />
@@ -112,14 +114,10 @@ const ResetPassword: React.FC<Props> = ({navigation, route}) => {
             resizeMode="contain"
           />
           <View style={[CommonStyles.boxShadow, CommonStyles.loginContainer]}>
-            <View style={{alignItems: 'center', marginVertical: 20}}>
+            <View style={{alignItems: 'center', marginVertical: moderateScale(20)}}>
               <Text
                 style={[
-                  {
-                    fontFamily: typography.HelveticaBold,
-                    fontSize: 22,
-                    color: '#000000',
-                  },
+                  CommonStyles.LoginTitle
                 ]}>
                 {T('resetPassword')}
               </Text>
@@ -170,7 +168,7 @@ const ResetPassword: React.FC<Props> = ({navigation, route}) => {
             )}
 
             <TouchableOpacity
-              style={[CommonStyles.loginBtn, {marginTop: 60}]}
+              style={[CommonStyles.loginBtn, {marginTop: moderateScale(60)}]}
               onPress={() => {
                 resetPassword();
               }}>
@@ -186,12 +184,7 @@ const ResetPassword: React.FC<Props> = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  forgot_button: {
-    height: 30,
-    color: '#E3C133',
-    marginTop: 20,
-    marginBottom: 40,
-  },
+  
 });
 
 export default ResetPassword;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Image,
@@ -14,7 +14,6 @@ import Header from '../components/Header';
 import CommonStyles from '../utils/CommonStyles';
 import Filter from '../svg/Filter';
 import FilterInactive from '../svg/FilterInactive';
-import HorizontalLine from '../svg/HorizontalLine';
 import data from '../components/common';
 import Modal from 'react-native-modal';
 import CheckBox from '@react-native-community/checkbox';
@@ -22,26 +21,26 @@ import RadioButton from '../components/RadioButton';
 import Calender from '../svg/Calender';
 import Clock from '../svg/Clock';
 import {
-  DateTimePicker,
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import {Dropdown} from 'react-native-element-dropdown';
-import {useTranslation} from '../hooks/useTranslation';
+import { Dropdown } from 'react-native-element-dropdown';
+import { useTranslation } from '../hooks/useTranslation';
+import { moderateScale } from 'react-native-size-matters';
 
-const Orders = ({navigation, route}) => {
-  const {T} = useTranslation('FilterModal');
-  const {T: DD} = useTranslation('DummyData');
+const Orders = ({ navigation, route }) => {
+  const { T } = useTranslation('FilterModal');
+  const { T: DD } = useTranslation('DummyData');
 
   const [active, setActive] = useState(false);
   const currentDate = new Date();
   const [date, setDate] = useState(moment(currentDate).format('YYYY-MM-DD'));
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: '11:00 AM  - 01:00 PM', value: '11:00 AM  - 01:00 PM'},
-    {label: '01:00 PM  - 03:00 PM', value: '01:00 PM  - 03:00 PM'},
-    {label: '03:00 PM  - 05:00 PM', value: '03:00 PM  - 05:00 PM'},
-    {label: '05:00 PM  - 07:00 PM', value: '05:00 PM  - 07:00 PM'},
+    { label: '11:00 AM  - 01:00 PM', value: '11:00 AM  - 01:00 PM' },
+    { label: '01:00 PM  - 03:00 PM', value: '01:00 PM  - 03:00 PM' },
+    { label: '03:00 PM  - 05:00 PM', value: '03:00 PM  - 05:00 PM' },
+    { label: '05:00 PM  - 07:00 PM', value: '05:00 PM  - 07:00 PM' },
   ]);
   const [PaymentStatusdata, setPaymentStatusData] = useState([
     {
@@ -74,12 +73,12 @@ const Orders = ({navigation, route}) => {
       text: T('all'),
     },
   ]);
-  const onChange = (event, selectedDate) => {
+  const onChange = ( selectedDate) => {
     const currentDate = selectedDate;
     setDate(moment(currentDate).format('YYYY-MM-DD'));
     console.log(moment(currentDate).format('YYYY-MM-DD'), 'gjy');
   };
-  const showMode = currentMode => {
+  const showMode = (currentMode) => {
     DateTimePickerAndroid.open({
       value: currentDate,
       onChange,
@@ -87,33 +86,64 @@ const Orders = ({navigation, route}) => {
       is24Hour: true,
     });
   };
+  // const getData = async () => {
+  //   try {
+  //     const response = await ApiServices({
+  //       data: formData,
+  //       url: EndPoints.VerifyDeliveryCode,
+  //       restHeader: {
+  //         'X-Access-Token': token,
+  //       },
+  //     });
+
+  //     console.log('90909090990 response data', response.data);
+  //     if (response.status === 200) {
+  //       if (response.data.success === '1') {
+  //         // navigation.navigate('ResetPassword', {
+  //         //   number: route.params.number,
+  //         //   Otp: otpNumber,
+  //         // });
+  //         Toast.show(response.data.message, Toast.LONG);
+  //       } else if (response.data.success === '0') {
+  //         setActive(true)
+  //         Toast.show(response.data.message, Toast.LONG);
+  //       }
+  //     } else {
+  //       Toast.show('Please try again after some time', Toast.LONG);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setLoader(false);
+  //   }
+  // })
   const showDatepicker = () => {
     showMode('date');
   };
-  const SetCustomerType = statusValue => {
+  const SetCustomerType = (statusValue) => {
     setCustomerType(statusValue);
   };
-  const SetPaymentStatus = statusValue => {
+  const SetPaymentStatus = (statusValue) => {
     setPaymentStatus(statusValue);
   };
   return (
-    <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
       <Header title={route.params.title} />
-      <View style={{padding: 10, flex: 1}}>
+      <View style={{ padding: moderateScale(10), flex: 1 }}>
         <View
           style={{
-            padding: 10,
+            padding: moderateScale(10),
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <View style={{flexDirection:'row',alignItems:'center'}}>
-          <Text style={[CommonStyles.HelveticaNeue16Green]}>
-            {T('totalOrder')} : 
-          </Text>
-          <Text style={[CommonStyles.HelveticaNeue16Green,{color:'#000000BF',marginHorizontal:5}]}>
-            {data.length}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={[CommonStyles.HelveticaNeue16Green]}>
+              {T('totalOrder')} :
+            </Text>
+            <Text style={[CommonStyles.HelveticaNeue16Green, { color: '#000000BF', marginHorizontal: moderateScale(5) }]}>
+              {data.length}
+            </Text>
           </View>
           <TouchableOpacity onPress={() => setActive(!active)}>
             <View
@@ -123,14 +153,14 @@ const Orders = ({navigation, route}) => {
                 justifyContent: 'space-between',
               }}>
               <Text
-                style={[CommonStyles.HelveticaNeue16Green, {marginRight: 10}]}>
+                style={[CommonStyles.HelveticaNeue16Green, { marginRight: moderateScale(10) }]}>
                 {T('filter')}
               </Text>
 
               {active ? (
-                <Filter style={{marginRight: 12}} />
+                <Filter style={{ marginRight: moderateScale(12) }} />
               ) : (
-                <FilterInactive style={{marginTop: -5}} />
+                <FilterInactive style={{ marginTop: moderateScale(-5) }} />
               )}
             </View>
           </TouchableOpacity>
@@ -138,15 +168,15 @@ const Orders = ({navigation, route}) => {
 
         <FlatList
           data={data}
-          contentContainerStyle={{flexGrow: 1, paddingBottom: 10}}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
               <TouchableOpacity
                 style={{
-                  marginTop: 10,
-                  padding: 15,
-                  borderRadius: 10,
+                  marginTop: moderateScale(10),
+                  padding: moderateScale(15),
+                  borderRadius: moderateScale(10),
                   borderColor: '#F4E1B8',
                   borderWidth: 1,
                   backgroundColor: '#ffffff',
@@ -161,7 +191,7 @@ const Orders = ({navigation, route}) => {
                   elevation: 7,
                 }}
                 onPress={() => {
-                  navigation.navigate('OrdersDetails', {item});
+                  navigation.navigate('OrdersDetails', { item });
                 }}>
                 {/* <View style={{}}>
                   <View style={[CommonStyles.rowstyle]}>
@@ -271,8 +301,8 @@ const Orders = ({navigation, route}) => {
                         {
                           color: '#707070',
                           backgroundColor: '#F6F6F6',
-                          padding: 5,
-                          borderRadius: 10,
+                          padding: moderateScale(5),
+                          borderRadius: moderateScale(10),
                         },
                       ]}>
                       {item.Orderid}
@@ -285,14 +315,14 @@ const Orders = ({navigation, route}) => {
                             item.PaymentStatus == 'Paid'
                               ? '#2B7908'
                               : '#FD5B1F',
-                          marginHorizontal: 5,
+                          marginHorizontal: moderateScale(5),
                           backgroundColor:
                             item.PaymentStatus == 'Paid'
                               ? '#F4F8F3'
                               : '#FFF7F4',
-                          padding: 5,
-                          paddingHorizontal: 10,
-                          borderRadius: 10,
+                          padding: moderateScale(5),
+                          paddingHorizontal: moderateScale(10),
+                          borderRadius: moderateScale(10),
                         },
                       ]}>
                       {`${DD(item.PaymentStatus)}`}
@@ -302,13 +332,13 @@ const Orders = ({navigation, route}) => {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      marginTop: 10,
+                      marginTop: moderateScale(10),
                     }}>
                     <Text style={[CommonStyles.HelveticaNeue13]}>
-                      {DD('orderDate&Time')} :
+                      {DD('orderDate&Time')}    :
                     </Text>
                     <Text
-                      style={[CommonStyles.HelveticaNeue13, {marginLeft: 10}]}>
+                      style={[CommonStyles.HelveticaNeue13, { marginLeft: moderateScale(10) }]}>
                       {item.OrderDateTime}
                     </Text>
                   </View>
@@ -317,7 +347,7 @@ const Orders = ({navigation, route}) => {
                       {
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginVertical: 5,
+                        marginVertical: moderateScale(5),
                       },
                     ]}>
                     <Text style={[CommonStyles.HelveticaNeue13]}>
@@ -327,38 +357,38 @@ const Orders = ({navigation, route}) => {
                       style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginHorizontal: 5,
+                        marginHorizontal: moderateScale(5),
                       }}>
-                      <Text style={[CommonStyles.HelveticaNeue13]}>
-                        {item.DeliveryDate}
+                      <Text style={[CommonStyles.HelveticaNeue13,{fontSize:moderateScale(12)}]}>
+                          {item.DeliveryDate}
                       </Text>
                       <Text
                         style={[
                           CommonStyles.HelveticaNeue13,
-                          {marginHorizontal: 5},
+                          { marginHorizontal: 5 ,fontSize:moderateScale(12)},
                         ]}>
                         {`${DD(item.DeliveryTimeSlot)}`}
                       </Text>
                     </View>
                   </View>
-                  <View style={[CommonStyles.rowstyle, {gap: 10}]}>
+                  <View style={[CommonStyles.rowstyle, { gap: moderateScale(10) }]}>
                     <View
                       style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginVertical: 5,
+                        marginVertical: moderateScale(5),
                       }}>
                       <Text
                         style={[
                           CommonStyles.HelveticaNeue13,
-                          {color: '#000000BF'},
+                          { color: '#000000BF' },
                         ]}>
                         {DD('paymentMode')} :
                       </Text>
                       <Text
                         style={[
                           CommonStyles.HelveticaNeue16,
-                          {color: '#000', marginHorizontal: 2},
+                          { color: '#000', marginHorizontal: moderateScale(2) },
                         ]}>
                         {`${DD(item.PaymentMode)}`}
                       </Text>
@@ -368,19 +398,19 @@ const Orders = ({navigation, route}) => {
                       style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginVertical: 5,
+                        marginVertical: moderateScale(5),
                       }}>
                       <Text
                         style={[
                           CommonStyles.HelveticaNeue16Green,
-                          {color: '#000000BF'},
+                          { color: '#000000BF' },
                         ]}>
                         {DD('total')} :
                       </Text>
                       <Text
                         style={[
                           CommonStyles.HelveticaNeue16Green,
-                          {color: '#ECBE10', marginHorizontal: 2},
+                          { color: '#ECBE10', marginHorizontal: moderateScale(2) },
                         ]}>
                         {`${DD(item.Total)}`}
                       </Text>
@@ -397,28 +427,28 @@ const Orders = ({navigation, route}) => {
         onBackdropPress={() => {
           setActive(false);
         }}
-        style={{margin: 0, flex: 1, justifyContent: 'flex-end'}}>
+        style={{ margin: 0, flex: 1, justifyContent: 'flex-end' }}>
         <View
           style={{
             backgroundColor: '#ffffff',
-            paddingHorizontal: 20,
-            paddingVertical: 10,
+            paddingHorizontal: moderateScale(20),
+            paddingVertical: moderateScale(10),
           }}>
-          <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+          <Text style={[CommonStyles.HelveticaNeue13, { color: '#6F776B' }]}>
             {T('paymentStatus')}
           </Text>
           <View
-            style={{width: '80%', marginVertical: 10, marginHorizontal: 15}}>
+            style={{ width: '80%', marginVertical: moderateScale(10), marginHorizontal: moderateScale(15) }}>
             <RadioButton
               RadioData={PaymentStatusdata}
               onHandleClick={SetPaymentStatus}
             />
           </View>
-          <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+          <Text style={[CommonStyles.HelveticaNeue13, { color: '#6F776B' }]}>
             {T('cutomerType')}
           </Text>
           <View
-            style={{width: '80%', marginVertical: 10, marginHorizontal: 15}}>
+            style={{ width: '80%', marginVertical: moderateScale(10), marginHorizontal: moderateScale(15) }}>
             <RadioButton
               RadioData={CustomerTypeData}
               onHandleClick={SetCustomerType}
@@ -426,39 +456,39 @@ const Orders = ({navigation, route}) => {
           </View>
           <TouchableOpacity
             onPress={showDatepicker}
-            style={{marginVertical: 10}}>
-            <View style={{flexDirection: 'row'}}>
+            style={{ marginVertical: moderateScale(10) }}>
+            <View style={{ flexDirection: 'row' }}>
               <View
                 style={{
                   width: '90%',
-                  paddingBottom: 5,
+                  paddingBottom: moderateScale(5),
                   borderBottomWidth: 1,
                   borderBottomColor: '#D8CFCF',
                 }}>
                 <Text
-                  style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+                  style={[CommonStyles.HelveticaNeue13, { color: '#6F776B' }]}>
                   {T('deliveryDate')}
                 </Text>
                 <Text
                   style={[
                     CommonStyles.HelveticaNeue13,
-                    {color: '#6F776B', marginTop: 10, textAlign: 'left'},
+                    { color: '#6F776B', marginTop: moderateScale(10), textAlign: 'left' },
                   ]}>
                   {date}
                 </Text>
               </View>
-              <View style={{justifyContent: 'center'}}>
-                <Calender style={{height: 2, width: 2}} />
+              <View style={{ justifyContent: 'center' }}>
+                <Calender style={{ height: moderateScale(2), width: moderateScale(2) }} />
               </View>
             </View>
           </TouchableOpacity>
 
-          <View style={{flexDirection: 'row', marginTop: 10}}>
+          <View style={{ flexDirection: 'row', marginTop: moderateScale(10) }}>
             <View
               style={{
                 width: '90%',
               }}>
-              <Text style={[CommonStyles.HelveticaNeue13, {color: '#6F776B'}]}>
+              <Text style={[CommonStyles.HelveticaNeue13, { color: '#6F776B' }]}>
                 {T('selectTimeSlot')}
               </Text>
 
@@ -466,10 +496,10 @@ const Orders = ({navigation, route}) => {
                 style={[styles.dropdown]}
                 placeholderStyle={[CommonStyles.HelveticaNeue16Green]}
                 selectedTextStyle={[CommonStyles.HelveticaNeue16Green]}
-                itemTextStyle={[CommonStyles.HelveticaNeue16Green, {margin: 0}]}
-                itemContainerStyle={{paddingVertical: 0}}
+                itemTextStyle={[CommonStyles.HelveticaNeue16Green, { margin: 0 }]}
+                itemContainerStyle={{ paddingVertical: 0 }}
                 data={items}
-                maxHeight={90}
+                maxHeight={moderateScale(90)}
                 labelField="label"
                 valueField="value"
                 placeholder={T('selectItem')}
@@ -479,7 +509,7 @@ const Orders = ({navigation, route}) => {
                 }}
               />
             </View>
-            <View style={{justifyContent: 'flex-end', marginBottom: 10}}>
+            <View style={{ justifyContent: 'flex-end', marginBottom: moderateScale(10) }}>
               <Clock />
             </View>
           </View>
@@ -487,20 +517,20 @@ const Orders = ({navigation, route}) => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginVertical: 35,
+              marginVertical: moderateScale(35),
             }}>
             <TouchableOpacity
               style={{
                 backgroundColor: '#F2D847',
-                padding: 10,
-                paddingHorizontal: 35,
-                borderRadius: 10,
+                padding: moderateScale(10),
+                paddingHorizontal: moderateScale(35),
+                borderRadius: moderateScale(10),
               }}
               onPress={() => {
                 setActive(false);
                 console.log(PaymentStatus, CustomerType);
               }}>
-              <Text style={[CommonStyles.HelveticaNeue20, {color: '#ffffff'}]}>
+              <Text style={[CommonStyles.HelveticaNeue20, { color: '#ffffff' }]}>
                 {T('apply')}
               </Text>
             </TouchableOpacity>
@@ -512,10 +542,10 @@ const Orders = ({navigation, route}) => {
 };
 const styles = StyleSheet.create({
   dropdown: {
-    height: 40,
+    height: moderateScale(40),
     borderColor: '#D8CFCF',
-    borderBottomWidth: 1,
-    paddingHorizontal: 8,
+    borderBottomWidth: moderateScale(1),
+    paddingHorizontal: moderateScale(8),
   },
 });
 

@@ -1,10 +1,12 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const Call = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={20}
-    height={19}
+    width={ moderateScale(20)}
+    height={ moderateScale(19)}
     viewBox="0 0 20 19"
     fill="none"
     {...props}

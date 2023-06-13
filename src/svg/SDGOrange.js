@@ -1,10 +1,12 @@
 import * as React from "react"
 import Svg, { G, Path, Defs, ClipPath } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const SDGOrange = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={49}
-    height={52}
+    width={moderateScale(49)}
+    height={moderateScale(52)}
     viewBox="0 0 49 52"
     fill="none"
     {...props}

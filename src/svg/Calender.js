@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Svg, {G, Path} from 'react-native-svg';
+import { moderateScale } from 'react-native-size-matters';
+
 const Calender = props => (
-  <Svg xmlns="http://www.w3.org/2000/svg" width={32} height={32}  viewBox="0 0 36 38" {...props}>
+  <Svg xmlns="http://www.w3.org/2000/svg" width={ moderateScale(32)} height={ moderateScale(32)}  viewBox="0 0 36 38" {...props}>
     <G data-name="Group 6">
       <G data-name="24x24/On Light/Schedule-Alert">
         <Path fill="none" d="M0 0h36v38H0z" />

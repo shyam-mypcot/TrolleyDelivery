@@ -18,6 +18,7 @@ import typography from '../utils/typography.js';
 import AppLoader from '../components/AppLoader.tsx';
 import ApiServices from '../services/ApiServices.tsx';
 import Toast from 'react-native-simple-toast';
+import { moderateScale } from 'react-native-size-matters';
 
 import {EndPoints} from '../services/EndPoints.js';
 import Call from '../svg/call.js';
@@ -96,7 +97,7 @@ const ForgotPassword: React.FC<Props> = ({navigation}) => {
           source={require('../assets/images/logo-background.png')}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={{marginTop: 30, marginLeft: 30, alignItems: 'flex-start'}}
+            style={CommonStyles.backArrow}
             hitSlop={5}>
             <View style={{transform: [{scaleX: I18nManager.isRTL ? -1 : 1}]}}>
               <BackArrow />
@@ -108,14 +109,10 @@ const ForgotPassword: React.FC<Props> = ({navigation}) => {
             resizeMode="contain"
           />
           <View style={[CommonStyles.boxShadow, CommonStyles.loginContainer]}>
-            <View style={{alignItems: 'center', marginVertical: 20}}>
+            <View style={{alignItems: 'center', marginVertical: moderateScale(20)}}>
               <Text
                 style={[
-                  {
-                    fontFamily: typography.HelveticaBold,
-                    fontSize: 22,
-                    color: '#000000',
-                  },
+                  CommonStyles.LoginTitle
                 ]}>
                 {T('forgotPassword')}
               </Text>
@@ -132,7 +129,7 @@ const ForgotPassword: React.FC<Props> = ({navigation}) => {
                         textAlign: I18nManager.isRTL ? 'right' : 'left',
                         borderRightWidth: I18nManager.isRTL ? 0 : 1,
                         borderLeftWidth: I18nManager.isRTL ? 1 : 0,
-                        paddingHorizontal: 5,
+                        paddingHorizontal: moderateScale(5),
                       },
                     ]}>
                     +249
@@ -154,7 +151,7 @@ const ForgotPassword: React.FC<Props> = ({navigation}) => {
             )}
 
             <TouchableOpacity
-              style={[CommonStyles.loginBtn, {marginTop: 60}]}
+              style={[CommonStyles.loginBtn, {marginTop: moderateScale(60)}]}
               onPress={() => {
                 sendOtp();
               }}>
@@ -170,12 +167,7 @@ const ForgotPassword: React.FC<Props> = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  forgot_button: {
-    height: 30,
-    color: '#E3C133',
-    marginTop: 20,
-    marginBottom: 40,
-  },
+ 
 });
 
 export default ForgotPassword;

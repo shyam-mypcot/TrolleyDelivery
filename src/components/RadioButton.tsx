@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import CommonStyles from '../utils/CommonStyles';
+import { moderateScale } from 'react-native-size-matters';
 
 const RadioButton = ({RadioData,onHandleClick }) => {
   const [value, setValue] = useState(null);
@@ -18,7 +19,7 @@ const RadioButton = ({RadioData,onHandleClick }) => {
         return (
           <TouchableOpacity
             key={res.key}
-            style={[styles.container,{marginRight:res.key =='All'?0:20}]}
+            style={[styles.container,{marginRight:res.key =='All'?0: moderateScale(20)}]}
             onPress={() => {
               // console.log(res.key)
               setValue(res.key)
@@ -30,7 +31,7 @@ const RadioButton = ({RadioData,onHandleClick }) => {
             <Text
               style={[
                 CommonStyles.HelveticaNeue13,
-                {color: '#6F776B', marginLeft: 5},
+                {color: '#6F776B', marginLeft:moderateScale(5)},
               ]}>
               {res.text}
             </Text>
@@ -47,21 +48,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // justifyContent: 'space-evenly',
     width:'40%',
-    marginLeft:50,
+    marginLeft:moderateScale(50),
   },
   radioCircle: {
-    height: 20,
-    width: 20,
-    borderRadius: 100,
-    borderWidth: 2,
+    height: moderateScale(20),
+    width: moderateScale(20),
+    borderRadius: moderateScale(100),
+    borderWidth: moderateScale(2),
     borderColor: '#707070',
     alignItems: 'center',
     justifyContent: 'center',
   },
   selectedRb: {
-    width: 10,
-    height: 10,
-    borderRadius: 50,
+    width: moderateScale(10),
+    height: moderateScale(10),
+    borderRadius: moderateScale(50),
     backgroundColor: '#707070',
   },
 });

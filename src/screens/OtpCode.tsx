@@ -20,6 +20,7 @@ import ApiServices from '../services/ApiServices.tsx';
 import Toast from 'react-native-simple-toast';
 import Modal from 'react-native-modal';
 import {LocalizationContext} from '../utils/Localization.tsx';
+import { moderateScale } from 'react-native-size-matters';
 
 import {EndPoints} from '../services/EndPoints.js';
 import BackArrow from '../svg/BackArrow.js';
@@ -118,7 +119,7 @@ const OtpCode: React.FC<Props> = ({navigation, route}) => {
           source={require('../assets/images/logo-background.png')}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={{marginTop: 30, marginLeft: 30, alignItems: 'flex-start'}}
+            style={CommonStyles.backArrow}
             hitSlop={5}>
             <View style={{transform: [{scaleX: I18nManager.isRTL ? -1 : 1}]}}>
               <BackArrow />
@@ -130,20 +131,16 @@ const OtpCode: React.FC<Props> = ({navigation, route}) => {
             resizeMode="contain"
           />
           <View style={[CommonStyles.boxShadow, CommonStyles.loginContainer]}>
-            <View style={{alignItems: 'center', marginVertical: 20}}>
+            <View style={{alignItems: 'center', marginVertical: moderateScale(20)}}>
               <Text
                 style={[
-                  {
-                    fontFamily: typography.HelveticaBold,
-                    fontSize: 22,
-                    color: '#000000',
-                  },
+                  CommonStyles.LoginTitle
                 ]}>
                 {T('orderCodeVerification')}
               </Text>
             </View>
             <ScrollView horizontal contentContainerStyle={{width:'100%',}}>
-            <View style={{marginHorizontal: 20}}>
+            <View style={{}}>
 
               <Otpbox setOtp={setOtp} keyboardType="default" />
               {/* <OtpInputs
@@ -154,16 +151,16 @@ const OtpCode: React.FC<Props> = ({navigation, route}) => {
               style={{flexDirection:'row'}}
               inputContainerStyles={{backgroundColor:'#F3F3F3',marginHorizontal:10,width:60,height:60,alignItems:'center',justifyContent:'center'}}
               focusStyles={{backgroundColor:'#FFFFFF',borderColor:'#E3C133',borderWidth:1, borderBottomWidth:2}}
-              inputStyles={[CommonStyles.HelveticaBold16,{color:'#272727',marginLeft:7}]}
+              inputStyles={[CommonStyles.HelveticaBold20,{color:'#272727',marginLeft:7}]}
               /> */}
             </View>
             </ScrollView>
-            <View style={{alignItems: 'flex-end', marginVertical: 10}}>
+            <View style={{alignItems: 'flex-end', marginVertical: moderateScale(10)}}>
               <Text>00 : {timer} sec </Text>
             </View>
             {Error && <Text style={[CommonStyles.Error]}>{T('error')}</Text>}
             <TouchableOpacity
-              style={[CommonStyles.loginBtn, {marginTop: 60}]}
+              style={[CommonStyles.loginBtn, {marginTop: moderateScale(60)}]}
               onPress={() => {
                 verifyOtp();
               }}>
@@ -185,40 +182,41 @@ const OtpCode: React.FC<Props> = ({navigation, route}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <View style={{backgroundColor: '#db8080', height: 220, width: 270}}>
+        <View style={{backgroundColor: '#db8080', height: moderateScale(220), width: moderateScale(270)}}>
           <View
             style={{
               backgroundColor: '#FFFFFF',
-              width: 270,
+              height: moderateScale(220),
+              width: moderateScale(270),
               position: 'absolute',
-              top: -15,
-              left: -15,
+              top: moderateScale(-15),
+              left: moderateScale(-15),
             }}>
             <TouchableOpacity
               onPress={() => {
                 setActive(false);
               }}
-              style={{alignItems: 'flex-end', marginTop: -15}}>
+              style={{alignItems: 'flex-end', marginTop: moderateScale(-15)}}>
               <CloseCircle />
             </TouchableOpacity>
-            <View style={{alignItems: 'center', padding: 15}}>
-              <View style={{marginBottom: 10}}>
+            <View style={{alignItems: 'center', padding: moderateScale(15)}}>
+              <View style={{marginBottom: moderateScale(10)}}>
                 <UserBlock />
               </View>
               <Text
                 style={[
                   CommonStyles.HelveticaNeue20,
-                  {color: '#BA0000', marginVertical: 10},
+                  {color: '#BA0000', marginVertical: moderateScale(10)},
                 ]}>
                 {T('alert')}
               </Text>
               <Text
                 style={[
                   CommonStyles.HelveticaNeue13,
-                  {color: '#272727BF', marginVertical: 10, textAlign: 'center'},
+                  {color: '#272727BF', marginVertical: moderateScale(10), textAlign: 'center'},
                 ]}>
                 <Text>{T('after')} </Text>
-                <Text style={{marginHorizontal: 5, color: '#BA0000'}}>
+                <Text style={{marginHorizontal: moderateScale(5), color: '#BA0000'}}>
                   {T('wrongAttempts')}
                 </Text>
                 <Text> {T('banned')}</Text>
