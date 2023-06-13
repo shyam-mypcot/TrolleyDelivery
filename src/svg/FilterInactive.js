@@ -1,8 +1,10 @@
 import * as React from "react"
 import Svg, { Defs, G, Path, Circle } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 const FilterInactive = (props) => (
-  <Svg {...props} viewBox="0 0 27.335 26" xmlns="http://www.w3.org/2000/svg" width={27.335} height={26}>
+  <Svg {...props} viewBox="0 0 27.335 26" xmlns="http://www.w3.org/2000/svg" width={moderateScale(27.335)} height={moderateScale(26)}>
     <Defs></Defs>
     <G data-name="Group 169">
       <G data-name="Group 137">

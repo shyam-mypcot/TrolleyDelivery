@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Svg, {G, Rect, Path} from 'react-native-svg';
+import { moderateScale } from 'react-native-size-matters';
+
 const MapsWhitebg = props => (
   <Svg
     viewBox="0 0 56 55"
     xmlns="http://www.w3.org/2000/svg"
-    width={56}
-    height={55}
+    width={ moderateScale(40)}
+    height={ moderateScale(40)}
     {...props}
 >
     <G data-name="Group 117" transform="translate(-300 -455)">

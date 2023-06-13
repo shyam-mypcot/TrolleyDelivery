@@ -1,10 +1,12 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const LanguageIcon = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={28}
-    height={28}
+    width={ moderateScale(28)}
+    height={ moderateScale(28)}
     fill="none"
     viewBox="0 0 28 28"
     {...props}

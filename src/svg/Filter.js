@@ -1,11 +1,13 @@
 import * as React from "react"
 import Svg, { G, Path, Circle } from "react-native-svg"
+import { moderateScale } from 'react-native-size-matters';
+
 const Filter = (props) => (
   <Svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width={15.249}
-    height={14.208}
+    width={moderateScale(15.249)}
+    height={moderateScale(14.208)}
     viewBox="0 0 15.249 14.208"
   >
     <G stroke="#212121" strokeWidth={1.5} data-name="Group 4">

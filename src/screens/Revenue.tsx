@@ -8,6 +8,8 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import {useSelector} from 'react-redux';
+
 import Header from '../components/Header';
 import CommonStyles from '../utils/CommonStyles';
 import Filter from '../svg/Filter';
@@ -16,81 +18,91 @@ import data from '../components/common';
 import SDGWhite from '../svg/SDGWhite';
 import SDGOrange from '../svg/SDGOrange';
 import {useTranslation} from '../hooks/useTranslation';
+import {moderateScale} from 'react-native-size-matters';
 
 const Revenue = () => {
+  const state = useSelector(state => state.dashboardState);
+
   const {T} = useTranslation('MyRevenue');
   const {T: DD} = useTranslation('DummyData');
 
   const [active, setActive] = useState(false);
-  const [today, setToday] = useState(false);
+  const [today, setToday] = useState('Today');
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
       <Header title={T('myRevenue')} />
-      <View style={{padding: 10, flex: 1}}>
+      <View style={{padding: moderateScale(10), flex: 1}}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
+            gap: moderateScale(10),
             justifyContent: 'space-evenly',
-            paddingVertical:10
+            // paddingVertical:  moderateScale(10)
           }}>
           <TouchableOpacity
-            onPress={() => setToday(!today)}
+            onPress={() => setToday('Today')}
             style={[
               CommonStyles.boxShadow,
               {
-                backgroundColor: today ? '#E3C133' : '#ffffff',
-                padding: 10,width:'40%',
+                backgroundColor: today == 'Today' ? '#E3C133' : '#ffffff',
+                borderColor: '#EBA500',
+                borderWidth: today == 'Today' ? 0 : moderateScale(1.5),
+                paddingVertical: moderateScale(15),
+                width: '45%',
                 alignItems: 'center',
               },
             ]}>
-            {today ? <SDGWhite style={{}} /> : <SDGOrange />}
+            {today == 'Today' ? <SDGWhite style={{}} /> : <SDGOrange />}
             <Text
               style={[
                 CommonStyles.HelveticaNeue16Green,
                 {
-                  fontSize: 28,
+                  fontSize: moderateScale(28),
                   fontWeight: '700',
-                  color: today ? '#ffffff' : '#6F776B',
+                  color: today == 'Today' ? '#ffffff' : '#272727',
                 },
               ]}>
-              1400
+              {state.todayAllRevenue}
             </Text>
             <Text
               style={[
                 CommonStyles.HelveticaNeue16Green,
-                {color: today ? '#ffffff' : '#6F776B'},
+                {color: today == 'Today' ? '#ffffff' : '#272727'},
               ]}>
-               {T('todaysRevenue')}
+              {T('todaysRevenue')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setToday(!today)}
+            onPress={() => setToday('Total')}
             style={[
               CommonStyles.boxShadow,
               {
-                backgroundColor: !today ? '#E3C133' : '#ffffff',
-                padding: 10,width:'40%',
-                paddingHorizontal: 20,
+                backgroundColor: today == 'Total' ? '#E3C133' : '#ffffff',
+                paddingVertical: moderateScale(15),
+                borderColor: '#EBA500',
+                borderWidth: today == 'Total' ? 0 : moderateScale(1.5),
+                width: '45%',
+                paddingHorizontal: moderateScale(20),
                 alignItems: 'center',
               },
             ]}>
-            {!today ? <SDGWhite style={{}} /> : <SDGOrange />}
+            {today == 'Total' ? <SDGWhite style={{}} /> : <SDGOrange />}
             <Text
               style={[
                 CommonStyles.HelveticaNeue16Green,
                 {
-                  fontSize: 28,
+                  fontSize: moderateScale(28),
                   fontWeight: '700',
-                  color: !today ? '#ffffff' : '#6F776B',
+                  color: today == 'Total' ? '#ffffff' : '#272727',
                 },
               ]}>
-              80000
+              {state.allRevenue}
             </Text>
             <Text
               style={[
                 CommonStyles.HelveticaNeue16Green,
-                {color: !today ? '#ffffff' : '#6F776B'},
+                {color: today == 'Total' ? '#ffffff' : '#272727'},
               ]}>
               {T('totalRevenue')}
             </Text>
@@ -98,14 +110,24 @@ const Revenue = () => {
         </View>
         <View
           style={{
-            padding: 10,
+            padding: moderateScale(10),
+            marginTop: moderateScale(15),
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={CommonStyles.HelveticaNeue16Green}>
-            {T('revenue')} : {today ? 1400 : 80000} {T('sdg')}
-          </Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={CommonStyles.HelveticaNeue16Green}>
+              {T('revenue')} :
+            </Text>
+            <Text
+              style={[
+                CommonStyles.HelveticaNeue16Green,
+                {marginLeft: moderateScale(5), color: '#000000BF'},
+              ]}>
+              {today == 'Today' ? state.todayAllRevenue : state.allRevenue} {T('egp')}
+            </Text>
+          </View>
           <View
             style={{
               flexDirection: 'row',
@@ -115,12 +137,12 @@ const Revenue = () => {
             <Text style={CommonStyles.HelveticaNeue16Green}>{T('filter')}</Text>
 
             <TouchableOpacity
-              style={{marginLeft: 10}}
+              style={{marginLeft: moderateScale(10)}}
               onPress={() => setActive(!active)}>
               {active ? (
-                <Filter style={{marginRight: 12}} />
+                <Filter style={{marginRight: moderateScale(12)}} />
               ) : (
-                <FilterInactive style={{marginTop: -5}} />
+                <FilterInactive style={{marginTop: moderateScale(-5)}} />
               )}
             </TouchableOpacity>
           </View>
@@ -128,18 +150,20 @@ const Revenue = () => {
 
         <FlatList
           data={data}
-          contentContainerStyle={{flexGrow: 1, paddingBottom: 10}}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: moderateScale(10),
+          }}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => {
             return (
               <TouchableOpacity
                 style={{
-                  marginTop: 10,
-                  padding: 10,
-                  paddingLeft: 20,
-                  borderRadius: 10,
+                  marginTop: moderateScale(10),
+                  padding: moderateScale(15),
+                  borderRadius: moderateScale(10),
                   borderColor: '#F4E1B8',
-                  borderWidth: 1,
+                  borderWidth: moderateScale(1),
                   backgroundColor: '#ffffff',
                   shadowColor: '#F2C506',
                   shadowOffset: {
@@ -154,62 +178,59 @@ const Revenue = () => {
                 onPress={() => {}}>
                 <View style={{}}>
                   <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
+                    style={[
+                      CommonStyles.rowstyle,
+                      {marginBottom: moderateScale(20)},
+                    ]}>
                     <Text
                       style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#6F776B'},
-                      ]}>
-                      {DD('orderNo')}.:
-                    </Text>
-                    <Text
-                      style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#707070'},
-                      ]}>
-                      {DD('orderNo')} :
-                    </Text>
-                  </View>
-                  <View style={CommonStyles.rowstyle}>
-                    <Text
-                      style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#707070'},
+                        CommonStyles.HelveticaNeue13,
+                        {
+                          color: '#707070',
+                          backgroundColor: '#F6F6F6',
+                          padding: moderateScale(5),
+                          paddingHorizontal: moderateScale(10),
+                          borderRadius: moderateScale(10),
+                        },
                       ]}>
                       {item.Orderid}
                     </Text>
                     <Text
                       style={[
-                        CommonStyles.HelveticaNeue16,
-                        {color: '#F2C506'},
+                        CommonStyles.HelveticaNeue13,
+                        {
+                          color: '#ECBE10',
+                          backgroundColor: '#E4C03426',
+                          padding: moderateScale(5),
+                          paddingHorizontal: moderateScale(10),
+                          borderRadius: moderateScale(10),
+                        },
                       ]}>
-                                     { `${DD(item.DeliveryCharge)}`}
-
+                      {`${DD(item.DeliveryCharge)}`}
                     </Text>
                   </View>
                   <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      marginTop: 4,
+                      marginTop: moderateScale(4),
                     }}>
                     <View
                       style={{
                         flexDirection: 'row',
-                        width: '35%',
+                        width: '38%',
                         justifyContent: 'space-between',
                       }}>
                       <Text style={[CommonStyles.HelveticaNeue13]}>
-                      {DD('orderDate&Time')} 
+                        {DD('orderDate&Time')}
                       </Text>
                       <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
                     </View>
                     <Text
-                      style={[CommonStyles.HelveticaNeue13, {marginLeft: 10}]}>
+                      style={[
+                        CommonStyles.HelveticaNeue13,
+                        {marginLeft: moderateScale(5)},
+                      ]}>
                       {item.OrderDateTime}
                     </Text>
                   </View>
@@ -217,26 +238,29 @@ const Revenue = () => {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      marginTop: 4,
+                      marginTop: moderateScale(4),
                     }}>
                     <View
                       style={{
                         flexDirection: 'row',
-                        width: '35%',
+                        width: '38%',
                         justifyContent: 'space-between',
                       }}>
-                      <Text style={[CommonStyles.HelveticaNeue13]}>
-                      {DD('delivery')} 
+                      <Text
+                        style={[
+                          CommonStyles.HelveticaNeue13,
+                          {fontSize: moderateScale(12)},
+                        ]}>
+                        {DD('deliveryDate&Time')}
                       </Text>
                       <Text style={[CommonStyles.HelveticaNeue13]}>:</Text>
                     </View>
                     <Text
                       style={[
                         CommonStyles.HelveticaNeue13,
-                        {marginLeft: 10, color: '#723D16'},
+                        {marginLeft: moderateScale(5), color: '#CB8F00'},
                       ]}>
-                      {item.DeliveryDate} { `${DD(item.DeliveryTimeSlot)}`}
-
+                      {item.DeliveryDate} {`${DD(item.DeliveryTimeSlot)}`}
                     </Text>
                   </View>
                 </View>

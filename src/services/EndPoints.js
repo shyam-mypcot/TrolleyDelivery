@@ -9,6 +9,7 @@ const EndPoints ={
     GetOrdersHistory:'deliveryBoyGetOrdersHistory',
     VerifyDeliveryCode:'deliveryBoyVerifyDeliveryCode',
     GetPDF:'deliveryBoyGetPDF',
+    ViewProfile:'viewProfile',
     RefreshToken:'deliveryBoyRefreshToken',
     TriggerNotification:'deliveryBoyTriggerNotification'
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -14,18 +14,62 @@ import Truck from '../svg/truck';
 import {useTranslation} from '../hooks/useTranslation';
 import Header from '../components/Header';
 import AppLoader from '../components/AppLoader';
+import {moderateScale} from 'react-native-size-matters';
+import {EndPoints} from '../services/EndPoints';
+import ApiServices from '../services/ApiServices';
+import {useDispatch, useSelector} from 'react-redux';
+import {LocalizationContext} from '../utils/Localization';
+import Toast from 'react-native-simple-toast';
+import { getDashboardData } from '../redux/reducers/DashboardState';
 
 const Dashboard = ({navigation}) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.dashboardState);
+  const [loader, setLoader] = useState(false);
+  const {token} = useContext(LocalizationContext)!;
+
   const {T} = useTranslation('Dashboard');
 
-  const [completedOrders, setCompletedOrders] = useState(10);
-  const [pendingOrders, setPendingOrders] = useState(12);
+  const [completedOrders, setCompletedOrders] = useState(state.deliveredOrders);
+  const [pendingOrders, setPendingOrders] = useState(state.pendingOrders);
+  const [totalPendingOrder, setTotalPendingOrder] = useState(state.totalPendingOrder);
+
   const [todaysOrders, setTodaysOrders] = useState(0);
-  function eArabic(x) {
-    return x.toLocaleString('ar-EG');
-  }
+  // function eArabic(x) {
+  //   return x.toLocaleString('ar-EG');
+  // }
+  const getApiData = async () => {
+    const formData = {};
+    setLoader(true);
+    try {
+      const response = await dispatch(
+        // @ts-ignore
+        getDashboardData({
+          data: formData,
+          url: EndPoints.OrderStatusCount,
+          restHeader: {
+            'x-access-token': token,
+          },
+        }),
+      );
+
+      console.log('90909090990 response ', JSON.stringify(response, null, 2));
+      console.log('90909090990 response data', response.payload);
+      if (response.payload.success === '1') {
+        // {"address": "Omdurman", "area_name": null, "city_name": "Omdurman", "email": "aa@trolley-sd.com", "name": "Ahmed Elsir", "phone": "0999360003", "total_completed_order": "1"
+
+        Toast.show(response.payload.message, Toast.LONG);
+      } else if (response.payload.success === '0') {
+        Toast.show(response.payload.message, Toast.LONG);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
+  };
   useEffect(() => {
+    getApiData();
     let TotalOrders = completedOrders + pendingOrders;
     setTodaysOrders(completedOrders + pendingOrders);
     console.log(
@@ -34,48 +78,11 @@ const Dashboard = ({navigation}) => {
     );
   }, []);
 
-  if (isLoading) {
+  if (loader) {
     return <AppLoader />;
   }
   return (
     <SafeAreaView style={{flex: 1}}>
-      {/* <View
-        style={{
-          backgroundColor: '#E3C133',
-          padding: 20,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <TouchableOpacity onPress={() => openDrawer()} hitSlop={10} style={{width:'5%', justifyContent:'center'}}>
-          <Image
-            style={{
-              width: 20,
-              height: 20,
-            }}
-            source={require('../assets/images/hamburger.png')}
-          />
-        </TouchableOpacity>
-        <View style={{width: '88%'}}>
-          <Text
-            style={{
-              color: '#fff',
-              fontFamily: typography.HelveticaBold,
-              fontSize: 20,
-              marginLeft: 20,
-            }}>
-            {T('dashboard')}
-          </Text>
-        </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-            }}
-            source={require('../assets/images/Profile_white.png')}
-          />
-        </TouchableOpacity>
-      </View> */}
       <Header title={T('dashboard')} />
       <ScrollView
         style={{flex: 1}}
@@ -85,15 +92,15 @@ const Dashboard = ({navigation}) => {
           style={{
             backgroundColor: '#fff',
             flex: 1,
-            paddingHorizontal: 20,
-            paddingVertical: 15,
+            paddingHorizontal: moderateScale(20),
+            paddingVertical: moderateScale(15),
           }}>
           <View
             style={{
-              paddingHorizontal: 20,
-              paddingVertical: 15,
+              paddingHorizontal: moderateScale(20),
+              paddingVertical: moderateScale(15),
               backgroundColor: '#fff',
-              borderRadius: 20,
+              borderRadius: moderateScale(20),
               width: '100%',
               shadowColor: '#000',
               shadowOffset: {
@@ -110,7 +117,7 @@ const Dashboard = ({navigation}) => {
                 style={{
                   color: '#5E758D',
                   fontFamily: typography.GibsonSemiBold,
-                  fontSize: 25,
+                  fontSize: moderateScale(25),
                   fontWeight: '600',
                 }}>
                 {T('todaysOrder')}
@@ -122,15 +129,15 @@ const Dashboard = ({navigation}) => {
                 width: '100%',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginVertical: 18,
+                marginVertical: moderateScale(18),
                 transform: [{rotate: '-120deg'}],
               }}>
               <View
                 style={[
                   {
-                    height: 180,
-                    width: 180,
-                    borderRadius: 200,
+                    height: moderateScale(180),
+                    width: moderateScale(180),
+                    borderRadius: moderateScale(200),
                     backgroundColor: '#5E758D',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -139,9 +146,9 @@ const Dashboard = ({navigation}) => {
                 ]}>
                 <View
                   style={{
-                    height: 155,
-                    width: 155,
-                    borderRadius: 200,
+                    height: moderateScale(155),
+                    width: moderateScale(155),
+                    borderRadius: moderateScale(200),
                     backgroundColor: '#fff',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -152,7 +159,7 @@ const Dashboard = ({navigation}) => {
                   <Text
                     style={{
                       color: '#454F63',
-                      fontSize: 50,
+                      fontSize: moderateScale(50),
                       fontWeight: '500',
                       fontFamily: typography.GibsonSemiBold,
                     }}>
@@ -164,12 +171,12 @@ const Dashboard = ({navigation}) => {
                   <View
                     style={{
                       overflow: 'hidden',
-                      width: 95,
-                      height: 180,
+                      width: moderateScale(95),
+                      height: moderateScale(180),
                       position: 'absolute',
                       right: 0,
-                      borderTopRightRadius: 200,
-                      borderBottomRightRadius: 200,
+                      borderTopRightRadius: moderateScale(200),
+                      borderBottomRightRadius: moderateScale(200),
                       backgroundColor: 'transparent',
                       zIndex:
                         (completedOrders / todaysOrders) * 100 * 3.6 > 180
@@ -178,8 +185,8 @@ const Dashboard = ({navigation}) => {
                     }}>
                     <View
                       style={{
-                        width: 180,
-                        height: 180,
+                        width: moderateScale(180),
+                        height: moderateScale(180),
                         backgroundColor: '#E3C133',
                       }}
                     />
@@ -188,9 +195,9 @@ const Dashboard = ({navigation}) => {
                 {/** moving filled semi-circle */}
                 <View
                   style={{
-                    height: 180,
-                    width: 180,
-                    borderRadius: 200,
+                    height: moderateScale(180),
+                    width: moderateScale(180),
+                    borderRadius: moderateScale(200),
                     transform: [
                       {
                         rotate:
@@ -210,18 +217,18 @@ const Dashboard = ({navigation}) => {
                   <View
                     style={{
                       overflow: 'hidden',
-                      width: 95,
-                      height: 180,
+                      width: moderateScale(95),
+                      height: moderateScale(180),
                       position: 'absolute',
                       right: 0,
-                      borderTopRightRadius: 200,
-                      borderBottomRightRadius: 200,
+                      borderTopRightRadius: moderateScale(200),
+                      borderBottomRightRadius: moderateScale(200),
                       backgroundColor: 'transparent',
                     }}>
                     <View
                       style={{
-                        width: 180,
-                        height: 180,
+                        width: moderateScale(180),
+                        height: moderateScale(180),
                         backgroundColor: '#E3C133',
                       }}
                     />
@@ -230,12 +237,12 @@ const Dashboard = ({navigation}) => {
                 {/** moving empty semi-circle */}
                 <View
                   style={{
-                    height: 180,
+                    height: moderateScale(180),
                     width:
                       completedOrders == 0 || completedOrders == 100
-                        ? 179
-                        : 180,
-                    borderRadius: 200,
+                        ? moderateScale(179)
+                        : moderateScale(180),
+                    borderRadius: moderateScale(200),
                     transform: [
                       {
                         rotate:
@@ -255,18 +262,18 @@ const Dashboard = ({navigation}) => {
                   <View
                     style={{
                       overflow: 'hidden',
-                      width: 95,
-                      height: 180,
+                      width: moderateScale(95),
+                      height: moderateScale(180),
                       position: 'absolute',
                       left: 0,
-                      borderTopLeftRadius: 200,
-                      borderBottomLeftRadius: 200,
+                      borderTopLeftRadius: moderateScale(200),
+                      borderBottomLeftRadius: moderateScale(200),
                       backgroundColor: 'transparent',
                     }}>
                     <View
                       style={{
-                        width: 180,
-                        height: 180,
+                        width: moderateScale(180),
+                        height: moderateScale(180),
                         backgroundColor: '#5E758D',
                       }}
                     />
@@ -280,75 +287,77 @@ const Dashboard = ({navigation}) => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 15,
+                marginTop: moderateScale(15),
                 justifyContent: 'space-between',
               }}>
               <View
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: moderateScale(20),
+                  height: moderateScale(20),
                   backgroundColor: '#E3C133',
-                  borderRadius: 5,
-                }}></View>
+                  borderRadius: moderateScale(5),
+                }}
+              />
               <View style={{width: '80%'}}>
                 <Text
                   style={{
-                    marginLeft: 20,
+                    marginLeft: moderateScale(20),
                     color: '#777777',
                     fontFamily: typography.GibsonSemiBold,
                     // fontWeight: '600',
-                    fontSize: 15,
+                    fontSize: moderateScale(15),
                   }}>
                   {T('todaysCompleteOrder')}
                 </Text>
               </View>
               <Text
                 style={{
-                  marginRight: 10,
+                  marginRight: moderateScale(10),
                   color: '#5E758D',
                   fontFamily: typography.GibsonSemiBold,
                   fontWeight: '600',
-                  fontSize: 20,
+                  fontSize: moderateScale(20),
                 }}>
-                10
+                {completedOrders}
               </Text>
             </View>
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 12,
+                marginTop: moderateScale(12),
                 width: '100%',
                 justifyContent: 'space-between',
               }}>
               <View
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: moderateScale(20),
+                  height: moderateScale(20),
                   backgroundColor: '#5E758D',
-                  borderRadius: 5,
-                }}></View>
+                  borderRadius: moderateScale(5),
+                }}
+              />
               <View style={{width: '80%'}}>
                 <Text
                   style={{
-                    marginLeft: 20,
+                    marginLeft: moderateScale(20),
                     color: '#777777',
                     fontFamily: typography.GibsonSemiBold,
                     // fontWeight: '600',
-                    fontSize: 15,
+                    fontSize: moderateScale(15),
                   }}>
                   {T('todaysPendingOrder')}
                 </Text>
               </View>
               <Text
                 style={{
-                  marginRight: 10,
+                  marginRight: moderateScale(10),
                   color: '#5E758D',
                   fontFamily: typography.GibsonSemiBold,
                   fontWeight: '600',
-                  fontSize: 20,
+                  fontSize: moderateScale(20),
                 }}>
-                12
+                {pendingOrders}
               </Text>
             </View>
           </View>
@@ -357,8 +366,8 @@ const Dashboard = ({navigation}) => {
               navigation.navigate('Orders', {title: T('pendingOrder')})
             }>
             <ImageBackground
-              style={{marginTop: 10, padding: 10, marginTop: 15}}
-              imageStyle={{borderRadius: 15}}
+              style={{padding: moderateScale(10), marginTop: moderateScale(15)}}
+              imageStyle={{borderRadius: moderateScale(15)}}
               resizeMode="cover"
               source={require('../assets/images/yellowCard.png')}>
               <View
@@ -371,22 +380,24 @@ const Dashboard = ({navigation}) => {
                   style={{
                     color: '#fff',
                     fontFamily: typography.GibsonSemiBold,
-                    fontSize: 55,
-                    marginTop: 5,
-                    marginLeft: 40,
-                    marginBottom: 20,
+                    fontSize: moderateScale(55),
+                    marginTop: moderateScale(5),
+                    marginLeft: moderateScale(40),
+                    marginBottom: moderateScale(20),
                   }}>
-                  32
+                  {totalPendingOrder}
                 </Text>
-                <Truck style={{height: 30, width: 40}} />
+                <Truck
+                  style={{height: moderateScale(30), width: moderateScale(40)}}
+                />
               </View>
               <Text
                 style={{
                   color: '#fff',
                   fontFamily: typography.GibsonRegular,
-                  fontSize: 25,
-                  marginTop: 25,
-                  marginLeft: 15,
+                  fontSize: moderateScale(25),
+                  marginTop: moderateScale(25),
+                  marginLeft: moderateScale(15),
                   // marginBottom: 30,
                 }}>
                 {T('totalPendingOrder')}
@@ -398,7 +409,7 @@ const Dashboard = ({navigation}) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginVertical: 15,
+              marginVertical: moderateScale(15),
               width: '100%',
             }}>
             <TouchableOpacity
@@ -407,16 +418,16 @@ const Dashboard = ({navigation}) => {
               }
               style={{width: '49%'}}>
               <ImageBackground
-                style={{padding: 15}}
-                imageStyle={{borderRadius: 15}}
+                style={{padding: moderateScale(15), alignItems: 'center'}}
+                imageStyle={{borderRadius: moderateScale(15)}}
                 resizeMode="cover"
                 source={require('../assets/images/blueLeftcard.png')}>
                 <Image
                   style={{
-                    width: 60,
-                    height: 60,
-                    margin: 15,
-                    marginHorizontal: 40,
+                    width: moderateScale(60),
+                    height: moderateScale(60),
+                    margin: moderateScale(15),
+                    marginHorizontal: moderateScale(40),
                   }}
                   resizeMode="contain"
                   source={require('../assets/images/task.png')}
@@ -425,8 +436,8 @@ const Dashboard = ({navigation}) => {
                   style={{
                     color: '#FFFFFF',
                     fontFamily: typography.GibsonRegular,
-                    fontSize: 20,
-                    paddingTop: 5,
+                    fontSize: moderateScale(17),
+                    paddingTop: moderateScale(5),
                   }}>
                   {T('assignedOrder')}
                 </Text>
@@ -438,16 +449,16 @@ const Dashboard = ({navigation}) => {
               }
               style={{width: '49%'}}>
               <ImageBackground
-                style={{padding: 15}}
-                imageStyle={{borderRadius: 15}}
+                style={{padding: moderateScale(15), alignItems: 'center'}}
+                imageStyle={{borderRadius: moderateScale(15)}}
                 resizeMode="cover"
                 source={require('../assets/images/blueLeftcard.png')}>
                 <Image
                   style={{
-                    width: 60,
-                    height: 60,
-                    margin: 15,
-                    marginHorizontal: 40,
+                    width: moderateScale(60),
+                    height: moderateScale(60),
+                    margin: moderateScale(15),
+                    marginHorizontal: moderateScale(40),
                   }}
                   resizeMode="contain"
                   source={require('../assets/images/CheckmarkCirlce.png')}
@@ -456,8 +467,8 @@ const Dashboard = ({navigation}) => {
                   style={{
                     color: '#FFFFFF',
                     fontFamily: typography.GibsonRegular,
-                    paddingTop: 5,
-                    fontSize: 18,
+                    paddingTop: moderateScale(5),
+                    fontSize: moderateScale(17),
                   }}>
                   {T('completedOrder')}
                 </Text>

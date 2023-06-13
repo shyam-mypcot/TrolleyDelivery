@@ -8,14 +8,15 @@ import Svg, {
     Path,
     G,
   } from 'react-native-svg';
+  import { moderateScale } from 'react-native-size-matters';
 
 const Truck = props => {
   return (
     <Svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width={46.439}
-    height={30.14}
+    width={moderateScale(46.439)}
+    height={moderateScale(30.14)}
     viewBox="0 0 46.439 30.14"
   >
     <Path

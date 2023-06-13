@@ -1,5 +1,5 @@
 import {useCallback, useContext} from 'react';
-import {LocalizationContext} from '../utils/Localization';
+import {LocalizationContext} from '../utils/Localization.tsx';
 const useTranslation = (screenName) => {
   const {t, locale} = useContext(LocalizationContext);
   const T = useCallback(
